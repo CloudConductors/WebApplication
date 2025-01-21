@@ -4,6 +4,6 @@
 ## Product Owner
 [Team Member 2]
 ## Developer
-- [Team Member 3]
+- Nick Petruccelli
 - [Team Member 4]
 - [Team Member 5]

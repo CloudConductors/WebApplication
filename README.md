@@ -8,7 +8,7 @@
 
 - Nick Petruccelli
 
-## Developer
+## Developers
 
 - Nick Petruccelli
 - Christopher Cuartas

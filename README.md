@@ -2,7 +2,7 @@
 ## Scrum Master
 - Jakob Olsen
 ## Product Owner
-- Obama
+- Nick Petruccelli
 ## Developer
 - Nick Petruccelli
 - Christopher Cuartas

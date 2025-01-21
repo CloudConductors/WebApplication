@@ -15,3 +15,4 @@
 - Troy Brown
 - Devin Thompson
 - Bryonna Gray
+- Jakob Olsen

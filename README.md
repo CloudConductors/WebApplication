@@ -1,6 +1,6 @@
 # [Team Name]
 ## Scrum Master
-[Team Member 1]
+- Jakob Olsen
 ## Product Owner
 - Obama
 ## Developer

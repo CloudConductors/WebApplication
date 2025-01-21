@@ -7,3 +7,4 @@
 - Nick Petruccelli
 - Christopher Cuartas
 - Troy Brown
+- Devin Thompson

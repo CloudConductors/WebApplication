@@ -2,8 +2,8 @@
 ## Scrum Master
 [Team Member 1]
 ## Product Owner
-[Team Member 2]
+- Obama
 ## Developer
 - Nick Petruccelli
-- [Team Member 4]
+- Christopher Cuartas
 - [Team Member 5]

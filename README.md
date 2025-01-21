@@ -1,4 +1,4 @@
-# [Team Name]
+# What You Watching
 ## Scrum Master
 [Team Member 1]
 ## Product Owner

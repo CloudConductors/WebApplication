@@ -6,4 +6,5 @@
 ## Developer
 - Nick Petruccelli
 - Christopher Cuartas
-- [Team Member 5]
+- Troy Brown
+- Devin Thompson

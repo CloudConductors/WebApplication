@@ -1,10 +1,18 @@
-# What You Watching
+# Cloud Conductors
+
 ## Scrum Master
+
 - Jakob Olsen
+
 ## Product Owner
-- Obama
-## Developer
+
+- NSA
+
+## Developers
+
 - Nick Petruccelli
 - Christopher Cuartas
 - Troy Brown
 - Devin Thompson
+- Bryonna Gray
+- Jakob Olsen

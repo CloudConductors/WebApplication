@@ -1,4 +1,4 @@
-# What You Watching
+# Cloud Conductors
 
 ## Scrum Master
 
@@ -6,7 +6,7 @@
 
 ## Product Owner
 
-- Nick Petruccelli
+- NSA
 
 ## Developers
 

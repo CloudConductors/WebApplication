@@ -16,3 +16,30 @@
 - Devin Thompson
 - Bryonna Gray
 - Jakob Olsen
+
+## Setup Python Virtual Env
+go to command line in VS code
+to create the Python Virtual Env type "python -m venv venv"
+next activate the Venv "source venv/Scripts/activate"
+then download all requiremnts "pip install -r rquirements.txt"
+lastly run flask in debug mode "flask --debug run"
+
+## Setup Python Virtual Environment
+
+1. Open the command line in VS Code. (**Use Git Bash**)
+2. Create the virtual environment:
+   ```sh
+   python -m venv venv
+   ```
+3. Activate the virtual environment:
+   ```sh
+   source venv/Scripts/activate
+   ```
+4. Install all required dependencies:
+   ```sh
+   pip install -r requirements.txt
+   ```
+5. Run Flask in debug mode:
+   ```sh
+   flask --debug run
+   ```

@@ -1,0 +1,63 @@
+:root {
+	--white: #F8F8F8;
+	--dark-white: #E2E5E6;
+	--black: #0B0909;
+	--primary-color: #22577A;
+	--secondary-color: #E2F3EC;
+}
+
+body {
+	font-family: Arial, Helvetica, sans-serif;
+	margin: 0px;
+	padding: 0px;
+	display: flex;
+	align-content: center;
+	justify-content: center;
+	color: var(--black);
+	background-color: var(--dark-white);
+}
+
+.dashboard {
+	text-align: center;
+	color: var(--black);
+	background-color: var(--white);
+	width: 80%;
+	height: 80vh;
+	margin: 2rem;
+}
+
+.vehicle-cont {
+	padding-left: 3rem;
+	padding-right: 3rem;
+}
+
+.vehicle {
+	color: var(--black);
+	background-color: var(--white);
+	margin-top: 1rem;
+	padding: 0px;
+}
+
+.vehicle-header {
+	color: var(--white);
+	background-color: var(--primary-color);
+	justify-content: center;
+	align-content: center;
+	margin: 0px;
+	padding: 0px;
+}
+
+.vehicle-body {
+	color: var(--black);
+	background-color: var(--dark-white);
+	margin: 0px;
+	padding: 0px;
+}
+
+.vehicle-body>p {
+	margin-top: 0px;
+}
+
+.hidden {
+	display: none;
+}

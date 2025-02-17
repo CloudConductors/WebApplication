@@ -7,8 +7,12 @@ CORS(app)
 
 
 # Sample route
-@app.route("/train-info", methods=["GET"]) #This is what will be shown in the url. '/' is the landing page
+@app.route("/") #This is what will be shown in the url. '/' is the landing page
 def hello_world(): #This is the function, if you need to pass data or anything to the html page, it will be done here. For the midterm this should just contain the return function.
+    return  #render_template is used to send html to client. inside should be the name of your file that is located under the template folder
+
+@app.route("/train-info", methods=["GET"]) 
+def hello_world():
     trains = {
         0: {
                 "name": "train0",

@@ -1,26 +1,101 @@
-from flask import Flask, render_template
+from flask import Flask, jsonify
+from flask_cors import CORS
 
 
 app = Flask(__name__)
+CORS(app)
 
 
 # Sample route
-@app.route("/") #This is what will be shown in the url. '/' is the landing page
+@app.route("/train-info", methods=["GET"]) #This is what will be shown in the url. '/' is the landing page
 def hello_world(): #This is the function, if you need to pass data or anything to the html page, it will be done here. For the midterm this should just contain the return function.
-    return render_template('testing.html') #render_template is used to send html to client. inside should be the name of your file that is located under the template folder
-
-# HTML should be in templates folder
-# CSS should be in static folder
-
-# Edit these
-@app.route("") 
-def hello_world(): 
-    return render_template('')
-
-@app.route("") 
-def hello_world(): 
-    return render_template('')
-
-@app.route("") 
-def hello_world(): 
-    return render_template('')
+    trains = {
+        0: {
+                "name": "train0",
+                "components": {
+                    "brakes": {
+                        "last-replaced": 180,
+                        "expected-failure": 121,
+                        "std-dev": 5,
+                        "recomended-maintenance": 110,
+                    },
+                    "engine": {
+                        "last-replaced": 80,
+                        "expected-failure": 221,
+                        "std-dev": 5,
+                        "recomended-maintenance": 210,
+                    },
+                    "lights": {
+                        "last-replaced": 280,
+                        "expected-failure": 11,
+                        "std-dev": 5,
+                        "recomended-maintenance": 0,
+                    },
+                    "electronics": {
+                        "last-replaced": 10,
+                        "expected-failure": 321,
+                        "std-dev": 5,
+                        "recomended-maintenance": 310,
+                    },
+                },
+        },
+        1: {
+                "name": "train1",
+                "components": {
+                    "brakes": {
+                        "last-replaced": 10,
+                        "expected-failure": 1,
+                        "std-dev": 5,
+                        "recomended-maintenance": 0,
+                    },
+                    "engine": {
+                        "last-replaced": 330,
+                        "expected-failure": 221,
+                        "std-dev": 5,
+                        "recomended-maintenance": 350,
+                    },
+                    "lights": {
+                        "last-replaced": 50,
+                        "expected-failure": 1,
+                        "std-dev": 69,
+                        "recomended-maintenance": 0,
+                    },
+                    "electronics": {
+                        "last-replaced": 130,
+                        "expected-failure": 51,
+                        "std-dev": 12,
+                        "recomended-maintenance": 110,
+                    },
+                },
+        },
+        2: {
+                "name": "train2",
+                "components": {
+                    "brakes": {
+                        "last-replaced": 431,
+                        "expected-failure": 231,
+                        "std-dev": 40,
+                        "recomended-maintenance": 200,
+                    },
+                    "engine": {
+                        "last-replaced": 34,
+                        "expected-failure": 321,
+                        "std-dev": 5,
+                        "recomended-maintenance": 410,
+                    },
+                    "lights": {
+                        "last-replaced": 342,
+                        "expected-failure": 32,
+                        "std-dev": 61,
+                        "recomended-maintenance": 523,
+                    },
+                    "electronics": {
+                        "last-replaced": 2134,
+                        "expected-failure": 23,
+                        "std-dev": 34,
+                        "recomended-maintenance": 2134,
+                    },
+                },
+        },
+    }
+    return jsonify(trains)

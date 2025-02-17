@@ -72,6 +72,18 @@ li {
 	background-color: var(--secondary-color);
 }
 
+.component-list {
+	display: flex;
+	flex-direction: column;
+}
+
+.component_cont {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+	margin: 1rem;
+	padding: .25rem;
+	background-color: var(--light-grey);
+}
 
 .vehicle-cont {
 	padding-left: 3rem;

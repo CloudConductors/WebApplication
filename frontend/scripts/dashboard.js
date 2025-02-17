@@ -29,7 +29,7 @@ function load_vehicle_list(vehicles) {
 	}
 }
 
-function list_event_handler(e) {
+function list_event_handler() {
 	const id = this.dataset.id;
 	load_vehicle_desc(id);
 }

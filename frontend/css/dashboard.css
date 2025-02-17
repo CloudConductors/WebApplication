@@ -1,9 +1,10 @@
 :root {
-	--white: #F8F8F8;
-	--dark-white: #E2E5E6;
-	--black: #0B0909;
-	--primary-color: #22577A;
-	--secondary-color: #E2F3EC;
+	--white: #FFFFFF;
+	--dark-grey: #1E1F25;
+	--light-grey: #2A2B30;
+	--black: #1E1E1E;
+	--primary-color: #BCE29E;
+	--secondary-color: #0099FF;
 }
 
 body {
@@ -13,18 +14,64 @@ body {
 	display: flex;
 	align-content: center;
 	justify-content: center;
-	color: var(--black);
-	background-color: var(--dark-white);
+	color: var(--white);
+	background-color: var(--black);
 }
 
 .dashboard {
 	text-align: center;
-	color: var(--black);
-	background-color: var(--white);
+	color: var(--white);
+	background-color: var(--dark-grey);
 	width: 80%;
 	height: 80vh;
 	margin: 2rem;
 }
+
+.container {
+	display: grid;
+	grid-template-columns: 1fr 5fr;
+	border-radius: 18.69px;
+	height: 80%;
+}
+
+.vehicle-select h2 {
+	padding: 0px;
+	margin: 0px;
+}
+
+.vehicle-select {
+	border-radius: 20px;
+	background-color: var(--light-grey);
+	margin: 2rem;
+	padding: 1rem;
+	padding-bottom: 0px;
+	margin-bottom: 0px;
+}
+
+ul {
+	list-style-type: none;
+	align-items: center;
+	padding: 0;
+}
+
+li {
+	text-align: center;
+}
+
+.vehicle-list li {
+	transition: background-color .5s;
+	padding: .5rem;
+	margin: 1rem;
+	background-color: var(--primary-color);
+	color: var(--black);
+	font-weight: 600;
+	border-radius: 12px;
+}
+
+.vehicle-list li:hover {
+	background-color: var(--secondary-color);
+}
+
 
 .vehicle-cont {
 	padding-left: 3rem;

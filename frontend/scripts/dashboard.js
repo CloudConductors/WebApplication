@@ -35,62 +35,21 @@ function list_event_handler() {
 }
 
 function load_vehicle_desc(vehicle_id) {
-	const vehicle_desc = document.querySelector(".vehicle-desc");
-	while (vehicle_desc.firstChild) {
-		vehicle_desc.removeChild(vehicle_desc.lastChild);
-	}
-	console.log(data);
-	console.log(vehicle_id);
 	const vehicle_info = data[vehicle_id];
-	console.log(vehicle_info);
-	const name = document.createElement("h2");
+	const name = document.querySelector(".vehicle-desc-name");
 	name.innerText = vehicle_info["name"];
-	const desc = document.createElement("p");
-	desc.innerText = vehicle_info["name"];
-	vehicle_desc.appendChild(name);
-	vehicle_desc.appendChild(desc);
+	const component_cont = document.querySelector(".component-list");
+	const components = vehicle_info["components"];
+	load_components(component_cont, components);
 }
 
-function load_vehicles(vehicles) {
-	const vehicle_list = document.querySelector(".vehicle-list");
-	for (const vehicle_id in vehicles) {
-		const vehicle_item = document.createElement("div");
-		vehicle_item.classList.add("vehicle");
-		const vehicle_header = document.createElement("div");
-		vehicle_header.classList.add("vehicle-header");
-		const vehicle_body = document.createElement("div");
-		vehicle_body.classList.add("vehicle-body");
-		vehicle_body.classList.add("hidden");
-		const vehicle_name = document.createElement("h2");
-		const body_details = document.createElement("p");
-
-		console.log(vehicle_id);
-		console.log(vehicles);
-		vehicle_name.innerText = vehicles[vehicle_id]["name"];
-		load_components(body_details, vehicles[vehicle_id]["components"]);
-		vehicle_header.addEventListener("click", toggle_vehicle_body);
-
-		vehicle_header.appendChild(vehicle_name);
-		vehicle_body.appendChild(body_details);
-		vehicle_item.appendChild(vehicle_header);
-		vehicle_item.appendChild(vehicle_body);
-		vehicle_list.appendChild(vehicle_item);
+function load_components(component_cont, components) {
+	while (component_cont.firstChild) {
+		component_cont.removeChild(component_cont.lastChild);
 	}
-}
-
-function toggle_vehicle_body(e) {
-	const body = this.parentNode.children[1];
-	if (body.classList.contains("hidden")) {
-		body.classList.remove("hidden");
-	} else {
-		body.classList.add("hidden");
-	}
-}
-
-function load_components(body_details, components) {
 	for (const component in components) {
 		const component_elm = document.createElement("h3");
-		body_details.appendChild(component_elm);
+		component_cont.appendChild(component_elm);
 		component_elm.innerText = component;
 	}
 }

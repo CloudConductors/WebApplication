@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from flask_cors import CORS
 
 
@@ -100,3 +100,14 @@ def hello_world(): #This is the function, if you need to pass data or anything t
     }
     return jsonify(trains)
 
+#This is the route for getting the login html page
+@app.route("/login", methods=["GET"])
+def login():
+    data = {"message": "this is a GET request"}
+    return jsonify(data)
+
+#This is the route for getting the signup html page
+@app.route("/signup", methods=["GET"])
+def login():
+    data = {"message": "this is a GET request"}
+    return jsonify(data)

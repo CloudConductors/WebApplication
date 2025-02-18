@@ -8,7 +8,7 @@ CORS(app)
 
 # Sample route
 @app.route("/train-info", methods=["GET"]) #This is what will be shown in the url. '/' is the landing page
-def hello_world(): #This is the function, if you need to pass data or anything to the html page, it will be done here. For the midterm this should just contain the return function.
+def get_train_info(): #This is the function, if you need to pass data or anything to the html page, it will be done here. For the midterm this should just contain the return function.
     trains = {
         0: {
                 "name": "train0",
@@ -100,14 +100,3 @@ def hello_world(): #This is the function, if you need to pass data or anything t
     }
     return jsonify(trains)
 
-#This is the route for getting the login html page
-@app.route("/login", methods=["GET"])
-def login():
-    data = {"message": "this is a GET request"}
-    return jsonify(data)
-
-#This is the route for getting the signup html page
-@app.route("/signup", methods=["GET"])
-def login():
-    data = {"message": "this is a GET request"}
-    return jsonify(data)

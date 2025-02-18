@@ -106,7 +106,7 @@ def login():
     data = {"message": "This is a login POST request"}
     return jsonify(data)
 
-#Route for creating a new user
+#Route for creating a new user for midterm this will not connect to the database yet
 @app.route("/signup", methods=["POST"])
 def signup():
     data = {"message": "This is a signup POST request"}

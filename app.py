@@ -100,3 +100,14 @@ def get_train_info(): #This is the function, if you need to pass data or anythin
     }
     return jsonify(trains)
 
+#Route for logging in a user, for midterm this will not connect to the database yet
+@app.route("/login", methods=["POST"])
+def login():
+    data = {"message": "This is a login POST request"}
+    return jsonify(data)
+
+#Route for creating a new user
+@app.route("/signup", methods=["POST"])
+def signup():
+    data = {"message": "This is a signup POST request"}
+    return jsonify(data)

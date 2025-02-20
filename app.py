@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from flask_cors import CORS
 
 
@@ -12,7 +12,7 @@ def hello_world(): #This is the function, if you need to pass data or anything t
     return  #render_template is used to send html to client. inside should be the name of your file that is located under the template folder
 
 @app.route("/train-info", methods=["GET"]) 
-def hello_world():
+def get_train_info():
     trains = {
         0: {
                 "name": "train0",
@@ -103,3 +103,15 @@ def hello_world():
         },
     }
     return jsonify(trains)
+
+#Route for logging in a user, for midterm this will not connect to the database yet
+@app.route("/login", methods=["POST"])
+def login():
+    data = {"message": "This is a login POST request"}
+    return jsonify(data)
+
+#Route for creating a new user for midterm this will not connect to the database yet
+@app.route("/signup", methods=["POST"])
+def signup():
+    data = {"message": "This is a signup POST request"}
+    return jsonify(data)

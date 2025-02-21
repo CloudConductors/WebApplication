@@ -26,6 +26,7 @@
 2. Using VS Code, download **Live Server**  
    - **Extension ID:** `ritwickdey.LiveServer`
 3. At the bottom right of VS Code, press **"Go Live"**.
+   - http://127.0.0.1:5500
 4. A new tab should open in your web browser.  
    - From this site, go to `frontend/main.html`.
 

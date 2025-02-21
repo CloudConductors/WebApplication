@@ -7,11 +7,49 @@ app = Flask(__name__,
             static_url_path='')
 CORS(app)
 
+# ~~~~~~~~~~~~~~~~~~~~~~ HTML ROUTES ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # Sample route
 @app.route("/") #This is what will be shown in the url. '/' is the landing page
-def hello_world(): #This is the function, if you need to pass data or anything to the html page, it will be done here. For the midterm this should just contain the return function.
+def index(): #This is the function, if you need to pass data or anything to the html page, it will be done here. For the midterm this should just contain the return function.
     return  render_template('index.html') #render_template is used to send html to client. inside should be the name of your file that is located under the template folder
+
+@app.route("/dashboard")
+def dashboard():
+    return  render_template('dashboard.html')
+
+# In Progress
+# @app.route("/analytics")
+# def analytics():
+#     return  render_template('analytics.html')
+
+@app.route("/schedule")
+def schedule():
+    return  render_template('schedule.html')
+
+# In Progress
+# @app.route("/alert")
+# def alert():
+#     return  render_template('alert.html')
+
+# In Progress
+# @app.route("/team")
+# def team():
+#     return  render_template('team.html')
+
+#Route for logging in a user, for midterm this will not connect to the database yet
+@app.route("/login", methods=["POST"])
+def login():
+    data = {"message": "This is a login POST request"}
+    return jsonify(data)
+
+#Route for creating a new user for midterm this will not connect to the database yet
+@app.route("/signup", methods=["POST"])
+def signup():
+    data = {"message": "This is a signup POST request"}
+    return jsonify(data)
+
+# ~~~~~~~~~~~~~~~~~~~~~~ API STUFF ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 @app.route("/train-info", methods=["GET"]) 
 def get_train_info(): #Changed from hello_world() --> get_train_info()
@@ -105,15 +143,3 @@ def get_train_info(): #Changed from hello_world() --> get_train_info()
         },
     }
     return jsonify(trains)
-
-#Route for logging in a user, for midterm this will not connect to the database yet
-@app.route("/login", methods=["POST"])
-def login():
-    data = {"message": "This is a login POST request"}
-    return jsonify(data)
-
-#Route for creating a new user for midterm this will not connect to the database yet
-@app.route("/signup", methods=["POST"])
-def signup():
-    data = {"message": "This is a signup POST request"}
-    return jsonify(data)

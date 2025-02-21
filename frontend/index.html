@@ -8,13 +8,11 @@
     <title>Homepage</title>
     <link rel="stylesheet" href="css/index.css">
 </head>
-
-<img>
-
+<body>
     <header>
         <div class="top-bar">
             <div class="logo-container">
-                <a href=""><img class="logo-image" src="images/cloud-conductors-logo.svg" alt="logo"/></a>
+                <a href=""><img class="logo-image" src="images/cloud-conductors-logo.svg" alt="logo"></a>
                 <div class="logo-text">
                     <p class="team-name">Cloud Conductors</p>
                 </div>
@@ -27,11 +25,9 @@
                         type="text"
                         class="form-control"
                         placeholder="Search anything"
-                    />
-                    <button class="search-btn">
-                        <a href="/search">
-                            <img src="images/magnify.svg" alt="search-icon" class="search-icon"/>
-                        </a>
+                        >
+                    <button class="search-btn" onclick="location.href='/search'">
+                            <img src="images/magnify.svg" alt="search-icon" class="search-icon">
                     </button>
                 </div>
             </div>
@@ -42,7 +38,7 @@
                 </div>
 
                 <div class="button-2">
-                    <button class="sign-up-button" onClick="location.href='signup.html'">Sign Up</button>
+                    <button class="sign-up-button" onclick="location.href='signup.html'">Sign Up</button>
                 </div>
             </div>
 
@@ -62,8 +58,6 @@
         </div>
     </div>
     
-</body>
-
 <footer>
     <div class="footer">
         <p>About</p>
@@ -72,5 +66,5 @@
     </div>
 
 </footer>
-
+</body>
 </html>

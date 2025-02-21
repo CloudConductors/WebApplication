@@ -17,21 +17,7 @@
 - Bryonna Gray
 - Jakob Olsen
 
-# Steps to Run HTML
-
-1. Clone the repository:  
-   ```sh
-   git clone https://github.com/ITSC-4155-002/Main
-   ```
-2. Using VS Code, download **Live Server**  
-   - **Extension ID:** `ritwickdey.LiveServer`
-3. At the bottom right of VS Code, press **"Go Live"**.
-   - http://127.0.0.1:5500
-4. A new tab should open in your web browser.  
-   - From this site, go to `frontend/main.html`.
-
-
-## Setup Python Virtual Environment
+## Application setup 
 
 1. Open the command line in VS Code. (**Use Git Bash**)
 2. Create the virtual environment:
@@ -50,3 +36,5 @@
    ```sh
    flask --debug run
    ```
+6. Navigate to link to access site (should also be in console)
+   -  http://127.0.0.1:5000/

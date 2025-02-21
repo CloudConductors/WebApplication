@@ -11,11 +11,12 @@ body{
 }
 
 #navBar{
-    background-color: lightblue;
+    background-color: #0099FF;
     position: fixed;
     padding: 10px 25px 10px 0px;
     border-radius: 0px 10px 10px 0px;
     top: 35%;
+    left: 0%;
     display: flexbox;
     flex-direction: column;
 }
@@ -25,8 +26,15 @@ a{
     padding-left: 20px;
 }
 
+#logo{
+    filter: invert(100%);
+    width: auto;
+    height: 60px;
+}
+
 a > img {
     height: auto;
     width: 50px;
     margin: auto;
+
 }

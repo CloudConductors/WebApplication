@@ -1,18 +1,20 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, render_template
 from flask_cors import CORS
 
-
-app = Flask(__name__)
+app = Flask(__name__,
+            template_folder='frontend',
+            static_folder='frontend',
+            static_url_path='')
 CORS(app)
 
 
 # Sample route
 @app.route("/") #This is what will be shown in the url. '/' is the landing page
 def hello_world(): #This is the function, if you need to pass data or anything to the html page, it will be done here. For the midterm this should just contain the return function.
-    return  #render_template is used to send html to client. inside should be the name of your file that is located under the template folder
+    return  render_template('index.html') #render_template is used to send html to client. inside should be the name of your file that is located under the template folder
 
 @app.route("/train-info", methods=["GET"]) 
-def get_train_info():
+def get_train_info(): #Changed from hello_world() --> get_train_info()
     trains = {
         0: {
                 "name": "train0",

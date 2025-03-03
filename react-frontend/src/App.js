@@ -11,7 +11,7 @@ function App() {
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
-        <button> Testing Bootstrap button</button>
+        <Button> Testing Bootstrap button</Button>
         <a
           className="App-link"
           href="https://reactjs.org"

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>In Progress</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/user.css">
+    <link rel="stylesheet" href="css/nav-bar-style.css" />
+
+</head>
+
+<body>
+    <div id="navBar" class="main">
+        <nav>
+            <!-- all images from https://www.iconfinder.com/search?price=free -->
+            <a href="/"><img id="logo" src="images/cloud-conductors-logo.svg" alt="logo"></a>
+            <a href="dashboard.html"><img src="images/hamburger_icon.png" alt="dashboard" /></a>
+            <a href="inProgess.html"><img src="images/pie-chart.webp" alt="analytics" /></a>
+            <a href="schedule.html"><img src="images/schedule.png" alt="schedule" /></a>
+            <a href="inProgess.html"><img src="images/alert.webp" alt="alert" /></a>
+            <a href="inProgess.html"><img src="images/team.png" alt="team" /></a>
+        </nav>
+    </div>
+    <div style=" height: 100vh; align-content: center; font-size: 80px;">
+        <h5 style="font-size: 250px; margin: auto;">404</h5>
+        <h4> &#9888; This page is still in progess &#9888; </h4>
+    </div>
+</body>
+
+</html>

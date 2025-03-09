@@ -1,4 +1,5 @@
-from flask import Flask, jsonify, render_template, request
+import os
+from flask import Flask, jsonify, render_template, request, session
 from flask_cors import CORS
 import boto3
 from boto3.dynamodb.conditions import Attr
@@ -14,6 +15,9 @@ app = Flask(__name__,
             static_folder='frontend',
             static_url_path='')
 CORS(app)
+
+# ~~~~~~~~~~~~~~~~~~~~~~ Sessions ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+app.secret_key = os.urandom(24)
 
 # ~~~~~~~~~~~~~~~~~~~~~~ DynamoDB Connection ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -50,7 +54,11 @@ def index(): #This is the function, if you need to pass data or anything to the 
 
 @app.route("/dashboard")
 def dashboard():
-    return  render_template('dashboard.html')
+    if 'user_id' not in session:
+        return render_template('login.html')
+    
+    user_id = session['user_id']
+    return  render_template('dashboard.html', user_id=userid)
 
 # In Progress
 # @app.route("/analytics")
@@ -101,11 +109,14 @@ def login():
         if not verify_password(storedHash, password):
             return jsonify({'error': 'Invalid credentials'}), 400
         
+        #Store user info in session
+        session['user_id'] = userItem['uuid']
+
         return  render_template('dashboard.html')
     except ClientError as e:
         return jsonify({'error': 'Error verifying user'}), 500
 
-#Route for creating a new user for midterm this will not connect to the database yet
+#Route for creating a new user
 @app.route("/signup", methods=["POST"])
 def signup():
     #Retrieving data from front end
@@ -151,6 +162,12 @@ def signup():
     except ClientError as e:
         app.logger.error(f"DynamoDB Error: {e}")
         return jsonify({'error': 'Error creating user'}), 500
+
+#Rout for logging out
+@app.route("/logout")
+def logout():
+    session.clear()
+    return render_template('login.html')
 
 
 # ~~~~~~~~~~~~~~~~~~~~~~ API STUFF ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

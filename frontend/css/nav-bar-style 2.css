@@ -1,0 +1,32 @@
+body{
+    margin: 0;
+    padding: 0;
+    /* display: grid;
+    grid-row: 50% 50%;
+    grid-area: 100% 100%; */
+}
+
+.main{
+    color: red;
+}
+
+#navBar{
+    background-color: lightblue;
+    position: fixed;
+    padding: 10px 25px 10px 0px;
+    border-radius: 0px 10px 10px 0px;
+    top: 35%;
+    display: flexbox;
+    flex-direction: column;
+}
+a{
+    display: flex;
+    padding-bottom: 20px;
+    padding-left: 20px;
+}
+
+a > img {
+    height: auto;
+    width: 50px;
+    margin: auto;
+}

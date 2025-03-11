@@ -1,88 +1,67 @@
-<!DOCTYPE html>
-<html lang="en">
+import React from "react";
+import '../assets/Style/schedule.css';
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CloudConductors</title>
-    <link rel="stylesheet" href="css/nav-bar-style.css">
-    <link rel="stylesheet" href="css/schedule.css">
-</head>
 
-<body>
-    <div id="navBar" class="main">
-        <nav>
-            <!-- all images from https://www.iconfinder.com/search?price=free -->
-            <a href="/"><img id="logo" src="images/cloud-conductors-logo.svg" alt="logo"></a>
-            <a href="dashboard.html"><img src="images/hamburger_icon.png" alt="dashboard" /></a>
-            <a href="inProgess.html"><img src="images/pie-chart.webp" alt="analytics" /></a>
-            <a href="schedule.html"><img src="images/schedule.png" alt="schedule" /></a>
-            <a href="inProgess.html"><img src="images/alert.webp" alt="alert" /></a>
-            <a href="inProgess.html"><img src="images/team.png" alt="team" /></a>
-        </nav>
-    </div>
-    <main>
-        <div class="schedule">
-            <h1>Scheduling Center</h1>
-            <div class="container">
-                <h1>Vehicle 1</h1>
-                <div class="items">
-                    <button onclick="location.href='dashboard.html'">Main</button>
-                    <button>Analytics</button>
-                    <button>Schedule</button>
-                    <button>Time</button>
+export default function Schedule() {
+    return (
+        <main>
+            <div class="schedule">
+                <h1>Scheduling Center</h1>
+                <div class="container">
+                    <h1>Vehicle 1</h1>
+                    <div class="items">
+                        <button onclick="location.href='dashboard.html'">Main</button>
+                        <button>Analytics</button>
+                        <button>Schedule</button>
+                        <button>Time</button>
+                    </div>
+                </div>
+                <div class="container">
+                    <h1>Vehicle 2</h1>
+                    <div class="items">
+                        <button onclick="location.href='dashboard.html'">Main</button>
+                        <button>Analytics</button>
+                        <button>Schedule</button>
+                        <button>Time</button>
+                    </div>
+                </div>
+                <div class="container">
+                    <h1>Vehicle 3</h1>
+                    <div class="items">
+                        <button onclick="location.href='dashboard.html'">Main</button>
+                        <button>Analytics</button>
+                        <button>Schedule</button>
+                        <button>Time</button>
+                    </div>
+                </div>
+                <div class="container">
+                    <h1>Vehicle 4</h1>
+                    <div class="items">
+                        <button onclick="location.href='dashboard.html'">Main</button>
+                        <button>Analytics</button>
+                        <button>Schedule</button>
+                        <button>Time</button>
+                    </div>
+                </div>
+                <div class="container">
+                    <h1>Vehicle 5</h1>
+                    <div class="items">
+                        <button onclick="location.href='dashboard.html'">Main</button>
+                        <button>Analytics</button>
+                        <button>Schedule</button>
+                        <button>Time</button>
+                    </div>
+                </div>
+                <div class="container">
+                    <h1>Vehicle 6</h1>
+                    <div class="items">
+                        <button onclick="location.href='dashboard.html'">Main</button>
+                        <button>Analytics</button>
+                        <button>Schedule</button>
+                        <button>Time</button>
+                    </div>
                 </div>
             </div>
-            <div class="container">
-                <h1>Vehicle 2</h1>
-                <div class="items">
-                    <button onclick="location.href='dashboard.html'">Main</button>
-                    <button>Analytics</button>
-                    <button>Schedule</button>
-                    <button>Time</button>
-                </div>
-            </div>
-            <div class="container">
-                <h1>Vehicle 3</h1>
-                <div class="items">
-                    <button onclick="location.href='dashboard.html'">Main</button>
-                    <button>Analytics</button>
-                    <button>Schedule</button>
-                    <button>Time</button>
-                </div>
-            </div>
-            <div class="container">
-                <h1>Vehicle 4</h1>
-                <div class="items">
-                    <button onclick="location.href='dashboard.html'">Main</button>
-                    <button>Analytics</button>
-                    <button>Schedule</button>
-                    <button>Time</button>
-                </div>
-            </div>
-            <div class="container">
-                <h1>Vehicle 5</h1>
-                <div class="items">
-                    <button onclick="location.href='dashboard.html'">Main</button>
-                    <button>Analytics</button>
-                    <button>Schedule</button>
-                    <button>Time</button>
-                </div>
-            </div>
-            <div class="container">
-                <h1>Vehicle 6</h1>
-                <div class="items">
-                    <button onclick="location.href='dashboard.html'">Main</button>
-                    <button>Analytics</button>
-                    <button>Schedule</button>
-                    <button>Time</button>
-                </div>
-            </div>
-        </div>
-    </main>
-    <footer>
-        <small>© Cloud Conductors</small>
-    </footer>
-</body>
-
-</html>
+        </main>
+    )
+}

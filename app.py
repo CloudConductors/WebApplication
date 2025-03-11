@@ -58,7 +58,7 @@ def dashboard():
         return render_template('login.html')
     
     user_id = session['user_id']
-    return  render_template('dashboard.html', user_id=userid)
+    return  render_template('dashboard.html', user_id=user_id)
 
 # In Progress
 # @app.route("/analytics")

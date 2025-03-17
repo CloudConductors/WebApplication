@@ -1,6 +1,13 @@
+html, body{
+    margin: 0;
+    padding: 0; 
+}
+
 .user-page {
     text-align: center;
-    justify-content: center;
+    /* justify-content: center;
+    align-items: center;
+    display: flex; */
 	color: var(--white);
 	background-color: var(--dark-grey);
 	width: 80%;
@@ -63,5 +70,4 @@ label {
 
 p {
     color: var(--primary-color);
-    margin: auto;
 }

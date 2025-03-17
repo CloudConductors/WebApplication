@@ -10,7 +10,7 @@ export default function Index() {
             <header>
             <div class="top-bar">
                 <div class="logo-container">
-                    <a href=""><img class="logo-image" src={logo} alt="logo" /></a>
+                    <a href="/"><img class="logo-image" src={logo} alt="logo" /></a>
                     <div class="logo-text">
                         <p class="team-name">Cloud Conductors</p>
                     </div>

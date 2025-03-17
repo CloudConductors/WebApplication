@@ -11,11 +11,14 @@ import Schedule from "./pages/schedule";
 import Dashboard from "./pages/dashboard";
 import Navbar from "./components/Navbar/nav-bar";
 
+// Style
+import './assets/Style/styles.css';
+
 
 function App(){
   return(
     <BrowserRouter>
-      <div className="App">
+      <div className="App bg-black">
         <Navbar />
         <div className='content'>
           <Routes>

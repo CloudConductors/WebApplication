@@ -18,6 +18,47 @@ body{
 	background-color: var(--black);
 }
 
+.container.custom-authentication{
+	background-color: var();
+	display: flex;
+    flex-direction: column;
+    justify-content: center;
+	align-items: center;
+	border: 0;
+}
+
+.custom-form{
+	background-color: var(--dark-grey);
+	color: var(--white);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 2px solid #2A2B30;
+    border-radius: 40px;
+}
+
+
+.custom-h1{
+	color: var(--primary-color);
+	align-self: center;
+	font-size: 50px;
+	/* font-weight:bold; */
+}
+
+.custom-control{
+	margin: auto;
+	border: solid var(--primary-color) 3px;
+}
+
+
+.custom-label {
+    color: var(--primary-color);
+}
+
+.custom-p{
+	color: var(--primary-color);
+}
+
 Button.custom-submit {
 	background: #2A2B30;
     border: 1px solid #FFFFFF;
@@ -48,33 +89,19 @@ Button.custom-button:hover{
 	border: 1px solid #FFFFFF;
 }
 
-.custom-h1{
+.custom-Link{
+	background-color: var(--primary-color);
+    border: 1px solid #FFFFFF;
+	color: var(--black);
+    border-radius: 40px;
+	font-weight: bold;
+	padding: 2% 3%;
+	text-decoration: none;
+
+}
+
+.custom-Link:hover{
+    background: #2A2B30;
 	color: var(--primary-color);
-}
-
-.custom-label {
-    color: var(--primary-color);
-}
-
-.custom-p{
-	color: var(--primary-color);
-}
-
-.custom-form{
-	background-color: var(--dark-grey);
-	color: var(--white);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    border: 2px solid #2A2B30;
-    border-radius: 8px;
-}
-
-.container.custom-authentication{
-	background-color: var();
-	display: flex;
-    flex-direction: column;
-    justify-content: center;
-	align-items: center;
-	border: 0;
+	border: 1px solid #FFFFFF;
 }

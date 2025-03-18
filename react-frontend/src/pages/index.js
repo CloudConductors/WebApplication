@@ -2,6 +2,7 @@ import React from "react";
 import '../assets/Style/index.css';
 import logo from '../assets/images/cloud-conductors-logo.svg';
 import search from '../assets/images/magnify.svg';
+import {Link} from 'react-router-dom';
 
 
 export default function Index() {
@@ -20,7 +21,7 @@ export default function Index() {
                         <input
                             id="search-box"
                             type="text"
-                            class="form-control"
+                            className="form-control"
                             placeholder="Search anything"
                             />
                         <button class="search-btn" onclick="location.href='/search'">
@@ -29,12 +30,9 @@ export default function Index() {
                     </div>
                 </div>
                 <div class="access-account-buttons">
-                    <div class="button-1">
-                        <button class="login-button" onclick="location.href='login.html'">Login</button>
-                    </div>
-                    <div class="button-2">
-                        <button class="sign-up-button" onclick="location.href='signup.html'">Sign Up</button>
-                    </div>
+                        <Link to="/login" className="Link login-button">Login</Link>
+                        <Link to="/signUp" className="Link sign-up-button">Sign Up</Link>
+                        {/* <button class="sign-up-button" onclick="location.href='signup.html'">Sign Up</button> */}
                 </div>
             </div>
         </header>

@@ -22,17 +22,18 @@ body{
 
 /* Logo Container */
 .top-bar{
-    display: flex;
+    display: grid;
+    grid-template-columns: .5fr 2fr .5fr;
 }
 
 .logo-container{
     background-color: rgba(30, 31, 37, 1);
-    margin-top: -2rem;
+    margin-top: -2.5rem;
     width: 310px;
-    height: 114px;
+    height: 150px;
+    padding-bottom: 10px;
     display: flex;
-    flex-direction: column; 
-    align-items: center; 
+    flex-direction: column;
     justify-content: center;
     text-align: center;
     border-radius: 0 0 20px 0;
@@ -58,12 +59,11 @@ body{
 .search-container{
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 20px;
-    margin-top: 20px;
-    margin: 0;
   }
 
-  .form-control {
+  .form-control2 {
     width: 776.75px;
     height: 39px;
     margin-left: 2rem;
@@ -75,6 +75,10 @@ body{
     color: white;
     background-color: rgba(30, 31, 37, 1);
   }
+
+  .form-control{
+    color: red;
+  } 
   
   .search-box{
     position: relative;
@@ -104,30 +108,27 @@ body{
 .access-account-buttons {
     display: flex;
     align-items: center;
-    margin-left: 2rem;
-    gap: 10px;
+    justify-content: center;
+    padding: 10%;
+    gap: 15px;
 }
 
-.button-1, .button-2 {
-    display: inline-block;
-}
-
-button {
+.Link{
     background-color: var(--primary-color);
-    color: black;
-    border: none;
-    font-size: 13.09px;
-    font-weight: bold;
-    padding: 10px 20px;
-    border-radius: 18.69px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    width: 102.96px;
-    height: 37.39px;
+    border: 1px solid #FFFFFF;
+	color: var(--black);
+    border-radius: 40px;
+	font-weight: bold;
+	padding: 10px 30px;
+    white-space: nowrap;
+	text-decoration: none;
+    text-align: center;
 }
+
+
 
 .login-button {
-    background-color: var(--primary-color); 
+    background-color: var(--primary-color);
 }
 
 .sign-up-button {

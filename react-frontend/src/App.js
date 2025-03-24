@@ -8,6 +8,7 @@ import Login  from "./pages/login";
 import SignUp from "./pages/signup";
 import Schedule from "./pages/schedule";
 import Dashboard from "./pages/dashboard";
+import InProgress from "./pages/inProgress";
 import Navbar from "./components/Navbar/nav-bar";
 
 // Style
@@ -26,6 +27,7 @@ function App(){
           <Route path='/SignUp' element={<SignUp />} />
           <Route path='/Schedule' element={<Schedule />} />
           <Route path='/Dashboard' element={<Dashboard />} />
+          <Route path='/inProgress' element={<InProgress />} />
           </Routes>
         </div>
       </div>

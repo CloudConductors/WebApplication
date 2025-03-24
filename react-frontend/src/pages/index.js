@@ -7,7 +7,7 @@ import {Link} from 'react-router-dom';
 
 export default function Index() {
     return (
-        <main>
+        <div>
             <header>
             <div className="top-bar">
                 <div className="logo-container">
@@ -32,7 +32,6 @@ export default function Index() {
                 <div className="access-account-buttons">
                         <Link to="/login" className="Link login-button">Login</Link>
                         <Link to="/signUp" className="Link sign-up-button">Sign Up</Link>
-                        {/* <button class"sign-up-button" onclick="location.href='signup.html'">Sign Up</button> */}
                 </div>
             </div>
         </header>
@@ -46,6 +45,6 @@ export default function Index() {
                 <button id="explore-button">Explore</button>
             </div>
         </div>
-    </main> 
+    </div> 
     )
 }

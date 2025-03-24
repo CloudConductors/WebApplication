@@ -10,7 +10,7 @@ import {Link} from 'react-router-dom';
 
 export default function Login() {
     return (
-        <body>
+        <main>
             <Container className="custom-authentication vh-100">
                 
                     <Form action = '/signup' method = 'POST' className="w-75 h-50 p-5 custom-form">
@@ -30,6 +30,6 @@ export default function Login() {
                     <p className="custom-p">New to Our Site?</p>
                     <Link to="/signUp" className="custom-Link">Create an Account!</Link>
             </Container>
-        </body>
+        </main>
     )
 }

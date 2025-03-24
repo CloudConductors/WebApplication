@@ -3,7 +3,7 @@ import "../assets/Style/dashboard.css";
 
 export default function DashBoard() {
   return (
-    <body>
+    <main>
       <div class="dashboard">
         <h1>DashBoard</h1>
         <div class="container">
@@ -20,6 +20,6 @@ export default function DashBoard() {
         </div>
       </div>
       <script src="scripts/dashboard.js"></script>
-    </body>
+    </main>
   );
 }

@@ -10,7 +10,7 @@ import {Link} from 'react-router-dom';
 
 export default function SignUp() {
     return (
-        <body>
+        <main>
             <Container className="custom-authentication vh-100">
                 
                     <Form action = '/signup' method = 'POST' className="w-75 h-50 p-5 custom-form">
@@ -31,7 +31,7 @@ export default function SignUp() {
                     <Link to="/login" className="custom-Link">Login Here!</Link>
             </Container>
             
-        </body>
+        </main>
     )
 }
     
@@ -42,7 +42,7 @@ export default function SignUp() {
     
     
     // return (
-    //     <body>
+    //     <main>
     //         <div class="user-page">
     //             <h1>Sign Up</h1>
     //             <div class="container">
@@ -63,6 +63,6 @@ export default function SignUp() {
     //                 <button onClick="location.href='login.html'">Sign In Here!</button>
     //             </div>
     //         </div>
-    //     </body>
+    //     </main>
     // )
 // }

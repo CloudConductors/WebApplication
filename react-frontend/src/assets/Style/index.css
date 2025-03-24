@@ -10,25 +10,6 @@
     --background-color: #131517;
 } 
 
-main{
-    background-color: var(--background-color);
-    margin: 0;
-    padding: 0;
-    color: var(--white);
-    /* display: flex;
-    flex-direction:column;
-    justify-content:start;
-    align-self: flex-start; */
-    /* min-height: 100vh; */
-    display: block !important;
-}
-
-header, .hero-banner{
-    margin: 0;
-    padding: 0;
-    width: 100%;
-}
-
 /***** TOP BAR *****/
 
 
@@ -42,30 +23,22 @@ header, .hero-banner{
 
 .logo-container{
     background-color: rgba(30, 31, 37, 1);
-    margin-top: -2.5rem;
-    width: 310px;
-    /* height: 150px; */
-    padding-bottom: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
     border-radius: 0 0 20px 0;
+    text-align: center;
+    width: 310px;
 }
 
 .logo-image{
     width: 60px;
     height: inherit;
-    /* height: auto; */
-    /* padding-top: 3.5rem; */
+    height: auto;
 }
 
 .team-name{
     font-size: 30px;
     font-family: 'Segoe UI', sans-serif;
     font-weight: lighter;
-    
-    /* margin-top: -1rem; */
+    margin-top: -1rem;
 
 }
 
@@ -159,7 +132,7 @@ header, .hero-banner{
     align-items: flex-end;
     flex-shrink: none;
     padding-right: 14rem;
-    /* padding-top: 10rem; */
+    padding-top: 10rem;
     text-align: right;
 }
 

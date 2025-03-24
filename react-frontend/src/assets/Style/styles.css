@@ -6,16 +6,32 @@
 	--primary-color: #BCE29E;
 	--secondary-color: #0099FF;
 }
+#root{
+	min-width: 100vw;
+	min-height: 100vh;
+	margin: 0px;
+	padding: 0px;
+}
 
-body{
+html{
+	background-color: var(--black);
+}
+
+.AppNavigator{
+	background-color: var(--black);
+}
+
+body, .App, .content{
 	font-family: Arial, Helvetica, sans-serif;
 	margin: 0px;
 	padding: 0px;
-	display: flex;
-	align-content: center;
-	justify-content: center;
+	/* display: block;
+	align-content:baseline;
+	justify-content: center; */
 	color: var(--white);
 	background-color: var(--black);
+	min-height: 100vh;
+
 }
 
 .container.custom-authentication{

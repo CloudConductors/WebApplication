@@ -18,8 +18,8 @@ import './assets/Style/styles.css';
 function App(){
   return(
     <BrowserRouter>
+      <Navbar />
       <div className="App bg-black">
-        <Navbar />
         <div className='content'>
           <Routes>
           <Route path='/' element={<Index />} />

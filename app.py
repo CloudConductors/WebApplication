@@ -24,6 +24,7 @@ app.secret_key = os.urandom(24)
 # Set up DynamoDB client
 dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
 table = dynamodb.Table('users')
+schedule = dynamodb.Table('cc-metropt3-schedule')
 
 # ~~~~~~~~~~~~~~~~~~~~~~ Assisting Functions ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -65,9 +66,38 @@ def dashboard():
 # def analytics():
 #     return  render_template('analytics.html')
 
-@app.route("/schedule")
+@app.route("/schedule", methods=['GET', 'PUT'])
 def schedule():
-    return  render_template('schedule.html')
+    if request.method == "PUT":
+        response = table.scan(
+            FilterExpression=Attr('group').eq('admin') & Attr('user_id').is_in(session)
+        )
+        maintenance = schedule.scan(
+            FilterExpression=Attr('Maintenance_Scheduled').eq('false')
+        )
+        Component_Id = schedule.scan(
+            FilterExpression=Attr('Component_Id')
+        )
+        if (len(response) > 0) & (len(maintenance) > 0):
+            try:
+                maintenance = schedule.update_item(
+                    Key = {'Component_Id': Component_Id},
+                    AttributeUpdates={
+                        'Expected_Repair_Date': {
+                            'Value' : '03/25/2099',
+                            'Action' : 'PUT'
+                        },
+                        'Manually_Overridden': {
+                            'Value' : 'true',
+                            'Action' : 'PUT'
+                        }
+                    },
+                    ReturnValues = 'UPDATED_NEW'
+                )
+            except ClientError as e:
+                return jsonify({'error': 'Error updating table'}), 500
+
+    return render_template('schedule.html')
 
 # In Progress
 # @app.route("/alert")

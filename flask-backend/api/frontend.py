@@ -1,6 +1,5 @@
+from flask import Blueprint, render_template, jsonify
 import os
-from flask import Flask, jsonify, render_template, request, session
-from flask_cors import CORS
 import boto3
 from boto3.dynamodb.conditions import Attr
 from botocore.exceptions import ClientError
@@ -10,14 +9,10 @@ import base64
 import uuid
 from datetime import datetime
 
-app = Flask(__name__,
-            template_folder='frontend',
-            static_folder='frontend',
-            static_url_path='')
-CORS(app)
+frontend = Blueprint('frontend', __name__) #used to setup file to be imported to flask
 
 # ~~~~~~~~~~~~~~~~~~~~~~ Sessions ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-app.secret_key = os.urandom(24)
+frontend.secret_key = os.urandom(24)
 
 # ~~~~~~~~~~~~~~~~~~~~~~ DynamoDB Connection ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -45,14 +40,14 @@ def generate_uuid():
 def get_current_date():
     return datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%S')
 
-# ~~~~~~~~~~~~~~~~~~~~~~ HTML ROUTES ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# ~~~~~~~~~~~~~~~~~~~~~~ Account Management ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # Sample route
-@app.route("/") #This is what will be shown in the url. '/' is the landing page
+@frontend.route("/") #This is what will be shown in the url. '/' is the landing page
 def index(): #This is the function, if you need to pass data or anything to the html page, it will be done here. For the midterm this should just contain the return function.
     return  render_template('index.html') #render_template is used to send html to client. inside should be the name of your file that is located under the template folder
 
-@app.route("/dashboard")
+@frontend.route("/dashboard")
 def dashboard():
     if 'user_id' not in session:
         return render_template('login.html')
@@ -61,26 +56,26 @@ def dashboard():
     return  render_template('dashboard.html', user_id=user_id)
 
 # In Progress
-# @app.route("/analytics")
+# @frontend.route("/analytics")
 # def analytics():
 #     return  render_template('analytics.html')
 
-@app.route("/schedule")
+@frontend.route("/schedule")
 def schedule():
     return  render_template('schedule.html')
 
 # In Progress
-# @app.route("/alert")
+# @frontend.route("/alert")
 # def alert():
 #     return  render_template('alert.html')
 
 # In Progress
-# @app.route("/team")
+# @frontend.route("/team")
 # def team():
 #     return  render_template('team.html')
 
 #Route for logging in a user
-@app.route("/login", methods=["POST"])
+@frontend.route("/login", methods=["POST"])
 def login():
     #Retrieving data from front end
     email = request.form.get('email')
@@ -117,7 +112,7 @@ def login():
         return jsonify({'error': 'Error verifying user'}), 500
 
 #Route for creating a new user
-@app.route("/signup", methods=["POST"])
+@frontend.route("/signup", methods=["POST"])
 def signup():
     #Retrieving data from front end
     email = request.form.get('email')
@@ -160,107 +155,11 @@ def signup():
         table.put_item(Item=userItem)
         return  render_template('login.html')
     except ClientError as e:
-        app.logger.error(f"DynamoDB Error: {e}")
+        frontend.logger.error(f"DynamoDB Error: {e}")
         return jsonify({'error': 'Error creating user'}), 500
 
 #Rout for logging out
-@app.route("/logout")
+@frontend.route("/logout")
 def logout():
     session.clear()
     return render_template('login.html')
-
-
-# ~~~~~~~~~~~~~~~~~~~~~~ API STUFF ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-@app.route("/train-info", methods=["GET"]) 
-def get_train_info(): #Changed from hello_world() --> get_train_info()
-    trains = {
-        0: {
-                "name": "train0",
-                "components": {
-                    "brakes": {
-                        "last-replaced": 180,
-                        "expected-failure": 121,
-                        "std-dev": 5,
-                        "recomended-maintenance": 110,
-                    },
-                    "engine": {
-                        "last-replaced": 80,
-                        "expected-failure": 221,
-                        "std-dev": 5,
-                        "recomended-maintenance": 210,
-                    },
-                    "lights": {
-                        "last-replaced": 280,
-                        "expected-failure": 11,
-                        "std-dev": 5,
-                        "recomended-maintenance": 0,
-                    },
-                    "electronics": {
-                        "last-replaced": 10,
-                        "expected-failure": 321,
-                        "std-dev": 5,
-                        "recomended-maintenance": 310,
-                    },
-                },
-        },
-        1: {
-                "name": "train1",
-                "components": {
-                    "brakes": {
-                        "last-replaced": 10,
-                        "expected-failure": 1,
-                        "std-dev": 5,
-                        "recomended-maintenance": 0,
-                    },
-                    "engine": {
-                        "last-replaced": 330,
-                        "expected-failure": 221,
-                        "std-dev": 5,
-                        "recomended-maintenance": 350,
-                    },
-                    "lights": {
-                        "last-replaced": 50,
-                        "expected-failure": 1,
-                        "std-dev": 69,
-                        "recomended-maintenance": 0,
-                    },
-                    "electronics": {
-                        "last-replaced": 130,
-                        "expected-failure": 51,
-                        "std-dev": 12,
-                        "recomended-maintenance": 110,
-                    },
-                },
-        },
-        2: {
-                "name": "train2",
-                "components": {
-                    "brakes": {
-                        "last-replaced": 431,
-                        "expected-failure": 231,
-                        "std-dev": 40,
-                        "recomended-maintenance": 200,
-                    },
-                    "engine": {
-                        "last-replaced": 34,
-                        "expected-failure": 321,
-                        "std-dev": 5,
-                        "recomended-maintenance": 410,
-                    },
-                    "lights": {
-                        "last-replaced": 342,
-                        "expected-failure": 32,
-                        "std-dev": 61,
-                        "recomended-maintenance": 523,
-                    },
-                    "electronics": {
-                        "last-replaced": 2134,
-                        "expected-failure": 23,
-                        "std-dev": 34,
-                        "recomended-maintenance": 2134,
-                    },
-                },
-        },
-    }
-    return jsonify(trains)

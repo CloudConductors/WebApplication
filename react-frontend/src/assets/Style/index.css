@@ -1,0 +1,197 @@
+:root {
+	--white: #FFFFFF;
+	--dark-grey: #1E1F25;
+    --grey: #8A8A8A;
+	--light-grey: #2A2B30;
+	--black: #1E1E1E;
+    --light-green: #6DC956;
+	--primary-color: #BCE29E;
+	--secondary-color: #0099FF;
+    --background-color: #131517;
+} 
+
+/***** TOP BAR *****/
+
+
+/* Logo Container */
+.top-bar{
+    display: grid;
+    grid-template-columns: .5fr 2fr .5fr;
+    width: 100vw;
+    background-color: #0099FF;
+}
+
+.logo-container{
+    background-color: rgba(30, 31, 37, 1);
+    border-radius: 0 0 20px 0;
+    text-align: center;
+    width: 310px;
+}
+
+.logo-image{
+    width: 60px;
+    height: inherit;
+    height: auto;
+}
+
+.team-name{
+    font-size: 30px;
+    font-family: 'Segoe UI', sans-serif;
+    font-weight: lighter;
+    margin-top: -1rem;
+
+}
+
+/* Search Bar */
+
+.search-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 0 20px;
+  }
+
+  .form-control2 {
+    width: 776.75px;
+    height: 39px;
+    margin-left: 2rem;
+    padding: 0 30px 0 15px;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 9.35px; 
+    font-size: 13px;
+    color: white;
+    background-color: rgba(30, 31, 37, 1);
+  }
+
+  .form-control{
+    color: red;
+  } 
+  
+  .search-box{
+    position: relative;
+    width: 100%;
+  }
+
+  .search-btn{
+    position: absolute;
+    right: 15px;
+    width: 20px;
+    top: 50%;
+    transform: translateY(-50%); 
+    background-color: transparent;
+    border: none;
+    outline: none;
+    padding: 0;
+    font-size: 22px;
+  }
+
+  .search-icon {
+    width: 20px;
+    height: auto;
+}
+
+/* Login and Sign Up Buttons*/
+
+.access-account-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.Link{
+    background-color: var(--primary-color);
+    border: 1px solid #FFFFFF;
+	color: var(--black);
+    border-radius: 40px;
+	font-weight: bold;
+	padding: 10px 30px;
+    white-space: nowrap;
+	text-decoration: none;
+    text-align: center;
+}
+
+
+
+.login-button {
+    background-color: var(--primary-color);
+}
+
+.sign-up-button {
+    background-color: var(--light-green);
+}
+
+
+/* Hero Banner */
+
+.hero-banner {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    flex-shrink: none;
+    padding-right: 14rem;
+    padding-top: 10rem;
+    text-align: right;
+}
+
+.hero-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+#title-1, #title-2 {
+    font-size: 96px;
+    font-family: 'Segoe UI', sans-serif;
+    font-weight: lighter;
+    margin: 0;
+}
+
+#paragraph-one {
+    font-size: 32px;
+    font-family: 'Segoe UI', sans-serif;
+    font-weight: lighter;
+    margin-top: 1rem; 
+    width: 700px;
+}
+
+#explore-button{
+    background-color: transparent;
+    color: white;
+    font-size: 18px;
+    font-weight: 650;
+    border-radius: 40px;
+    border: 2px solid white;
+    width: 180px;
+    height: 57px;
+}
+
+/* Footer */
+
+.footer {
+    background-color: #111111; 
+    color: white;
+    font-family: 'Segoe UI', sans-serif;
+    font-weight: lighter;
+    text-align: center;
+    padding: 5px 0;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    justify-content: center; 
+    gap: 30px;
+}
+
+
+
+
+
+
+
+
+
+

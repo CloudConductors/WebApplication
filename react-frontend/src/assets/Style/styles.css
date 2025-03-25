@@ -14,11 +14,11 @@
 }
 
 html{
-	background-color: var(--black);
+	background-color: var(--light-grey);
 }
 
 .AppNavigator{
-	background-color: var(--black);
+	background-color: var(--light-grey);
 }
 
 body, .App, .content{
@@ -29,7 +29,7 @@ body, .App, .content{
 	align-content:baseline;
 	justify-content: center; */
 	color: var(--white);
-	background-color: var(--black);
+	background-color: var(--light-grey);
 	min-height: 100vh;
 
 }

@@ -17,11 +17,11 @@ export default function Navbar() {
         <nav>
           {/* all images from https://www.iconfinder.com/search?price=free */}
           <Link to="/"><img id="logo" src={logo} alt="logo" /></Link>
-          <Link to="/Dashboard"><img src={hamburger} alt="dashboard" /></Link>
-          <Link to="/inProgress"><img src={pie} alt="analytics" /></Link>
-          <Link to="/Schedule"><img src={schedule} alt="schedule" /></Link>
-          <Link to="/inProgress"><img src={alert} alt="alert" /></Link>
-          <Link to="/inProgress"><img src={team} alt="team" /></Link>
+          <Link to="/Dashboard"><img className='icon' src={hamburger} alt="dashboard" /></Link>
+          <Link to="/inProgress"><img className='icon' src={pie} alt="analytics" /></Link>
+          <Link to="/Schedule"><img className='icon' src={schedule} alt="schedule" /></Link>
+          <Link to="/inProgress"><img className='icon' src={alert} alt="alert" /></Link>
+          <Link to="/inProgress"><img className='icon' src={team} alt="team" /></Link>
         </nav>
       </div>
   )

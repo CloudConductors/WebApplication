@@ -12,7 +12,7 @@ from datetime import datetime
 frontend = Blueprint('frontend', __name__) #used to setup file to be imported to flask
 
 # ~~~~~~~~~~~~~~~~~~~~~~ Sessions ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-app.secret_key = os.urandom(24)
+frontend.secret_key = os.urandom(24)
 
 # ~~~~~~~~~~~~~~~~~~~~~~ DynamoDB Connection ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

@@ -1,26 +1,26 @@
-from flask import Blueprint, render_template, jsonify
+from flask import Blueprint, jsonify
 
 frontend = Blueprint('frontend', __name__) #used to setup file to be imported to flask
 
 # ~~~~~~~~~~~~~~~~~~~~~~ HTML ROUTES ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # Sample route
-@frontend.route("/") #This is what will be shown in the url. '/' is the landing page
+@frontend.route("/api/landing", methods=["GET"]) #This is what will be shown in the url. '/' is the landing page
 def index(): #This is the function, if you need to pass data or anything to the html page, it will be done here. For the midterm this should just contain the return function.
-    return  render_template('index.html') #render_template is used to send html to client. inside should be the name of your file that is located under the template folder
+    return jsonify({"message": "Welcome to the React API!"}) 
 
-@frontend.route("/dashboard")
+@frontend.route("/api/dashboard", methods=["GET"])
 def dashboard():
-    return  render_template('dashboard.html')
+    return jsonify({"message": "This is your dashboard data."})
 
 # In Progress
 # @app.route("/analytics")
 # def analytics():
 #     return  render_template('analytics.html')
 
-@frontend.route("/schedule")
+@frontend.route("/api/schedule", methods=["GET"])
 def schedule():
-    return  render_template('schedule.html')
+    return  jsonify({"message": "Here is the schedule data."})
 
 # In Progress
 # @app.route("/alert")

@@ -1,6 +1,42 @@
+/*
+import React from "react";
+import TestComponent from "./components/testComponent"; // This is the testComponent
+
+function App() {
+  return (
+    <div>
+      <h1>Welcome to Train Dashboard</h1>
+      <TestComponent />
+    </div>
+  );
+}
+
+export default App;
+*/
+
+
+import React from "react";
+import Routing from "./route/routing";
+import TestPageCSS from "../src/assets/Style/testPage.css";
+import HeaderCSS from "../src/assets/Style/index.css";
+
+function App() {
+  return (
+    <div>
+      <Routing />
+    </div>
+  );
+}
+
+export default App;
+
+
+
+/*
 import React from "react";
 // import Navbar from "./components/Navbar";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import TestComponent from "./components/testComponent";
 
 
 // Pages
@@ -10,8 +46,11 @@ import SignUp from "./pages/signup";
 import Schedule from "./pages/schedule";
 import Dashboard from "./pages/dashboard";
 import Navbar from "./components/Navbar/nav-bar";
+*/
 
 
+
+/*
 function App(){
   return(
     <BrowserRouter>
@@ -32,7 +71,7 @@ function App(){
 }
 
 export default App;
-
+*/
 
 // Old App
 // import logo from './logo.svg';

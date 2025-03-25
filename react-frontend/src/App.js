@@ -1,18 +1,18 @@
-/*
-import React from "react";
-import TestComponent from "./components/testComponent"; // This is the testComponent
 
-function App() {
-  return (
-    <div>
-      <h1>Welcome to Train Dashboard</h1>
-      <TestComponent />
-    </div>
-  );
-}
+// import React from "react";
+// import TestComponent from "./components/TestComponent"; // This is the testComponent
 
-export default App;
-*/
+// function App() {
+//   return (
+//     <div>
+//       <h1>Welcome to Train Dashboard</h1>
+//       <TestComponent />
+//     </div>
+//   );
+// }
+
+// export default App;
+
 
 
 import React from "react";
@@ -22,9 +22,9 @@ import HeaderCSS from "../src/assets/Style/index.css";
 
 function App() {
   return (
-    <div>
+    <body>
       <Routing />
-    </div>
+    </body>
   );
 }
 

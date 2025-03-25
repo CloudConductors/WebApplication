@@ -1,42 +1,28 @@
 import React from "react";
-import '../assets/Style/index.css';
+import { Link } from "react-router-dom";
+
+// Assets
+import '../assets/Style/nav-bar-style.css';
+import alert from '../assets/images/alert.webp';
 import logo from '../assets/images/cloud-conductors-logo.svg';
-import search from '../assets/images/magnify.svg';
+import hamburger from '../assets/images/hamburger_icon.png';
+import pie from '../assets/images/pie-chart.webp';
+import schedule from '../assets/images/schedule.png';
+import team from '../assets/images/team.png';
 
 
-export default function Index() {
-    return (
-        <body>
-            <header>
-            <div class="top-bar">
-                <div class="logo-container">
-                    <a href=""><img class="logo-image" src={logo} alt="logo" /></a>
-                    <div class="logo-text">
-                        <p class="team-name">Cloud Conductors</p>
-                    </div>
-                </div>
-                <div class="search-container">
-                    <div class="search-box">
-                        <input
-                            id="search-box"
-                            type="text"
-                            class="form-control"
-                            placeholder="Search anything"
-                            />
-                        <button class="search-btn" onclick="location.href='/search'">
-                                <img src={search} alt="search-icon" class="search-icon" />
-                        </button>
-                    </div>
-                </div>
-                <div class="access-account-buttons">
-                    <div class="button-1">
-                        <button class="login-button" onclick="location.href='login.html'">Login</button>
-                    </div>
-                    <div class="button-2">
-                        <button class="sign-up-button" onclick="location.href='signup.html'">Sign Up</button>
-                    </div>
-                </div>
-            </div>
-        </header>
-</body>
-)}
+export default function Navbar() {
+  return (
+      <div id="navBar" className="main">
+        <nav>
+          {/* all images from https://www.iconfinder.com/search?price=free */}
+          <Link to="/"><img id="logo" src={logo} alt="logo" /></Link>
+          <Link to="/Dashboard"><img src={hamburger} alt="dashboard" /></Link>
+          <Link to="/inProgress"><img src={pie} alt="analytics" /></Link>
+          <Link to="/Schedule"><img src={schedule} alt="schedule" /></Link>
+          <Link to="/inProgress"><img src={alert} alt="alert" /></Link>
+          <Link to="/inProgress"><img src={team} alt="team" /></Link>
+        </nav>
+      </div>
+  )
+}

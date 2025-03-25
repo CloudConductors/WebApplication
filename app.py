@@ -2,7 +2,7 @@ import os
 from flask import Flask, jsonify, render_template, request, session
 from flask_cors import CORS
 import boto3
-from boto3.dynamodb.conditions import Attr
+from boto3.dynamodb.conditions import Attr, And
 from botocore.exceptions import ClientError
 import json
 import bcrypt
@@ -24,7 +24,7 @@ app.secret_key = os.urandom(24)
 # Set up DynamoDB client
 dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
 table = dynamodb.Table('users')
-schedule = dynamodb.Table('cc-metropt3-schedule')
+schedule_table = dynamodb.Table('cc-metro3-schedule')
 
 # ~~~~~~~~~~~~~~~~~~~~~~ Assisting Functions ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -66,36 +66,60 @@ def dashboard():
 # def analytics():
 #     return  render_template('analytics.html')
 
-@app.route("/schedule", methods=['GET', 'PUT'])
+@app.route("/schedule", methods=['PUT'])
 def schedule():
     if request.method == "PUT":
-        response = table.scan(
-            FilterExpression=Attr('group').eq('admin') & Attr('user_id').is_in(session)
-        )
-        maintenance = schedule.scan(
-            FilterExpression=Attr('Maintenance_Scheduled').eq('false')
-        )
-        Component_Id = schedule.scan(
-            FilterExpression=Attr('Component_Id')
-        )
-        if (len(response) > 0) & (len(maintenance) > 0):
+        try:
+            response = table.scan(
+                FilterExpression=And(Attr('group').eq('admin'), Attr('user_id').is_in(session))
+            )
+        except ClientError as e:
+            return jsonify({'error': 'You are not an admin'}), 403
+        try:
+            maintenance = schedule_table.scan(
+                FilterExpression=Attr('Maintenance_Scheduled').eq('false')
+            )
+        except ClientError as e:
+            return jsonify({'error': 'BE GONE'}), 403
+        try:
+            Component_Id = schedule_table.scan(
+                FilterExpression=Attr('component_id').eq('1')
+            )
+        except ClientError as e:
+            return jsonify({'error': 'ID not found'}), 404
+        
+        if 'Items' in response and len(response['Items']) > 0 and 'Items' in maintenance and len(maintenance['Items']) > 0:
             try:
-                maintenance = schedule.update_item(
-                    Key = {'Component_Id': Component_Id},
-                    AttributeUpdates={
-                        'Expected_Repair_Date': {
-                            'Value' : '03/25/2099',
-                            'Action' : 'PUT'
-                        },
-                        'Manually_Overridden': {
-                            'Value' : 'true',
-                            'Action' : 'PUT'
-                        }
-                    },
-                    ReturnValues = 'UPDATED_NEW'
+                if 'Items' in Component_Id and len(Component_Id['Items']) > 0:
+                    Component_Id = Component_Id['Items'][0]['component_id']
+                else:
+                    return jsonify({'error': 'Component ID not found'}), 404
+
+                # Check if item exists before inserting (in case you're replacing it)
+                existing_item = schedule_table.get_item(
+                    Key={'component_id': str(Component_Id), 'Last_Repair_Date': '01/01/2001'}
                 )
+                if 'Item' not in existing_item:
+                    return jsonify({'error': 'Item not found in table'}), 404
+
+                # Perform put_item (replaces the existing item with new values)
+                maintenance = schedule_table.put_item(
+                    Item={
+                        'component_id': str(Component_Id),
+                        'Last_Repair_Date': '01/01/2001',
+                        'Expected_Repair_DUF': '03/25/2099',
+                        'Maintenance_Scheduled': 'true',
+                        'Manually_Overriden': 'true',
+                        'Mean_DUF': 3,
+                        'Standard_Deviation_DUF' : 12
+                    }
+                )
+                print("Table updated successfully!")
+                return jsonify({'message': 'Put item successful'}), 200
             except ClientError as e:
-                return jsonify({'error': 'Error updating table'}), 500
+                return jsonify({'error': 'Error putting item in table'}), 500
+    else:
+        print("table wasnt  changed!!!")
 
     return render_template('schedule.html')
 
@@ -188,6 +212,7 @@ def signup():
     #Insert into DynamoDB
     try:
         table.put_item(Item=userItem)
+        print(userItem)
         return  render_template('login.html')
     except ClientError as e:
         app.logger.error(f"DynamoDB Error: {e}")

@@ -119,7 +119,7 @@ def schedule():
             except ClientError as e:
                 return jsonify({'error': 'Error putting item in table'}), 500
     else:
-        print("table wasnt  changed!!!")
+        print("table wasn't changed in the database!")
 
     return render_template('schedule.html')
 

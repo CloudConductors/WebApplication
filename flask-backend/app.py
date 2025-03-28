@@ -59,17 +59,20 @@ def get_current_date():
 # ~~~~~~~~~~~~~~~~~~~~~~ HTML ROUTES ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # Sample route
-@app.route("/") #This is what will be shown in the url. '/' is the landing page
+'''@app.route("/") #This is what will be shown in the url. '/' is the landing page
 def index(): #This is the function, if you need to pass data or anything to the html page, it will be done here. For the midterm this should just contain the return function.
-    return  render_template('index.html') #render_template is used to send html to client. inside should be the name of your file that is located under the template folder
+    return render_template('index.html') #render_template is used to send html to client. inside should be the name of your file that is located under the template folder
+'''
 
 @app.route("/dashboard")
 def dashboard():
     if 'user_id' not in session:
-        return render_template('login.html')
+        #return render_template('login.html')
+        return jsonify({'error': 'User does not exist within the session'})
     
     user_id = session['user_id']
-    return  render_template('dashboard.html', user_id=user_id)
+    #return render_template('dashboard.html', user_id=user_id)
+    return jsonify({user_id: 'User ID that is associated with a session'})
 
 # In Progress
 # @app.route("/analytics")
@@ -131,7 +134,8 @@ def schedule():
     else:
         print("table wasn't changed in the database!")
 
-    return render_template('schedule.html')
+    #return render_template('schedule.html')
+    return jsonify({'Status': 'Success', 'Code': '200 OK'}), 200
 
 # In Progress
 # @app.route("/alert")
@@ -176,7 +180,8 @@ def login():
         #Store user info in session
         session['user_id'] = userItem['uuid']
 
-        return  render_template('dashboard.html')
+        #return render_template('dashboard.html')
+        return jsonify({'Status': 'Success', 'Code': '200 OK'}), 200
     except ClientError as e:
         return jsonify({'error': 'Error verifying user'}), 500
 
@@ -223,7 +228,8 @@ def signup():
     try:
         table.put_item(Item=userItem)
         print(userItem)
-        return  render_template('login.html')
+        #return  render_template('login.html')
+        return jsonify({'Status': 'Success', 'Code': '200 OK'}), 200
     except ClientError as e:
         app.logger.error(f"DynamoDB Error: {e}")
         return jsonify({'error': 'Error creating user'}), 500
@@ -232,7 +238,8 @@ def signup():
 @app.route("/logout")
 def logout():
     session.clear()
-    return render_template('login.html')
+    #return render_template('login.html')
+    return jsonify({'Status': 'Success', 'Code': '200 OK'}), 200
 
 
 # ~~~~~~~~~~~~~~~~~~~~~~ API STUFF ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

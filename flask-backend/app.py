@@ -9,8 +9,6 @@ import bcrypt
 import base64
 import uuid
 from datetime import datetime
-from flask import Flask
-from flask_cors import CORS
 from api.frontend import frontend_bp
 from api.machine_learning import gen_schedule, machine_learning_bp
 from api.embedded_system import embedded_system

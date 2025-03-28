@@ -87,8 +87,8 @@ def schedule():
             )
         except ClientError as e:
             return jsonify({'error': 'ID not found'}), 404
-        
-        if 'Items' in response and len(response['Items']) > 0 and 'Items' in maintenance and len(maintenance['Items']) > 0:
+
+        if 'Items' in Component_Id and len(Component_Id['Items']) > 0 and 'Items' in maintenance and len(maintenance['Items']) > 0:
             try:
                 if 'Items' in Component_Id and len(Component_Id['Items']) > 0:
                     Component_Id = Component_Id['Items'][0]['component_id']

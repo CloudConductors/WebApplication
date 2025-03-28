@@ -7,8 +7,9 @@ import SignUpPage from "../pages/signup";
 import Layout from "../layout/layout";
 import TestPage from "../pages/testPage.js";
 import DashboardPage from "../pages/dashboard.js";
-import { useAuth } from "../components/AuthContext";
 import ProtectedRoute from "../components/ProtectedRoute";
+import InProgressPage from "../pages/inProgress.js";
+import SchedulePage from "../pages/schedule.js";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,25 @@ const router = createBrowserRouter([
             <DashboardPage />
           </ProtectedRoute>
         ),
+
+      },
+      {
+        path: "/inProgress",
+        element: (
+          <ProtectedRoute>
+            <InProgressPage />
+          </ProtectedRoute>
+        ),
+        
+      },
+      {
+        path: "/schedule",
+        element: (
+          <ProtectedRoute>
+            <SchedulePage />
+          </ProtectedRoute>
+        ),
+        
       },
     ],
   },

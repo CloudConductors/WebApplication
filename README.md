@@ -44,6 +44,39 @@
    ```sh
    pip install -r requirements.txt
    ```
+<<<<<<< HEAD
+5. Configure AWS:
+   ```sh
+   aws configure
+   ```
+   Type in: 
+   ```sh
+   AWS_ACCESS_KEY
+   ```
+   and press enter
+
+   Type in:
+   ```sh
+   AWS_SECRET_KEY
+   ```
+   and press enter
+
+   Type in:
+   ```sh
+   us-east-1
+   ```
+   and press enter
+
+   Press enter again
+6. Run Flask in debug mode:
+   ```sh
+   flask --debug run
+   ```
+7. Navigate to link to access site (should also be in console)
+   -  http://127.0.0.1:5000/
+
+
+=======
 7. Run Flask in debug mode:
    ```sh
    flask --debug run
@@ -71,3 +104,4 @@
    ```
    npm start
    ```
+>>>>>>> main

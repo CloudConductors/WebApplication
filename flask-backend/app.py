@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import os
 from flask import Flask, jsonify, render_template, request, session
 from flask_cors import CORS
@@ -9,11 +10,17 @@ import bcrypt
 import base64
 import uuid
 from datetime import datetime
+=======
+from flask import Flask
+from flask_cors import CORS
+from api import frontend, machine_learning, embedded_system #import files from api folder
+>>>>>>> main
 
 app = Flask(__name__,
             template_folder='frontend',
             static_folder='frontend',
             static_url_path='')
+<<<<<<< HEAD
 CORS(app)
 
 # ~~~~~~~~~~~~~~~~~~~~~~ Sessions ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -319,3 +326,15 @@ def get_train_info(): #Changed from hello_world() --> get_train_info()
         },
     }
     return jsonify(trains)
+=======
+
+
+CORS(app)
+
+# ~~~~~~~~~~~~~~~~~~~~~~ API STUFF ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#All Files in the api folder are called here
+app.register_blueprint(frontend) #This calls the fronend.py
+app.register_blueprint(machine_learning, url_prefix="/machine-learning") #This calls the , machine_learning.py and sets its url to /machine_learning
+app.register_blueprint(embedded_system) #This calls the embeded_system.py
+>>>>>>> main

@@ -19,19 +19,32 @@
 
 ## Application setup 
 
-1. Open the command line in VS Code. (**Use Git Bash**)
-2. Create the virtual environment:
+### Flask
+
+1. Open a terminal VS Code. (**Use Git Bash**)
+2. Check if python installed
+   ```
+   python --version
+   ```
+   - if error visit https://pythongeeks.org/python-3-installation-and-setup-guide/
+3. Navigate to Flask Folder
+   ```
+   cd flask-backend
+   ```
+4. Create the virtual environment:
    ```sh
    python -m venv venv
    ```
-3. Activate the virtual environment:
+5. Activate the virtual environment:
    ```sh
    source venv/Scripts/activate
    ```
-4. Install all required dependencies:
+   - You should now see (venv) above your current line in the terminal
+6. Install all required dependencies:
    ```sh
    pip install -r requirements.txt
    ```
+<<<<<<< HEAD
 5. Configure AWS:
    ```sh
    aws configure
@@ -63,3 +76,32 @@
    -  http://127.0.0.1:5000/
 
 
+=======
+7. Run Flask in debug mode:
+   ```sh
+   flask --debug run
+   ```
+8. Navigate to link to access site (should also be in console)
+   -  http://127.0.0.1:5000/
+
+### React
+
+1. Open another terminal in VS Code. (**Use Git Bash**)
+2. Check if npm is installed
+   ```
+   npm --version
+   ```
+   - if error visit https://docs.npmjs.com/downloading-and-installing-node-js-and-npm
+3. Navigate to the React folder
+   ```
+   cd react-frontend
+   ```
+4. Install dependencies
+   ```
+   npm install
+   ```
+5. Run app
+   ```
+   npm start
+   ```
+>>>>>>> main

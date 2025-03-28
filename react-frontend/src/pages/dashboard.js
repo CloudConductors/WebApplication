@@ -15,7 +15,7 @@ import "../assets/Style/dashboard.css";
 
 export default function DashBoard() {
   return (
-    <body>
+    <main>
       <div class="dashboard">
         <h1>DashBoard</h1>
         <div class="container">
@@ -25,14 +25,14 @@ export default function DashBoard() {
           </div>
           <div class="vehicle-desc-cont">
             <div class="vehicle-desc">
-              <h2 class="vehicle-desc-name"></h2>
+              <h2 class="vehicle-desc-name">a</h2>
               <div class="component-list"></div>
             </div>
           </div>
         </div>
       </div>
       <script src="scripts/dashboard.js"></script>
-    </body>
+    </main>
   );
 }
 */

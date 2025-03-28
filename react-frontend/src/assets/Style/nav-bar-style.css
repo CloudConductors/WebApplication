@@ -11,14 +11,19 @@ body{
 }
 
 #navBar{
-    background-color: #0099FF;
+    background-color: #6DC956;
     position: fixed;
     padding: 10px 25px 10px 0px;
     border-radius: 0px 10px 10px 0px;
     top: 35%;
     left: 0%;
-    display: flexbox;
+    display: flex;
     flex-direction: column;
+    z-index: 10000;
+    visibility: visible !important;
+}
+.icon{
+    filter: invert(1);
 }
 a{
     display: flex;
@@ -27,7 +32,7 @@ a{
 }
 
 #logo{
-    filter: invert(100%);
+    filter: none !important;
     width: auto;
     height: 60px;
 }

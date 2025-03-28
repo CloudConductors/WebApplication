@@ -14,7 +14,6 @@ from api.machine_learning import gen_schedule, machine_learning_bp
 from api.embedded_system import embedded_system
 from flask_apscheduler import APScheduler
 
-
 app = Flask(__name__,
             template_folder='frontend',
             static_folder='frontend',
@@ -22,6 +21,7 @@ app = Flask(__name__,
 app.register_blueprint(frontend_bp) #This calls the fronend.py
 app.register_blueprint(machine_learning_bp, url_prefix="/machine-learning") #This calls the , machine_learning.py and sets its url to /machine_learning
 app.register_blueprint(embedded_system) #This calls the embeded_system.py
+
 CORS(app)
 
 # ~~~~~~~~~~~~~~~~~~~~~~ Sessions ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -88,27 +88,27 @@ def schedule():
             return jsonify({'error': 'You are not an admin'}), 403
         try:
             maintenance = schedule_table.scan(
-                FilterExpression=Attr('Maintenance_Scheduled').eq('false')
+                FilterExpression=Attr('maintenance_scheduled').eq('false')
             )
         except ClientError as e:
             return jsonify({'error': 'BE GONE'}), 403
         try:
-            Component_Id = schedule_table.scan(
+            component_id = schedule_table.scan(
                 FilterExpression=Attr('component_id').eq('1')
             )
         except ClientError as e:
             return jsonify({'error': 'ID not found'}), 404
 
-        if 'Items' in Component_Id and len(Component_Id['Items']) > 0 and 'Items' in maintenance and len(maintenance['Items']) > 0:
+        if 'Items' in component_id and len(component_id['Items']) > 0 and 'Items' in maintenance and len(maintenance['Items']) > 0:
             try:
-                if 'Items' in Component_Id and len(Component_Id['Items']) > 0:
-                    Component_Id = Component_Id['Items'][0]['component_id']
+                if 'Items' in component_id and len(component_id['Items']) > 0:
+                    component_id = component_id['Items'][0]['component_id']
                 else:
                     return jsonify({'error': 'Component ID not found'}), 404
 
                 # Check if item exists before inserting (in case you're replacing it)
                 existing_item = schedule_table.get_item(
-                    Key={'component_id': str(Component_Id), 'Last_Repair_Date': '01/01/2001'}
+                    Key={'component_id': str(component_id), 'last_repair_date': '01/01/2001'}
                 )
                 if 'Item' not in existing_item:
                     return jsonify({'error': 'Item not found in table'}), 404
@@ -116,13 +116,14 @@ def schedule():
                 # Perform put_item (replaces the existing item with new values)
                 maintenance = schedule_table.put_item(
                     Item={
-                        'component_id': str(Component_Id),
-                        'Last_Repair_Date': '01/01/2001',
-                        'Expected_Repair_DUF': '03/25/2099',
-                        'Maintenance_Scheduled': 'true',
-                        'Manually_Overriden': 'true',
-                        'Mean_DUF': 3,
-                        'Standard_Deviation_DUF' : 12
+                        'component_id': str(component_id),
+                        'train_id': '1',
+                        'expected_repair_duf': '03/25/2099',
+                        'last_repair_date': '01/01/2001',
+                        'maintenance_scheduled': 'false',
+                        'manually_overriden': 'true',
+                        'mean_duf': 3,
+                        'standard_deviation_duf' : 12
                     }
                 )
                 print("Table updated successfully!")
@@ -334,9 +335,6 @@ def get_train_info(): #Changed from hello_world() --> get_train_info()
         },
     }
     return jsonify(trains)
-
-
-CORS(app)
 
 scheduler = APScheduler()
 scheduler.add_job(func=gen_schedule, trigger='interval', id='job', seconds=5)

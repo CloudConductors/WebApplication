@@ -9,10 +9,10 @@ import base64
 import uuid
 from datetime import datetime
 
-frontend = Blueprint('frontend', __name__) #used to setup file to be imported to flask
+frontend_bp = Blueprint('frontend', __name__) #used to setup file to be imported to flask
 
 # ~~~~~~~~~~~~~~~~~~~~~~ Sessions ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-frontend.secret_key = os.urandom(24)
+frontend_bp.secret_key = os.urandom(24)
 
 # ~~~~~~~~~~~~~~~~~~~~~~ DynamoDB Connection ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -44,11 +44,11 @@ def get_current_date():
 # ~~~~~~~~~~~~~~~~~~~~~~ Account Management ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # Sample route
-@frontend.route("/") #This is what will be shown in the url. '/' is the landing page
+@frontend_bp.route("/") #This is what will be shown in the url. '/' is the landing page
 def index(): #This is the function, if you need to pass data or anything to the html page, it will be done here. For the midterm this should just contain the return function.
     return  render_template('index.html') #render_template is used to send html to client. inside should be the name of your file that is located under the template folder
 
-@frontend.route("/dashboard")
+@frontend_bp.route("/dashboard")
 def dashboard():
     if 'user_id' not in session:
         return render_template('login.html')
@@ -61,11 +61,7 @@ def dashboard():
 # def analytics():
 #     return  render_template('analytics.html')
 
-<<<<<<< HEAD:app.py
-@app.route("/schedule", methods=['PUT'])
-=======
-@frontend.route("/schedule")
->>>>>>> main:flask-backend/api/frontend.py
+@frontend_bp.route("/schedule", methods=['PUT'])
 def schedule():
     if request.method == "PUT":
         try:
@@ -133,7 +129,7 @@ def schedule():
 #     return  render_template('team.html')
 
 #Route for logging in a user
-@frontend.route("/login", methods=["POST"])
+@frontend_bp.route("/login", methods=["POST"])
 def login():
     #Retrieving data from front end
     email = request.form.get('email')
@@ -170,7 +166,7 @@ def login():
         return jsonify({'error': 'Error verifying user'}), 500
 
 #Route for creating a new user
-@frontend.route("/signup", methods=["POST"])
+@frontend_bp.route("/signup", methods=["POST"])
 def signup():
     #Retrieving data from front end
     email = request.form.get('email')
@@ -218,16 +214,15 @@ def signup():
         return jsonify({'error': 'Error creating user'}), 500
 
 #Rout for logging out
-@frontend.route("/logout")
+@frontend_bp.route("/logout")
 def logout():
     session.clear()
-<<<<<<< HEAD:app.py
     return render_template('login.html')
 
 
 # ~~~~~~~~~~~~~~~~~~~~~~ API STUFF ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-@app.route("/train-info", methods=["GET"]) 
+@frontend_bp.route("/train-info", methods=["GET"]) 
 def get_train_info(): #Changed from hello_world() --> get_train_info()
     trains = {
         0: {
@@ -319,6 +314,4 @@ def get_train_info(): #Changed from hello_world() --> get_train_info()
         },
     }
     return jsonify(trains)
-=======
     return render_template('login.html')
->>>>>>> main:flask-backend/api/frontend.py

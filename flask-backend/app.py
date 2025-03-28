@@ -9,11 +9,19 @@ import bcrypt
 import base64
 import uuid
 from datetime import datetime
+from api.frontend import frontend_bp
+from api.machine_learning import gen_schedule, machine_learning_bp
+from api.embedded_system import embedded_system
+from flask_apscheduler import APScheduler
 
 app = Flask(__name__,
             template_folder='frontend',
             static_folder='frontend',
             static_url_path='')
+app.register_blueprint(frontend_bp) #This calls the fronend.py
+app.register_blueprint(machine_learning_bp, url_prefix="/machine-learning") #This calls the , machine_learning.py and sets its url to /machine_learning
+app.register_blueprint(embedded_system) #This calls the embeded_system.py
+
 CORS(app)
 
 # ~~~~~~~~~~~~~~~~~~~~~~ Sessions ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -49,17 +57,20 @@ def get_current_date():
 # ~~~~~~~~~~~~~~~~~~~~~~ HTML ROUTES ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # Sample route
-@app.route("/") #This is what will be shown in the url. '/' is the landing page
+'''@app.route("/") #This is what will be shown in the url. '/' is the landing page
 def index(): #This is the function, if you need to pass data or anything to the html page, it will be done here. For the midterm this should just contain the return function.
-    return  render_template('index.html') #render_template is used to send html to client. inside should be the name of your file that is located under the template folder
+    return render_template('index.html') #render_template is used to send html to client. inside should be the name of your file that is located under the template folder
+'''
 
 @app.route("/dashboard")
 def dashboard():
     if 'user_id' not in session:
-        return render_template('login.html')
+        #return render_template('login.html')
+        return jsonify({'error': 'User does not exist within the session'})
     
     user_id = session['user_id']
-    return  render_template('dashboard.html', user_id=user_id)
+    #return render_template('dashboard.html', user_id=user_id)
+    return jsonify({user_id: 'User ID that is associated with a session'})
 
 # In Progress
 # @app.route("/analytics")
@@ -122,7 +133,8 @@ def schedule():
     else:
         print("table wasn't changed in the database!")
 
-    return render_template('schedule.html')
+    #return render_template('schedule.html')
+    return jsonify({'Status': 'Success', 'Code': '200 OK'}), 200
 
 # In Progress
 # @app.route("/alert")
@@ -138,8 +150,8 @@ def schedule():
 @app.route("/login", methods=["POST"])
 def login():
     #Retrieving data from front end
-    email = request.form.get('email')
-    password = request.form.get('password')
+    email = request.json.get('email')
+    password = request.json.get('password')
 
     if not email or not password:
         return jsonify({'error': 'Missing required fields'}), 400
@@ -167,7 +179,8 @@ def login():
         #Store user info in session
         session['user_id'] = userItem['uuid']
 
-        return  render_template('dashboard.html')
+        #return render_template('dashboard.html')
+        return jsonify({'Status': 'Success', 'Code': '200 OK'}), 200
     except ClientError as e:
         return jsonify({'error': 'Error verifying user'}), 500
 
@@ -175,8 +188,8 @@ def login():
 @app.route("/signup", methods=["POST"])
 def signup():
     #Retrieving data from front end
-    email = request.form.get('email')
-    password = request.form.get('password')
+    email = request.json.get('email')
+    password = request.json.get('password')
 
     if not email or not password:
         return jsonify({'error': 'Missing required fields'}), 400
@@ -214,7 +227,8 @@ def signup():
     try:
         table.put_item(Item=userItem)
         print(userItem)
-        return  render_template('login.html')
+        #return  render_template('login.html')
+        return jsonify({'Status': 'Success', 'Code': '200 OK'}), 200
     except ClientError as e:
         app.logger.error(f"DynamoDB Error: {e}")
         return jsonify({'error': 'Error creating user'}), 500
@@ -223,7 +237,8 @@ def signup():
 @app.route("/logout")
 def logout():
     session.clear()
-    return render_template('login.html')
+    #return render_template('login.html')
+    return jsonify({'Status': 'Success', 'Code': '200 OK'}), 200
 
 
 # ~~~~~~~~~~~~~~~~~~~~~~ API STUFF ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -320,3 +335,7 @@ def get_train_info(): #Changed from hello_world() --> get_train_info()
         },
     }
     return jsonify(trains)
+
+scheduler = APScheduler()
+scheduler.add_job(func=gen_schedule, trigger='interval', id='job', seconds=5)
+scheduler.start()

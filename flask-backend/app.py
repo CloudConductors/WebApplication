@@ -149,8 +149,8 @@ def schedule():
 @app.route("/login", methods=["POST"])
 def login():
     #Retrieving data from front end
-    email = request.form.get('email')
-    password = request.form.get('password')
+    email = request.json.get('email')
+    password = request.json.get('password')
 
     if not email or not password:
         return jsonify({'error': 'Missing required fields'}), 400
@@ -187,8 +187,8 @@ def login():
 @app.route("/signup", methods=["POST"])
 def signup():
     #Retrieving data from front end
-    email = request.form.get('email')
-    password = request.form.get('password')
+    email = request.json.get('email')
+    password = request.json.get('password')
 
     if not email or not password:
         return jsonify({'error': 'Missing required fields'}), 400

@@ -1,9 +1,31 @@
 from flask import Blueprint, jsonify
 
-machine_learning = Blueprint('machine_learning', __name__)
+machine_learning_bp = Blueprint('machine_learning', __name__)
 
 
-@machine_learning.route("/train-info", methods=["GET"]) 
+def gen_schedule():
+    try:
+        response = table.scan(
+            FilterExpression=And(Attr('group').eq('admin'), Attr('user_id').is_in(session))
+        )
+    except ClientError as e:
+        return jsonify({'error': 'You are not an admin'}), 403
+    try:
+        maintenance = schedule_table.scan(
+            FilterExpression=Attr('Maintenance_Scheduled').eq('false')
+        )
+    except ClientError as e:
+        return jsonify({'error': 'BE GONE'}), 403
+    try:
+        Component_Id = schedule_table.scan(
+            FilterExpression=Attr('component_id').eq('1')
+        )
+    except ClientError as e:
+        return jsonify({'error': 'ID not found'}), 404
+
+    print('Hello from gen sched')
+
+@machine_learning_bp.route("/train-info", methods=["GET"]) 
 def get_train_info():
     trains = {
         0: {

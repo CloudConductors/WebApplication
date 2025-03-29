@@ -117,3 +117,6 @@ def get_train_info():
         },
     }
     return jsonify(trains)
+
+def anomally_prediction():
+    return jsonify({'Message': 'This is a placeholder'})

@@ -118,6 +118,7 @@ def schedule():
                     Item={
                         'component_id': str(component_id),
                         'train_id': '1',
+                        'component_failure': 'false',
                         'expected_repair_duf': '03/25/2099',
                         'last_repair_date': '01/01/2001',
                         'maintenance_scheduled': 'false',

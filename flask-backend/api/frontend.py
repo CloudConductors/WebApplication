@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, jsonify
+from flask import Blueprint, render_template, jsonify, request, session
 import os
 import boto3
 from boto3.dynamodb.conditions import Attr, And
@@ -8,18 +8,16 @@ import bcrypt
 import base64
 import uuid
 from datetime import datetime
+from flask_apscheduler import APScheduler
+# ~~~~~~~~~~~~~~~~~~~~~~ Dependencies from other files ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+from api.aws import dynamodb, table, schedule_table # AWS-related resources
+# from api.machine_learning import gen_schedule # Machine learning-related function
 
+# ~~~~~~~~~~~~~~~~~~~~~~ Setting Up the App ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 frontend_bp = Blueprint('frontend', __name__) #used to setup file to be imported to flask
 
 # ~~~~~~~~~~~~~~~~~~~~~~ Sessions ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 frontend_bp.secret_key = os.urandom(24)
-
-# ~~~~~~~~~~~~~~~~~~~~~~ DynamoDB Connection ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-# Set up DynamoDB client
-dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
-table = dynamodb.Table('users')
-schedule_table = dynamodb.Table('cc-metro3-schedule')
 
 # ~~~~~~~~~~~~~~~~~~~~~~ Assisting Functions ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -43,23 +41,16 @@ def get_current_date():
 
 # ~~~~~~~~~~~~~~~~~~~~~~ Account Management ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-# Sample route
-@frontend_bp.route("/") #This is what will be shown in the url. '/' is the landing page
-def index(): #This is the function, if you need to pass data or anything to the html page, it will be done here. For the midterm this should just contain the return function.
-    return  render_template('index.html') #render_template is used to send html to client. inside should be the name of your file that is located under the template folder
-
 @frontend_bp.route("/dashboard")
 def dashboard():
     if 'user_id' not in session:
-        return render_template('login.html')
+        #return render_template('login.html')
+        return jsonify({'error': 'User does not exist within the session'})
     
     user_id = session['user_id']
-    return  render_template('dashboard.html', user_id=user_id)
+    #return render_template('dashboard.html', user_id=user_id)
+    return jsonify({user_id: 'User ID that is associated with a session'})
 
-# In Progress
-# @frontend.route("/analytics")
-# def analytics():
-#     return  render_template('analytics.html')
 
 @frontend_bp.route("/schedule", methods=['PUT'])
 def schedule():
@@ -72,27 +63,27 @@ def schedule():
             return jsonify({'error': 'You are not an admin'}), 403
         try:
             maintenance = schedule_table.scan(
-                FilterExpression=Attr('Maintenance_Scheduled').eq('false')
+                FilterExpression=Attr('maintenance_scheduled').eq('false')
             )
         except ClientError as e:
             return jsonify({'error': 'BE GONE'}), 403
         try:
-            Component_Id = schedule_table.scan(
+            component_id = schedule_table.scan(
                 FilterExpression=Attr('component_id').eq('1')
             )
         except ClientError as e:
             return jsonify({'error': 'ID not found'}), 404
 
-        if 'Items' in Component_Id and len(Component_Id['Items']) > 0 and 'Items' in maintenance and len(maintenance['Items']) > 0:
+        if 'Items' in component_id and len(component_id['Items']) > 0 and 'Items' in maintenance and len(maintenance['Items']) > 0:
             try:
-                if 'Items' in Component_Id and len(Component_Id['Items']) > 0:
-                    Component_Id = Component_Id['Items'][0]['component_id']
+                if 'Items' in component_id and len(component_id['Items']) > 0:
+                    component_id = component_id['Items'][0]['component_id']
                 else:
                     return jsonify({'error': 'Component ID not found'}), 404
 
                 # Check if item exists before inserting (in case you're replacing it)
                 existing_item = schedule_table.get_item(
-                    Key={'component_id': str(Component_Id), 'Last_Repair_Date': '01/01/2001'}
+                    Key={'component_id': str(component_id), 'last_repair_date': '01/01/2001'}
                 )
                 if 'Item' not in existing_item:
                     return jsonify({'error': 'Item not found in table'}), 404
@@ -100,13 +91,14 @@ def schedule():
                 # Perform put_item (replaces the existing item with new values)
                 maintenance = schedule_table.put_item(
                     Item={
-                        'component_id': str(Component_Id),
-                        'Last_Repair_Date': '01/01/2001',
-                        'Expected_Repair_DUF': '03/25/2099',
-                        'Maintenance_Scheduled': 'true',
-                        'Manually_Overriden': 'true',
-                        'Mean_DUF': 3,
-                        'Standard_Deviation_DUF' : 12
+                        'component_id': str(component_id),
+                        'train_id': '1',
+                        'expected_repair_duf': '03/25/2099',
+                        'last_repair_date': '01/01/2001',
+                        'maintenance_scheduled': 'false',
+                        'manually_overriden': 'true',
+                        'mean_duf': 3,
+                        'standard_deviation_duf' : 12
                     }
                 )
                 print("Table updated successfully!")
@@ -116,108 +108,109 @@ def schedule():
     else:
         print("table wasn't changed in the database!")
 
-    return render_template('schedule.html')
+    #return render_template('schedule.html')
+    return jsonify({'Status': 'Success', 'Code': '200 OK'}), 200
 
-# In Progress
-# @frontend.route("/alert")
-# def alert():
-#     return  render_template('alert.html')
-
-# In Progress
-# @frontend.route("/team")
-# def team():
-#     return  render_template('team.html')
 
 #Route for logging in a user
 @frontend_bp.route("/login", methods=["POST"])
 def login():
     #Retrieving data from front end
-    email = request.form.get('email')
-    password = request.form.get('password')
-
-    if not email or not password:
-        return jsonify({'error': 'Missing required fields'}), 400
+    email = request.json.get('email')
+    password = request.json.get('password')
+    print(f"Email: {email}, Password: {password}")
     
-    #Querying DynamoDB for the user
-    try:
-        response = table.scan(
-            FilterExpression=Attr('acc-info.email').eq(email)
-        )
-        
-        if 'Items' not in response or len(response['Items']) == 0:
-            return jsonify({'error': 'Invalid credentials'}), 400
-        
-        userItem = response['Items'][0]
-        accInfo = userItem['acc-info']
-        storedHashEncoded = accInfo['password']
+    return jsonify({'email': email, 'password': password}), 200
 
-        #Decoding the base64-encoded hash to get original byte format
-        storedHash = base64.b64decode(storedHashEncoded)
-
-        #Verifying the password through hash comparison
-        if not verify_password(storedHash, password):
-            return jsonify({'error': 'Invalid credentials'}), 400
+    # if not email or not password:
+    #     return jsonify({'error': 'Missing required fields'}), 400
+    
+    # #Querying DynamoDB for the user
+    # try:
+    #     response = table.scan(
+    #         FilterExpression=Attr('acc-info.email').eq(email)
+    #     )
         
-        #Store user info in session
-        session['user_id'] = userItem['uuid']
+    #     if 'Items' not in response or len(response['Items']) == 0:
+    #         return jsonify({'error': 'Invalid credentials'}), 400
+        
+    #     userItem = response['Items'][0]
+    #     accInfo = userItem['acc-info']
+    #     storedHashEncoded = accInfo['password']
 
-        return  render_template('dashboard.html')
-    except ClientError as e:
-        return jsonify({'error': 'Error verifying user'}), 500
+    #     #Decoding the base64-encoded hash to get original byte format
+    #     storedHash = base64.b64decode(storedHashEncoded)
+
+    #     #Verifying the password through hash comparison
+    #     if not verify_password(storedHash, password):
+    #         return jsonify({'error': 'Invalid credentials'}), 400
+        
+    #     #Store user info in session
+    #     session['user_id'] = userItem['uuid']
+
+    #     #return render_template('dashboard.html')
+    #     return jsonify({'Status': 'Success', 'Code': '200 OK'}), 200
+    # except ClientError as e:
+    #     return jsonify({'error': 'Error verifying user'}), 500
 
 #Route for creating a new user
 @frontend_bp.route("/signup", methods=["POST"])
 def signup():
     #Retrieving data from front end
-    email = request.form.get('email')
-    password = request.form.get('password')
-
-    if not email or not password:
-        return jsonify({'error': 'Missing required fields'}), 400
+    email = request.json.get('email')
+    password = request.json.get('password')
+    print(f"Email: {email}, Password: {password}")
     
-    #Checking if email already exists
-    try:
-        response = table.scan(
-            FilterExpression=Attr('acc-info.email').eq(email)
-        )
+    return jsonify({'email': email, 'password': password}), 200
 
-        if 'Items' in response and len(response['Items']) > 0:
-            return jsonify({'error': 'Email already exists'}), 400
-    except ClientError as e:
-        return jsonify({'error': 'Error checking email existence'}), 500
+    # if not email or not password:
+    #     return jsonify({'error': 'Missing required fields'}), 400
     
-    #Hasing the password
-    hashedPassword = hash_password(password)
+    # #Checking if email already exists
+    # try:
+    #     response = table.scan(
+    #         FilterExpression=Attr('acc-info.email').eq(email)
+    #     )
 
-    #Encoding the hash to store in Dynamo as a string
-    hashedPasswordEncoded = base64.b64encode(hashedPassword).decode('utf-8')
+    #     if 'Items' in response and len(response['Items']) > 0:
+    #         return jsonify({'error': 'Email already exists'}), 400
+    # except ClientError as e:
+    #     return jsonify({'error': 'Error checking email existence'}), 500
+    
+    # #Hasing the password
+    # hashedPassword = hash_password(password)
 
-    #Create user object
-    userId = generate_uuid()
-    userItem = {
-        'uuid': userId,
-        'group': 'user',
-        'acc-info': {
-                'password': hashedPasswordEncoded,
-                'email': email,
-                'date-created': get_current_date()
-        }
-    }
+    # #Encoding the hash to store in Dynamo as a string
+    # hashedPasswordEncoded = base64.b64encode(hashedPassword).decode('utf-8')
 
-    #Insert into DynamoDB
-    try:
-        table.put_item(Item=userItem)
-        print(userItem)
-        return  render_template('login.html')
-    except ClientError as e:
-        frontend.logger.error(f"DynamoDB Error: {e}")
-        return jsonify({'error': 'Error creating user'}), 500
+    # #Create user object
+    # userId = generate_uuid()
+    # userItem = {
+    #     'uuid': userId,
+    #     'group': 'user',
+    #     'acc-info': {
+    #             'password': hashedPasswordEncoded,
+    #             'email': email,
+    #             'date-created': get_current_date()
+    #     }
+    # }
+
+    # #Insert into DynamoDB
+    # try:
+    #     table.put_item(Item=userItem)
+    #     print(userItem)
+    #     #return  render_template('login.html')
+    #     return jsonify({'Status': 'Success', 'Code': '200 OK'}), 200
+    # except ClientError as e:
+    #     frontend_bp.logger.error(f"DynamoDB Error: {e}")
+    #     return jsonify({'error': 'Error creating user'}), 500
 
 #Rout for logging out
 @frontend_bp.route("/logout")
 def logout():
     session.clear()
-    return render_template('login.html')
+    #return render_template('login.html')
+    return jsonify({'Status': 'Success', 'Code': '200 OK'}), 200
 
 
 # ~~~~~~~~~~~~~~~~~~~~~~ API STUFF ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -314,4 +307,7 @@ def get_train_info(): #Changed from hello_world() --> get_train_info()
         },
     }
     return jsonify(trains)
-    return render_template('login.html')
+
+scheduler = APScheduler()
+# scheduler.add_job(func=gen_schedule, trigger='interval', id='job', seconds=5)
+scheduler.start()

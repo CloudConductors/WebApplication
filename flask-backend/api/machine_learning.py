@@ -1,7 +1,12 @@
 from flask import Blueprint, jsonify
+import boto3
+from boto3.dynamodb.conditions import Attr, And
+from botocore.exceptions import ClientError
 
 machine_learning_bp = Blueprint('machine_learning', __name__)
 
+dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
+table = dynamodb.Table('')
 
 def gen_schedule():
     try:
@@ -118,5 +123,6 @@ def get_train_info():
     }
     return jsonify(trains)
 
-def anomally_prediction():
+def anomally_prediction(embedded_data):
+    
     return jsonify({'Message': 'This is a placeholder'})

@@ -74,4 +74,23 @@
 7. Navigate to link to access site (should also be in console)
    -  http://127.0.0.1:5000/
 
+### React
 
+1. Open another terminal in VS Code. (**Use Git Bash**)
+2. Check if npm is installed
+   ```
+   npm --version
+   ```
+   - if error visit https://docs.npmjs.com/downloading-and-installing-node-js-and-npm
+3. Navigate to the React folder
+   ```
+   cd react-frontend
+   ```
+4. Install dependencies
+   ```
+   npm install
+   ```
+5. Run app
+   ```
+   npm start
+   ```

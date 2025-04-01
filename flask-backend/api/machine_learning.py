@@ -1,29 +1,49 @@
 from flask import Blueprint, jsonify
+import boto3
+from schedule_constuction_model import StatsModel
+from boto3.dynamodb.conditions import Attr, And
+from botocore.exceptions import ClientError
 
 machine_learning_bp = Blueprint('machine_learning', __name__)
 
 
 def gen_schedule():
-    try:
-        response = table.scan(
-            FilterExpression=And(Attr('group').eq('admin'), Attr('user_id').is_in(session))
-        )
-    except ClientError as e:
-        return jsonify({'error': 'You are not an admin'}), 403
+    dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
+    schedule_table = dynamodb.Table('cc-metropt3-schedule')
     try:
         maintenance = schedule_table.scan(
-            FilterExpression=Attr('Maintenance_Scheduled').eq('false')
+            FilterExpression=Attr('maintenance_scheduled').eq('false')
         )
     except ClientError as e:
         return jsonify({'error': 'BE GONE'}), 403
-    try:
-        Component_Id = schedule_table.scan(
-            FilterExpression=Attr('component_id').eq('1')
-        )
-    except ClientError as e:
-        return jsonify({'error': 'ID not found'}), 404
 
+    print(maintenance)
+    components = maintenance["Items"]
+    print(components[0]["train_id"])
     print('Hello from gen sched')
+    train_map = get_train_map(components)
+    schedule = {}
+    for i in range(len(train_map)):
+        model_component_input = gen_components(train_map[i])
+        model = StatsModel(components=model_component_input)
+        recomended_days = model.construct_schedual()
+        for comp in recomended_days:
+            schedule[comp.id] = comp.day
+    return schedule
+
+
+
+
+def get_train_map(components):
+    train_map = {}
+    for comp in components:
+        id = comp["train_id"]
+        if id not in train_map:
+            train_map["train_id"] = []
+        train_map["train_id"].append(comp)
+    return train_map
+
+
 
 @machine_learning_bp.route("/train-info", methods=["GET"]) 
 def get_train_info():

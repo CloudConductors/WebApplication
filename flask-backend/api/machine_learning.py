@@ -41,19 +41,12 @@ def update_rep_date(schedule_table, comp_id, train_id, rep_date):
 
 
 def get_train_map(components):
-    print("Entered Get Train Map")
-    print("Comps: ")
-    print(components)
     train_map = {}
     for comp in components:
-        print("train_id: " , comp["train_id"])
         id = int(comp["train_id"])
         if id not in train_map:
-            print("hit")
             train_map[id] = []
         train_map[id].append(comp)
-        print(train_map[id])
-    print(train_map)
     return train_map
 
 

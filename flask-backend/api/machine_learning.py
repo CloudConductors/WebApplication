@@ -4,6 +4,8 @@ from boto3.dynamodb.conditions import Attr, And
 from botocore.exceptions import ClientError
 from datetime import datetime
 import pickle
+import json
+import numpy as np
 from sklearn.ensemble import IsolationForest
 
 machine_learning_bp = Blueprint('machine_learning', __name__)
@@ -128,7 +130,26 @@ def get_train_info():
 
 def anomally_prediction(embedded_data):
     #Cleaning data (placeholder for now)
-    cleaned_data = embedded_data
+    if isinstance(embedded_data, str):
+        embedded_json = json.loads(embedded_data)
+    else:
+        embedded_json = embedded_data
+    cleaned_data = None
+    cleaned_data = np.append(cleaned_data, embedded_json["tp2"])
+    cleaned_data = np.append(cleaned_data, embedded_json["tp3"])
+    cleaned_data = np.append(cleaned_data, embedded_json["h1"])
+    cleaned_data = np.append(cleaned_data, embedded_json["dv_pressure"])
+    cleaned_data = np.append(cleaned_data, embedded_json["resevoirs"])
+    cleaned_data = np.append(cleaned_data, embedded_json["oil_temperature"])
+    cleaned_data = np.append(cleaned_data, embedded_json["motor_current"])
+    cleaned_data = np.append(cleaned_data, embedded_json["COMP"])
+    cleaned_data = np.append(cleaned_data, embedded_json["dv_electric"])
+    cleaned_data = np.append(cleaned_data, embedded_json["towers"])
+    cleaned_data = np.append(cleaned_data, embedded_json["mpg"])
+    cleaned_data = np.append(cleaned_data, embedded_json["lps"])
+    cleaned_data = np.append(cleaned_data, embedded_json["pressure_switch"])
+    cleaned_data = np.append(cleaned_data, embedded_json["oil_level"])
+    cleaned_data = np.append(cleaned_data, embedded_json["caudal_impulses"])
 
     # Load anomally_prediction model from S3
     s3_client = boto3.client('s3')

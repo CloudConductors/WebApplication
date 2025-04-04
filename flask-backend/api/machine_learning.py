@@ -20,14 +20,22 @@ def gen_schedule():
     components = maintenance["Items"]
     train_map = get_train_map(components)
     schedule_dict = {}
-    for i in train_map:
-        model_component_input = Component.gen_components(train_map[i])
+    for train_id in train_map:
+        model_component_input = Component.gen_components(train_map[train_id])
         model = StatsModel(components=model_component_input)
         schedule = model.construct_schedual()
         for comp in schedule:
+            update_rep_date(schedule_table, comp.id, train_id, comp.recomended_rep)
             schedule_dict[comp.id] = comp.recomended_rep
-    print(schedule_dict)
     return schedule_dict
+
+def update_rep_date(schedule_table, comp_id, train_id, rep_date):
+    schedule_table.update_item(
+        Key={'component_id': str(comp_id), 'train_id': str(train_id)},
+        UpdateExpression='SET expected_repair_duf = :expected_repair_duf',
+        ExpressionAttributeValues={':expected_repair_duf': rep_date},
+    )
+
 
 
 

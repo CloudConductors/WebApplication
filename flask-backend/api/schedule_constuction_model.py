@@ -19,10 +19,6 @@ class StatsModel:
             for j in range(len(schedule)):
                 days_between = self._get_days_between(comp.recomended_rep, schedule[j].recomended_rep)
                 if 0 < days_between < self.compression_range:
-                    print("id1: ", comp.id, " id2:", schedule[j].id)
-                    print("date: ", comp.recomended_rep, " date2: ", schedule[j].recomended_rep)
-                    print("hit")
-                    print(days_between)
                     schedule[j].recomended_rep = comp.recomended_rep
         return schedule
 

@@ -17,31 +17,35 @@ def gen_schedule():
     except ClientError as e:
         return jsonify({'error': 'BE GONE'}), 403
 
-    print(maintenance)
     components = maintenance["Items"]
-    print(components[0]["train_id"])
-    print('Hello from gen sched')
     train_map = get_train_map(components)
-    schedule = {}
-    for i in range(len(train_map)):
+    schedule_dict = {}
+    for i in train_map:
         model_component_input = Component.gen_components(train_map[i])
         model = StatsModel(components=model_component_input)
-        recomended_days = model.construct_schedual()
-        for comp in recomended_days:
-            schedule[comp.id] = comp.day
-    print(schedule)
-    return schedule
+        schedule = model.construct_schedual()
+        for comp in schedule:
+            schedule_dict[comp.id] = comp.recomended_rep
+    print(schedule_dict)
+    return schedule_dict
 
 
 
 
 def get_train_map(components):
+    print("Entered Get Train Map")
+    print("Comps: ")
+    print(components)
     train_map = {}
     for comp in components:
-        id = comp["train_id"]
+        print("train_id: " , comp["train_id"])
+        id = int(comp["train_id"])
         if id not in train_map:
-            train_map["train_id"] = []
-        train_map["train_id"].append(comp)
+            print("hit")
+            train_map[id] = []
+        train_map[id].append(comp)
+        print(train_map[id])
+    print(train_map)
     return train_map
 
 

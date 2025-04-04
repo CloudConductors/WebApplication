@@ -1,13 +1,15 @@
 from flask import Blueprint, jsonify
 import boto3
-from schedule_constuction_model import StatsModel, Component
+from api.schedule_constuction_model import StatsModel, Component
 from boto3.dynamodb.conditions import Attr, And
 from botocore.exceptions import ClientError
-from api.aws import dynamodb, schedule_table
+from api.aws import schedule_table, dynamodb
+from flask_apscheduler import APScheduler
 
 machine_learning_bp = Blueprint('machine_learning', __name__)
 
 def gen_schedule():
+    print("hit")
     dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
     try:
         maintenance = schedule_table.scan(

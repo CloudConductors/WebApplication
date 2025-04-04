@@ -29,7 +29,7 @@ class Component:
         self.var = var
 
     @staticmethod
-    def gen_componetes(component_dict):
+    def gen_components(component_dict):
         comps = []
         for comp in component_dict:
             c = Component(comp["last_rep"], comp["mean_fail"], comp["var"])

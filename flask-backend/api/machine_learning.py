@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify
 import boto3
-from schedule_constuction_model import StatsModel
+from schedule_constuction_model import StatsModel, Component
 from boto3.dynamodb.conditions import Attr, And
 from botocore.exceptions import ClientError
 
@@ -24,11 +24,12 @@ def gen_schedule():
     train_map = get_train_map(components)
     schedule = {}
     for i in range(len(train_map)):
-        model_component_input = gen_components(train_map[i])
+        model_component_input = Component.gen_components(train_map[i])
         model = StatsModel(components=model_component_input)
         recomended_days = model.construct_schedual()
         for comp in recomended_days:
             schedule[comp.id] = comp.day
+    print(schedule)
     return schedule
 
 

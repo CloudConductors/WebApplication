@@ -3,13 +3,12 @@ import boto3
 from schedule_constuction_model import StatsModel, Component
 from boto3.dynamodb.conditions import Attr, And
 from botocore.exceptions import ClientError
+from api.aws import dynamodb, schedule_table
 
 machine_learning_bp = Blueprint('machine_learning', __name__)
 
-
 def gen_schedule():
     dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
-    schedule_table = dynamodb.Table('cc-metropt3-schedule')
     try:
         maintenance = schedule_table.scan(
             FilterExpression=Attr('maintenance_scheduled').eq('false')
@@ -35,10 +34,6 @@ def update_rep_date(schedule_table, comp_id, train_id, rep_date):
         UpdateExpression='SET expected_repair_duf = :expected_repair_duf',
         ExpressionAttributeValues={':expected_repair_duf': rep_date},
     )
-
-
-
-
 
 def get_train_map(components):
     train_map = {}

@@ -10,12 +10,12 @@ class StatsModel:
 
     def construct_schedual(self):
         schedule = []
-        for i, component in enumerate(self.components):
+        for component in self.components:
             date = datetime.strptime(component.last_repair, "%m/%d/%Y")
             dt = timedelta(int(norm.ppf(self.repair_threashold, loc=component.mean_fail, scale=component.std_dev)))
             component.recomended_rep = (date + dt).strftime("%m/%d/%Y")
             schedule.append(component)
-        for i, comp in enumerate(schedule):
+        for comp in schedule:
             for j in range(len(schedule)):
                 days_between = self._get_days_between(comp.recomended_rep, schedule[j].recomended_rep)
                 if 0 < days_between < self.compression_range:
@@ -42,8 +42,6 @@ class Component:
             c = Component(comp["component_id"], comp["last_repair_date"], int(comp["mean_duf"]), int(comp["standard_deviation_duf"]))
             comps.append(c)
         return comps
-
-
 
 if __name__ == "__main__":
     pass

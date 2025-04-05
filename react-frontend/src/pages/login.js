@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
-// import '../assets/Style/user.css';
-import "bootstrap/dist/css/bootstrap.min.css";
-import '../assets/Style/styles.css';
 import '../assets/Style/user.css';
-import Container from 'react-bootstrap/Container';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
+// import '../assets/Style/styles.css';
 import {Link} from 'react-router-dom';
+import AuthForm from "../components/authForm";
 import Alert from 'react-bootstrap/Alert';
+
+
 
 
 
@@ -48,7 +46,7 @@ export default function Login() {
         )}
   
         const location = useLocation();
-    const [Message, setMessage] = useState("");
+        const [Message, setMessage] = useState("");
 
     useEffect(() => {
         if (location.state?.message) {
@@ -58,7 +56,7 @@ export default function Login() {
         // Automatically hide the alert after 5 seconds
         const timer = setTimeout(() => {
             setMessage("");
-        }, 5000);
+        }, 50000000);
 
         return () => clearTimeout(timer); // Cleanup timer on unmount
     }, [location.state]);
@@ -67,26 +65,18 @@ export default function Login() {
 
 
     return (
-        <main>
-          {Message && <Alert variant="success " className="alert-test fade show">{Message}</Alert>}
-          <Container className="custom-authentication vh-100">
-                    <Form action = '/signup' method = 'POST' className="w-75 h-50 p-5 custom-form">
-                    <h1 className="custom-h1 pb-5">Login</h1>
-                        <Form.Group className="mb-3 align-items-left">
-                            <Form.Label for="email" className="mx-auto">Email Address:</Form.Label>
-                            <Form.Control  type="email" id="email" name="email" placeholder="example@abc.com" className="custom-control" required  value={loginForm.email} onChange={handleChange}/>
-                        </Form.Group>
-                        
-                        <Form.Group className="mb-3">
-                            <Form.Label for="password">Password:</Form.Label>
-                            <Form.Control  type="password" id="password" name="password" className="custom-control" required value={loginForm.password} onChange={handleChange}/>
-                        </Form.Group>
-                        
-                        <Button type="submit" className="w-25 mt-3 custom-submit" onClick={logMeIn}>Login</Button>     
-                    </Form>
-                    <p className="custom-p">New to Our Site?</p>
-                    <Link to="/signUp" className="custom-Link">Create an Account!</Link>
-            </Container>
-        </main>
+      <div id="test">
+        {Message && <Alert variant="success " className="alert-test fade show">{Message}</Alert>}
+        <AuthForm
+          title="Login"
+          action="/login"
+          footer="New to Our Site?"
+          footer2={<Link to="/signUp" className="custom-Link">Create an Account!</Link>}
+          onSubmit={logMeIn}
+          email={loginForm.email}
+          password={loginForm.password}
+          onChange={handleChange}
+        />
+      </div>
     )
 }

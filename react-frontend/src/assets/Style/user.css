@@ -74,7 +74,16 @@ p {
 
 .alert{
     position: absolute;
-    margin-top: 4%;
     font-size: x-large;
+    top: 5%;
     /* font-family: "Comic Sans MS"; */
 }
+
+/* #test{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    background: red;
+    height: auto;
+
+} */

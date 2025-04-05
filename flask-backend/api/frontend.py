@@ -219,10 +219,5 @@ def get_schedule():
         getSchedule = schedule_table.scan()
     except ClientError as e:
         return jsonify({'Status': 'Failure', 'Code': '500 Internal Server Error', 'Message': 'Cannot retrieve data from the database.'}), 500
-    print(getSchedule)
+    
     return jsonify(getSchedule)
-
-
-scheduler = APScheduler()
-# scheduler.add_job(func=gen_schedule, trigger='interval', id='job', seconds=5)
-scheduler.start()

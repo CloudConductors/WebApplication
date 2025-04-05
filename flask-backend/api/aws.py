@@ -8,3 +8,4 @@ dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
 table = dynamodb.Table('users')
 schedule_table = dynamodb.Table('cc-metropt3-schedule')
 cc_trains = dynamodb.Table('cc-trains')
+

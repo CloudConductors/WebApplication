@@ -3,7 +3,6 @@ from flask_cors import CORS
 from api.frontend import frontend_bp
 from api.machine_learning import machine_learning_bp
 from api.embedded_system import embedded_system
-from api.machine_learning import gen_schedule
 from flask_apscheduler import APScheduler
 
 app = Flask(__name__,
@@ -19,3 +18,4 @@ app.register_blueprint(embedded_system) #This calls the embeded_system.py
 scheduler = APScheduler()
 scheduler.add_job(func=gen_schedule, trigger='interval', id='job', seconds=60)
 scheduler.start()
+

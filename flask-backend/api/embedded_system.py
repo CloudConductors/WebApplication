@@ -5,6 +5,6 @@ embedded_system = Blueprint('embedded_system', __name__) #used to setup file to 
 #use flask as usual below, just use @embedded_system ustead of @app
 
 # Sample route
-@embedded_system.route("/") 
-def index():
-    return 
+# @embedded_system.route("/") 
+# def index():
+#     return 

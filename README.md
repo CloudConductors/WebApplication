@@ -32,56 +32,56 @@
    cd flask-backend
    ```
 4. Create the virtual environment:
-   ```sh
+   ```
    python -m venv venv
    ```
 5. Activate the virtual environment:
-   ```sh
+   ```
    source venv/Scripts/activate
    ```
    - You should now see (venv) above your current line in the terminal
 6. Install all required dependencies:
-   ```sh
+   ```
    pip install -r requirements.txt
    ```
-<<<<<<< HEAD
-5. Configure AWS:
-   ```sh
-   aws configure
-   ```
-   Type in: 
-   ```sh
-   AWS_ACCESS_KEY
-   ```
-   and press enter
+7. Configure AWS
+   1. In the same terimal type:
+         ```
+            aws configure
+         ```
+      - For Windows (if `aws` doesn't work):
+         ```
+         aws.cmd configure
+         ```
+      - Alternatively, use:
+         ```
+         python -m awscli configure
+         ```
+   2. For Access key Id type in:
+      ```
+      AWS_ACCESS_KEY
+      ```
+      and press enter
+      
+   3. For Secret Access Key type in:
+      ```
+      AWS_SECRET_KEY
+      ```
+      and press enter
 
-   Type in:
-   ```sh
-   AWS_SECRET_KEY
-   ```
-   and press enter
+   4. For Region Name type in:
+      ```
+      us-east-1
+      ```
+      and press enter
 
-   Type in:
-   ```sh
-   us-east-1
-   ```
-   and press enter
+   5. For Output format press enter again
 
-   Press enter again
 6. Run Flask in debug mode:
-   ```sh
+   ```
    flask --debug run
    ```
 7. Navigate to link to access site (should also be in console)
-   -  http://127.0.0.1:5000/
-
-
-=======
-7. Run Flask in debug mode:
-   ```sh
-   flask --debug run
-   ```
-8. Navigate to link to access site (should also be in console)
    -  http://127.0.0.1:5000/
 
 ### React
@@ -104,4 +104,3 @@
    ```
    npm start
    ```
->>>>>>> main

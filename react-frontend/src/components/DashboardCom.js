@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
+import Container from "react-bootstrap/Container";
+import ListGroup from "react-bootstrap/ListGroup";
+import Card from "react-bootstrap/Card";
+import "bootstrap/dist/css/bootstrap.min.css";
 import "../assets/Style/dashboard.css";
+import { Link } from "react-router-dom";
 
 export default function DashBoardCom() {
   const [trains, setTrains] = useState({});
   const [selectedTrainId, setSelectedTrainId] = useState(null);
-
-  // fetch train data
+/*
   useEffect(() => {
     fetch("http://localhost:5000/machine-learning/train-info")
       .then((response) => response.json())
@@ -13,7 +18,7 @@ export default function DashBoardCom() {
         console.log("Fetched train data:", data);
         setTrains(data);
 
-        const firstTrainId = Object.keys(data)[0];
+        const firstTrainId = Object.keys(data)[2];
         if (firstTrainId) {
           setSelectedTrainId(firstTrainId);
         }
@@ -22,61 +27,72 @@ export default function DashBoardCom() {
   }, []);
 
   const handleSelectTrain = (trainId) => {
-    console.log("Selected Train ID:", trainId);
     setSelectedTrainId(trainId);
   };
+  */
+
+useEffect(() => {
+    fetch("http://localhost:5000/machine-learning/train-info")
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Fetched train data:", data);
+        setTrains(data);
+
+        const firstTrainId = Object.keys(data)[0];  
+        if (firstTrainId) {
+          setSelectedTrainId(firstTrainId);
+        }
+      })
+      .catch((error) => console.error("Error fetching train info:", error));
+  }, []);
+
 
   return (
-    <main>
-      <div className="dashboard">
-        <h1 className="dashboard-title">DashBoard</h1>
-        <div className="container">
-          {/* Vehicle Select Section */}
-          <div className="vehicle-select">
-            <h2>Vehicles</h2>
-            <ul className="vehicle-list">
-              {Object.keys(trains).map((trainId) => (
-                <li
-                  key={trainId}
-                  onClick={() => handleSelectTrain(trainId)}
-                  className={trainId === selectedTrainId ? "active" : ""}
-                >
-                  {trains[trainId].name}
-                </li>
-              ))}
-            </ul>
-          </div>
+    <div className="dashboard">
+      <h1 className="dashboard-title">Dashboard</h1>
 
-          {/* Vehicle Description Section */}
-          <div className="vehicle-desc-cont">
-            {selectedTrainId && trains[selectedTrainId] ? (
-              <div className="vehicle-desc">
-                <h2 className="vehicle-desc-name">
-                  {trains[selectedTrainId].name}
-                </h2>
-                <div className="component-list">
-                  {Object.entries(trains[selectedTrainId].components).map(
-                    ([component, details]) => (
-                      <div key={component} className="component_cont">
-                        <strong className="component-name">{component}</strong>
-                        <p>Last Replaced: {details["last-replaced"]} days ago</p>
-                        <p>Expected Failure: {details["expected-failure"]} days</p>
-                        <p>
-                          Recommended Maintenance:{" "}
-                          {details["recommended-maintenance"] || "N/A"} days
-                        </p>
-                        <p>Standard Deviation: {details["std-dev"]}</p>
-                      </div>
-                    )
-                  )}
-                </div>
-              </div>
-            ) : (
-              <p>No train selected</p>
-            )}
-          </div>
-        </div>
+      {/* Vehicle List */}
+      <div className="vehicle-select">
+        <h2>Vehicles</h2>
+        <ul className="vehicle-list">
+          {Object.keys(trains).map((trainId) => (
+            <li
+              key={trainId}
+              onClick={() => setSelectedTrainId(trainId)}
+              className={trainId === selectedTrainId ? "active" : ""}
+            >
+              {trains[trainId].name}
+            </li>
+          ))}
+        </ul>
       </div>
-    </main>
+
+      {/* Vehicle Description */}
+      <div className="vehicle-desc-cont">
+        {selectedTrainId && trains[selectedTrainId] ? (
+          <div className="vehicle-desc">
+            <h2 className="vehicle-desc-name">{trains[selectedTrainId].name}</h2>
+            <div className="component-list">
+              {Object.entries(trains[selectedTrainId].components).map(
+                ([component, details]) => (
+                  <div key={component} className="component_cont">
+                    <strong className="component-name">{component}</strong>
+                    <p>Last Replaced: {details["last-replaced"]} days ago</p>
+                    <p>Expected Failure: {details["expected-failure"]} days</p>
+                    <p>
+                      Recommended Maintenance:{" "}
+                      {details["recommended-maintenance"] || "N/A"} days
+                    </p>
+                    <p>Standard Deviation: {details["std-dev"]}</p>
+                  </div>
+                )
+              )}
+            </div>
+          </div>
+        ) : (
+          <p>No train selected</p>
+        )}
+      </div>
+    </div>
   );
 }

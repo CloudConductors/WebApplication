@@ -24,7 +24,7 @@ export default function SignUp() {
            })
         .then((response) => {
           console.log("Flask Said: ", response.data)
-          navigate("/login"); // Redirect to login page after successful sign up
+          navigate("/login", { state: { message: "Signup successful!" } }); // Redirect to login page after successful sign up
         }).catch((error) => {
             if (error.response) {
               console.error(error);

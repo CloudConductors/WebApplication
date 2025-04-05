@@ -10,7 +10,7 @@ import uuid
 from datetime import datetime
 from flask_apscheduler import APScheduler
 # ~~~~~~~~~~~~~~~~~~~~~~ Dependencies from other files ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-from api.aws import dynamodb, table, schedule_table # AWS-related resources
+from api.aws import dynamodb, table, schedule_table, cc_trains # AWS-related resources
 # from api.machine_learning import gen_schedule # Machine learning-related function
 
 # ~~~~~~~~~~~~~~~~~~~~~~ Setting Up the App ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -98,7 +98,7 @@ def schedule():
                         'maintenance_scheduled': 'false',
                         'manually_overriden': 'true',
                         'mean_duf': 3,
-                        'standard_deviation_duf' : 12
+                        'standard_deviation_duf': 12
                     }
                 )
                 print("Table updated successfully!")
@@ -221,3 +221,12 @@ def get_schedule():
         return jsonify({'Status': 'Failure', 'Code': '500 Internal Server Error', 'Message': 'Cannot retrieve data from the database.'}), 500
     
     return jsonify(getSchedule)
+
+@frontend_bp.route("/dashboard", methods=["GET"])
+def get_train_info():
+    try:
+        getTrainInformation = cc_trains.scan()
+    except ClientError as e:
+        return jsonify({'Status': 'Failure', 'Code': '500 Internal Server Error', 'Message': 'Cannot retrieve data from the database.'}), 500
+    
+    return jsonify(getTrainInformation)

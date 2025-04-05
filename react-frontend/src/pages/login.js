@@ -1,12 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useLocation } from "react-router-dom";
 // import '../assets/Style/user.css';
 import "bootstrap/dist/css/bootstrap.min.css";
 import '../assets/Style/styles.css';
+import '../assets/Style/user.css';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import {Link} from 'react-router-dom';
+import Alert from 'react-bootstrap/Alert';
+
 
 
 export default function Login() {
@@ -43,17 +47,29 @@ export default function Login() {
             ...prevNote, [name]: value})
         )}
   
+        const location = useLocation();
+    const [Message, setMessage] = useState("");
 
+    useEffect(() => {
+        if (location.state?.message) {
+            setMessage(location.state.message);
+        }
 
+        // Automatically hide the alert after 5 seconds
+        const timer = setTimeout(() => {
+            setMessage("");
+        }, 5000);
 
+        return () => clearTimeout(timer); // Cleanup timer on unmount
+    }, [location.state]);
 
 
 
 
     return (
         <main>
-            <Container className="custom-authentication vh-100">
-                
+          {Message && <Alert variant="success " className="alert-test fade show">{Message}</Alert>}
+          <Container className="custom-authentication vh-100">
                     <Form action = '/signup' method = 'POST' className="w-75 h-50 p-5 custom-form">
                     <h1 className="custom-h1 pb-5">Login</h1>
                         <Form.Group className="mb-3 align-items-left">

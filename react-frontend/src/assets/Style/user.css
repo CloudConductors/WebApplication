@@ -71,3 +71,10 @@ label {
 p {
     color: var(--primary-color);
 }
+
+.alert{
+    position: absolute;
+    margin-top: 4%;
+    font-size: x-large;
+    /* font-family: "Comic Sans MS"; */
+}

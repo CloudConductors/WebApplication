@@ -16,6 +16,6 @@ app.register_blueprint(machine_learning_bp, url_prefix="/machine-learning") #Thi
 app.register_blueprint(embedded_system) #This calls the embeded_system.py
 
 scheduler = APScheduler()
-scheduler.add_job(func=gen_schedule, trigger='interval', id='job', seconds=60)
+scheduler.add_job(func=gen_schedule, trigger='interval', id='job', seconds=21600)
 scheduler.start()
 

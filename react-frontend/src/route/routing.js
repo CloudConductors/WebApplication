@@ -1,14 +1,12 @@
 // routes/Routing.js
 import React from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import Home from "../pages/index";
+import HomePage from "../pages/index";
 import LoginPage from "../pages/login";
 import SignUpPage from "../pages/signup";
 import Layout from "../layout/layout";
-import TestPage from "../pages/testPage.js";
 import DashboardPage from "../pages/dashboard.js";
 import ProtectedRoute from "../components/ProtectedRoute";
-import InProgressPage from "../pages/inProgress.js";
 import SchedulePage from "../pages/schedule.js";
 
 const router = createBrowserRouter([
@@ -16,10 +14,9 @@ const router = createBrowserRouter([
     path: "/",
     element: <Layout />,
     children: [
-      { path: "/", element: <Home /> },
+      { path: "/", element: <HomePage /> },
       { path: "/login", element: <LoginPage /> },
       { path: "/sign-up", element: <SignUpPage /> },
-      { path: "/test", element: <TestPage /> },
 
       // Protected Route for Dashboard
       {
@@ -32,20 +29,12 @@ const router = createBrowserRouter([
 
       },
       {
-        path: "/inProgress",
-        element: (
-          <ProtectedRoute>
-            <InProgressPage />
-          </ProtectedRoute>
-        ),
-        
-      },
-      {
         path: "/schedule",
         element: (
-          <ProtectedRoute>
+          //<ProtectedRoute>
             <SchedulePage />
-          </ProtectedRoute>
+          //</ProtectedRoute>
+        
         ),
         
       },

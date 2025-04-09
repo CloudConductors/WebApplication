@@ -222,7 +222,7 @@ def get_schedule():
     
     return jsonify(getSchedule)
 
-@frontend_bp.route("/dashboard", methods=["GET"])
+@frontend_bp.route("/dashboard-info", methods=["GET"])
 def get_train_info():
     try:
         getTrainInformation = cc_trains.scan()

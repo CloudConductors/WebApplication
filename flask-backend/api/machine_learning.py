@@ -36,7 +36,6 @@ def update_rep_date(schedule_table, comp_id, train_id, rep_date):
         ExpressionAttributeValues={':expected_repair_duf': rep_date},
     )
 
-@machine_learning_bp.route("/train-info", methods=["GET"]) 
 def get_train_map(components):
     train_map = {}
     for comp in components:

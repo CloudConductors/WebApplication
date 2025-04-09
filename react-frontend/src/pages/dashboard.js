@@ -5,8 +5,6 @@ export default function TestPage(){
   return (
     <div>
       <DashboardCom></DashboardCom> 
-      
-
     </div>
   );
 }

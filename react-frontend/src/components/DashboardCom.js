@@ -1,97 +1,108 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Container from "react-bootstrap/Container";
-import ListGroup from "react-bootstrap/ListGroup";
-import Card from "react-bootstrap/Card";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../assets/Style/dashboard.css";
-import { Link } from "react-router-dom";
 
 export default function DashBoardCom() {
-  const [trains, setTrains] = useState({});
-  const [selectedTrainId, setSelectedTrainId] = useState(null);
-/*
+  const [trains, setTrains] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
   useEffect(() => {
-    fetch("http://localhost:5000/machine-learning/train-info")
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Fetched train data:", data);
-        setTrains(data);
-
-        const firstTrainId = Object.keys(data)[2];
-        if (firstTrainId) {
-          setSelectedTrainId(firstTrainId);
+    // Fetching data using axios
+    setLoading(true);
+    axios.get("http://localhost:5000/frontend/dashboard-info")
+      .then((response) => {
+        console.log("Fetched train data:", response.data);
+        if (response.data.Items && response.data.Items.length > 0) {
+          setTrains(response.data.Items);
         }
+        setLoading(false);
       })
-      .catch((error) => console.error("Error fetching train info:", error));
+      .catch((err) => {
+        console.error("Error fetching train info:", err);
+        setError("Failed to load train data");
+        setLoading(false);
+      });
   }, []);
 
-  const handleSelectTrain = (trainId) => {
-    setSelectedTrainId(trainId);
+  // Handle search input change
+  const handleChange = (event) => {
+    setSearchTerm(event.target.value);
   };
-  */
 
-useEffect(() => {
-    fetch("http://localhost:5000/machine-learning/train-info")
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Fetched train data:", data);
-        setTrains(data);
-
-        const firstTrainId = Object.keys(data)[0];  
-        if (firstTrainId) {
-          setSelectedTrainId(firstTrainId);
+  // Process trains data to create row entries
+  const processTrainData = (trainsData) => {
+    const rowData = [];
+    
+    trainsData.forEach(train => {
+      if (train.name && (!searchTerm || train.name.toLowerCase().includes(searchTerm.toLowerCase()))) {
+        if (train.components && typeof train.components === 'object') {
+          Object.entries(train.components).forEach(([comp, value]) => {
+            rowData.push({
+              id: `${train.id || train.name}-${comp}`,
+              name: train.name,
+              model: train.model,
+              component: comp,
+              value: value
+            });
+          });
+        } else {
+          rowData.push({
+            id: train.id || train.name,
+            name: train.name,
+            model: train.model,
+            component: "N/A",
+            value: "N/A"
+          });
         }
-      })
-      .catch((error) => console.error("Error fetching train info:", error));
-  }, []);
+      }
+    });
+    
+    return rowData;
+  };
 
+  // Get processed data that's already filtered
+  const processedData = processTrainData(trains);
+
+
+  if (loading) return <div className="loading">Loading train data...</div>;
+  if (error) return <div className="error">{error}</div>;
 
   return (
-    <div className="dashboard">
-      <h1 className="dashboard-title">Dashboard</h1>
-
-      {/* Vehicle List */}
-      <div className="vehicle-select">
-        <h2>Vehicles</h2>
-        <ul className="vehicle-list">
-          {Object.keys(trains).map((trainId) => (
-            <li
-              key={trainId}
-              onClick={() => setSelectedTrainId(trainId)}
-              className={trainId === selectedTrainId ? "active" : ""}
-            >
-              {trains[trainId].name}
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      {/* Vehicle Description */}
-      <div className="vehicle-desc-cont">
-        {selectedTrainId && trains[selectedTrainId] ? (
-          <div className="vehicle-desc">
-            <h2 className="vehicle-desc-name">{trains[selectedTrainId].name}</h2>
-            <div className="component-list">
-              {Object.entries(trains[selectedTrainId].components).map(
-                ([component, details]) => (
-                  <div key={component} className="component_cont">
-                    <strong className="component-name">{component}</strong>
-                    <p>Last Replaced: {details["last-replaced"]} days ago</p>
-                    <p>Expected Failure: {details["expected-failure"]} days</p>
-                    <p>
-                      Recommended Maintenance:{" "}
-                      {details["recommended-maintenance"] || "N/A"} days
-                    </p>
-                    <p>Standard Deviation: {details["std-dev"]}</p>
-                  </div>
-                )
+    <div className="dashboard-container">
+      <h1 className="dashboard-title">Train Data</h1>
+      <div className="main-content">
+        {/* Train Data Table */}
+        <div className="train-table-wrapper">
+          <table className="component-table">
+            <thead>
+              <tr>
+                <th>Train Name</th>
+                <th>Model</th>
+                <th>Component</th>
+                <th>Expected Failure (days)</th>
+              </tr>
+            </thead>
+            <tbody>
+              {processedData.length > 0 ? (
+                processedData.map((row) => (
+                  <tr key={row.id}>
+                    <td>{row.name}</td>
+                    <td>{row.model}</td>
+                    <td>{row.component}</td>
+                    <td>{row.value}</td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="4">No trains found matching "{searchTerm}"</td>
+                </tr>
               )}
-            </div>
-          </div>
-        ) : (
-          <p>No train selected</p>
-        )}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

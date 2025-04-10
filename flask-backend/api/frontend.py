@@ -122,8 +122,12 @@ def login():
     
     # return jsonify({'email': email, 'password': password}), 200
 
-    if not email or not password:
+    if not email and not password:
         return jsonify({'error': 'Missing required fields'}), 400
+    elif not email:
+        return jsonify({'error': 'Missing Email field'}), 400
+    elif not password:
+        return jsonify({'error': 'Missing Password field'}), 400
     
     #Querying DynamoDB for the user
     try:
@@ -163,8 +167,12 @@ def signup():
     
     # return jsonify({'email': email, 'password': password}), 200
 
-    if not email or not password:
+    if not email and not password:
         return jsonify({'error': 'Missing required fields'}), 400
+    elif not email:
+        return jsonify({'error': 'Missing Email field'}), 400
+    elif not password:
+        return jsonify({'error': 'Missing Password field'}), 400
     
     #Checking if email already exists
     try:

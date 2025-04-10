@@ -3,13 +3,17 @@ html, body{
     padding: 0; 
 }
 
+main{
+	background-color: var(--light-grey);
+}
+
 .user-page {
     text-align: center;
     /* justify-content: center;
     align-items: center;
     display: flex; */
 	color: var(--white);
-	background-color: var(--dark-grey);
+	background-color: var(--light-grey);
 	width: 80%;
 	height: 80vh;
 	margin: 2rem;
@@ -68,22 +72,21 @@ label {
     color: var(--primary-color);
 }
 
-p {
+.custom-p {
     color: var(--primary-color);
+    padding-top: 35px;
 }
 
 .alert{
-    position: absolute;
+    position: absolute !important;
     font-size: x-large;
-    top: 5%;
-    /* font-family: "Comic Sans MS"; */
+    top: 5%;    
 }
 
-/* #test{
+/* .alert-test{
     display: flex;
     justify-content: center;
     flex-direction: column;
     background: red;
     height: auto;
-
 } */

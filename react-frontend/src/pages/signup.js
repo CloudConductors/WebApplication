@@ -4,12 +4,15 @@ import axios from "axios";
 import {Link, useNavigate} from 'react-router-dom';
 import AuthForm from "../components/authForm";
 
-
 export default function SignUp() {
     const [signupForm, setSignupForm] = useState({
         email: "",
         password: ""
       });
+
+    const [Message, setMessage] = useState("");
+    const [variant, setVariant] = useState("");
+
 
       const navigate = useNavigate();
 
@@ -19,21 +22,19 @@ export default function SignUp() {
         password: signupForm.password
            })
         .then((response) => {
-          console.log("Flask Said: ", response.data)
-          navigate("/login", { state: { message: "Signup successful!" } }); // Redirect to login page after successful sign up
+          navigate("/login", { state: { message: "Signup successful!", variant: "success"} })
         }).catch((error) => {
             if (error.response) {
               console.error(error);
-              alert("Error signing up. Please try again.");
+              setMessage(error.response.data.error);
+              setVariant("danger");
             }
           });
   
         //reset the form after it's sumbitted
         setSignupForm(({
           email: "",
-          password: ""}))
-  
-        event.preventDefault()
+          password: ""}))  
       }
 
       const handleChange = (event) => {
@@ -45,16 +46,20 @@ export default function SignUp() {
       };
 
     return (
-      <AuthForm
-            title="Sign Up"
-            action="/signup"
-            footer="Already have an account?"
-            footer2={<Link to="/login" className="custom-Link">Login here!</Link>}
-            onSubmit={SignMeUp}
-            email={signupForm.email}
-            password={signupForm.password}
-            onChange={handleChange}
-        />
+      <div id="test">
+        <AuthForm
+              title="Sign Up"
+              action="/signup"
+              footer="Already have an account?"
+              footer2={<Link to="/login" className="custom-Link">Login here!</Link>}
+              onSubmit={SignMeUp}
+              email={signupForm.email}
+              password={signupForm.password}
+              onChange={handleChange}
+              message={Message}
+              variant={variant}
+          />
+        </div>
     )
 }
     

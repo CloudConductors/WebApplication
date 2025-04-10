@@ -16,7 +16,7 @@ export default function Navbar() {
       <div id="navBar" className="main">
         <nav>
           {/* all images from https://www.iconfinder.com/search?price=free */}
-          <Link to="/"><img id="logo" src={logo} alt="logo" /></Link>
+          <Link to="/" className='custom-link'><img id="logo" src={logo} alt="logo" /></Link>
           <Link to="/Dashboard"><img className='icon' src={hamburger} alt="dashboard" /></Link>
           <Link to="/inProgress"><img className='icon' src={pie} alt="analytics" /></Link>
           <Link to="/Schedule"><img className='icon' src={schedule} alt="schedule" /></Link>

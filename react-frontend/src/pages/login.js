@@ -1,24 +1,27 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
-import { useLocation } from "react-router-dom";
 import '../assets/Style/user.css';
 // import '../assets/Style/styles.css';
-import {Link} from 'react-router-dom';
+import { useLocation, Link} from 'react-router-dom';
 import AuthForm from "../components/authForm";
-import Alert from 'react-bootstrap/Alert';
-
 
 
 
 
 export default function Login() {
+  const location = useLocation();
     const [loginForm, setloginForm] = useState({
         email: "",
         password: ""
       });
   
+      const [Message, setMessage] = useState("");
+      const [Variant, setVariant] = useState("success");
+
+      
     // Once the user submits this function is called
       function logMeIn(event) {
+        event.preventDefault()
         axios.post("http://127.0.0.1:5000/login",{
             email: loginForm.email,
             password: loginForm.password
@@ -28,45 +31,26 @@ export default function Login() {
         }).catch((error) => {
           if (error.response) {
             console.error(error);
-            }
+            setMessage(error.response.data.error);
+            setVariant("danger");          
+          }
         })
   
         //reset the form after it's sumbitted
         setloginForm(({
           email: "",
           password: ""}))
-  
-        event.preventDefault()
-      }
+        }
   
       function handleChange(event) { 
         const {value, name} = event.target
         setloginForm(prevNote => ({
             ...prevNote, [name]: value})
         )}
-  
-        const location = useLocation();
-        const [Message, setMessage] = useState("");
-
-    useEffect(() => {
-        if (location.state?.message) {
-            setMessage(location.state.message);
-        }
-
-        // Automatically hide the alert after 5 seconds
-        const timer = setTimeout(() => {
-            setMessage("");
-        }, 50000000);
-
-        return () => clearTimeout(timer); // Cleanup timer on unmount
-    }, [location.state]);
-
-
 
 
     return (
       <div id="test">
-        {Message && <Alert variant="success " className="alert-test fade show">{Message}</Alert>}
         <AuthForm
           title="Login"
           action="/login"
@@ -76,6 +60,8 @@ export default function Login() {
           email={loginForm.email}
           password={loginForm.password}
           onChange={handleChange}
+          message={Message || location?.state?.message}
+          variant={Variant || location?.state?.variant}         
         />
       </div>
     )

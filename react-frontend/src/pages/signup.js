@@ -3,6 +3,7 @@ import axios from "axios";
 // import '../assets/Style/user.css';
 import {Link, useNavigate} from 'react-router-dom';
 import AuthForm from "../components/authForm";
+import { validateForm } from "../components/authForm";
 
 export default function SignUp() {
     const [signupForm, setSignupForm] = useState({
@@ -12,14 +13,23 @@ export default function SignUp() {
 
     const [Message, setMessage] = useState("");
     const [variant, setVariant] = useState("");
+    const [errors, setErrors] = useState({});
 
-
-      const navigate = useNavigate();
+    const navigate = useNavigate();
 
       function SignMeUp(event) {
+        event.preventDefault();
+
+        const validationErrors = validateForm(signupForm); // get errors
+        setErrors(validationErrors); // update state so it re-renders
+
+        if (Object.keys(validationErrors).length > 0) {
+          return;
+        }
+
         axios.post("http://127.0.0.1:5000/signup",{
-            email: signupForm.email,
-        password: signupForm.password
+          email: signupForm.email,
+          password: signupForm.password
            })
         .then((response) => {
           navigate("/login", { state: { message: "Signup successful!", variant: "success"} })
@@ -58,6 +68,7 @@ export default function SignUp() {
               onChange={handleChange}
               message={Message}
               variant={variant}
+              errors={errors}
           />
         </div>
     )

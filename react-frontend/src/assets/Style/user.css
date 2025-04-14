@@ -43,6 +43,12 @@ main{
     height: 40%;
 }
 
+.custom-control{
+    width: 100% !important;
+    padding-right: 1.5rem !important; /* still needed to avoid text overlap with asterisk */
+    box-sizing: border-box !important; /* makes padding not add to width */
+}
+
 input[type=submit] {
     box-sizing: border-box;
     width: 50%;
@@ -90,3 +96,24 @@ label {
     background: red;
     height: auto;
 } */
+
+.label-container{
+    color: red;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.input-container{
+    position: relative;
+}
+
+.asterisk{
+    color: red;
+    position: absolute;
+    font-size: xx-large;
+    right: 10px;
+    top: 8px;
+    pointer-events: none;
+    
+}

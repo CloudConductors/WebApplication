@@ -38,7 +38,7 @@ import Alert from 'react-bootstrap/Alert';
         
             const timer = setTimeout(() => {
                 setMessage("");
-            }, 500000);
+            }, 5000);
         
             return () => clearTimeout(timer);
             }
@@ -47,7 +47,7 @@ import Alert from 'react-bootstrap/Alert';
 
     return (
             <main>
-                {Message && <Alert variant={Variant} className="alert-test fade show">{Message.join(' and ')}</Alert>}
+                {Message && <Alert variant={Variant} className="alert-test fade show">{Message}</Alert>}
                 <Container className="custom-authentication vh-100">
                         <Form action = {action} method = 'POST' className="w-75 h-50 p-5 custom-form">
                         <h1 className="custom-h1 pb-5">{title}</h1>

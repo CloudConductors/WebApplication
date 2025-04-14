@@ -1,5 +1,4 @@
 from flask import Blueprint, render_template, jsonify, request, session
-import os
 import boto3
 import re
 from boto3.dynamodb.conditions import Attr, And
@@ -16,9 +15,6 @@ from api.aws import dynamodb, table, schedule_table # AWS-related resources
 
 # ~~~~~~~~~~~~~~~~~~~~~~ Setting Up the App ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 frontend_bp = Blueprint('frontend', __name__) #used to setup file to be imported to flask
-
-# ~~~~~~~~~~~~~~~~~~~~~~ Sessions ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-frontend_bp.secret_key = os.urandom(24)
 
 # ~~~~~~~~~~~~~~~~~~~~~~ Assisting Functions ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -116,27 +112,28 @@ def schedule():
 def validate_user(data):
     email = data.get('email')
     password = data.get('password')
-    errors = []
+    email_pattern = r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
+    valid_email = re.match(email_pattern, email)
+    invalid_password = len(password) < 8
+    
 
     if not email and not password:
-        return False, ['Missing required fields']
+        return False, 'Missing required fields'
     elif not email:
-        errors.append('Missing Email field')
+        if invalid_password:
+            return False, 'Missing Email field and Password too short'
+        else:
+            return False, 'Missing Email field'
     elif not password:
-        errors.append('Missing Password field')
+        if email:
+            if not valid_email:
+                return False, 'Missing Password field and Invalid Email'
+            else:
+                return False, 'Missing Password field'
+    elif invalid_password and not valid_email:
+        return False, 'Invalid Email and Password too short'
 
-    if email:
-        email_pattern = r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
-        if not re.match(email_pattern, email):
-            errors.append('Invalid Email')
-
-    if password and len(password) < 8:
-        errors.append('Password too short')
-
-    if errors:
-        return False, errors
-
-    return True, []
+    return True, ''
 
 
 #Route for logging in a user

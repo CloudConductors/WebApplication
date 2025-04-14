@@ -23,12 +23,13 @@ export default function Login() {
       function logMeIn(event) {
         event.preventDefault()
 
-        const validationErrors = validateForm(loginForm); // get errors
+        //Input Validation
+        const validationErrors = validateForm(loginForm);
         setErrors(validationErrors);
 
-        // if (Object.keys(validationErrors).length > 0) {
-        //   return;
-        // }
+        if (Object.keys(validationErrors).length > 0) {
+          return;
+        }
         // const errors = validateForm(loginForm);
 
         axios.post("http://127.0.0.1:5000/login",{

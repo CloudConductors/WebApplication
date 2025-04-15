@@ -127,11 +127,16 @@ def validate_user(data):
     elif not password:
         if email:
             if not valid_email:
-                return False, 'Missing Password field and Invalid Email'
+                return False, 'Invalid Email and Missing Password field'
             else:
                 return False, 'Missing Password field'
     elif invalid_password and not valid_email:
         return False, 'Invalid Email and Password too short'
+    elif invalid_password:
+        return False, 'Password too short'
+    elif not valid_email:
+        return False, 'Invalid Email'
+
 
     return True, ''
 

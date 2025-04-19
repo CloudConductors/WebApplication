@@ -19,12 +19,13 @@
 
 ## Application setup 
 
-   1. Make sure you have Docker downloaded and running
-      - if not please visit https://www.docker.com/
-   2. Open a terminal VS Code. (**Use Git Bash**)
-   3. start up containers
+   1. Make sure you've recived the env file from one of our team members and inserted it into Main/
+   2. Start Docker Desktop
+      - if you dont have it installed visit https://www.docker.com/
+   3. Open a terminal VS Code. (**Use Git Bash**)
+   4. start up containers
       ```
       docker-compose up --build
       ```
-   4. navigate to link in console or use link below
+   5. navigate to link in console or use link below
       - http://localhost:3000

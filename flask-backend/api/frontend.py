@@ -184,6 +184,7 @@ def login():
 def signup():
     #Input Validation
     data = request.json
+    print(data)
     is_valid, error_message = validate_user(data)
 
     if not is_valid:

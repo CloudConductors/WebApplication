@@ -12,7 +12,7 @@ export default function SignUp() {
       });
 
     const [Message, setMessage] = useState("");
-    const [variant, setVariant] = useState("");
+    const [Variant, setVariant] = useState("");
     const [errors, setErrors] = useState({});
 
     const navigate = useNavigate();
@@ -27,7 +27,7 @@ export default function SignUp() {
           return;
         }
 
-        axios.post("http://127.0.0.1:5000/signup",{
+        axios.post("http://localhost:5000/signup",{
           email: signupForm.email,
           password: signupForm.password
            })
@@ -67,7 +67,7 @@ export default function SignUp() {
               password={signupForm.password}
               onChange={handleChange}
               message={Message}
-              variant={variant}
+              variant={Variant}
               errors={errors}
           />
         </div>

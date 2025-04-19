@@ -1,4 +1,4 @@
-FROM node:23-alpine3
+FROM node:lts-alpine3.21
 
 WORKDIR /react
 

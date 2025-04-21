@@ -16,17 +16,17 @@ import logout from '../../assets/images/logout.webp';
 
 export default function Navbar() {
   const navigate = useNavigate();
-  const userName = localStorage.getItem("userName");
+  const userName = sessionStorage.getItem("userName");
 
   function handleLogout(navigate) {
-    // Clear localStorage
-    localStorage.removeItem("userId");
-    localStorage.removeItem("userName");
+    // Clear sessionStorage
+    sessionStorage.removeItem("userId");
+    sessionStorage.removeItem("userName");
   
     // Optional: call backend to destroy Flask session
     axios.get("http://127.0.0.1:5000/logout")
       .then(() => {
-        navigate("/login"); // Redirect to login page
+        navigate("/login",{ state: { message: "Logout successful!", variant: "success"} }); // Redirect to login page
       })
       .catch((error) => {
         console.error("Logout error:", error);

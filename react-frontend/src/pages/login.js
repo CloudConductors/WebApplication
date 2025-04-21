@@ -40,8 +40,8 @@ export default function Login() {
         .then((response) => {
           console.log("Flask Said: ", response.data);
           const { id, name } = response.data;
-          localStorage.setItem("userId", id);
-          localStorage.setItem("userName", name);
+          sessionStorage.setItem("userId", id);
+          sessionStorage.setItem("userName", name);
           navigate("/");
         }).catch((error) => {
           if (error.response) {

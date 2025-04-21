@@ -6,7 +6,7 @@ import {Link} from 'react-router-dom';
 
 
 export default function Index() {
-    const userName = localStorage.getItem("userName");
+    const userName = sessionStorage.getItem("userName");
     return (
         <div>
             <header>

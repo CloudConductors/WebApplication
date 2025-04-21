@@ -7,6 +7,7 @@ import { validateForm } from "../components/authForm";
 
 export default function SignUp() {
     const [signupForm, setSignupForm] = useState({
+        name: "",
         email: "",
         password: ""
       });
@@ -21,7 +22,7 @@ export default function SignUp() {
         event.preventDefault();
 
         //Input Validation
-        const validationErrors = validateForm(signupForm);
+        const validationErrors = validateForm(signupForm, true);
         setErrors(validationErrors);
 
         if (Object.keys(validationErrors).length > 0) {
@@ -29,6 +30,7 @@ export default function SignUp() {
         }
 
         axios.post("http://127.0.0.1:5000/signup",{
+          name: signupForm.name,
           email: signupForm.email,
           password: signupForm.password
            })
@@ -44,6 +46,7 @@ export default function SignUp() {
   
         //reset the form after it's sumbitted
         setSignupForm(({
+          name: "",
           email: "",
           password: ""}))  
       }
@@ -66,6 +69,8 @@ export default function SignUp() {
               onSubmit={SignMeUp}
               email={signupForm.email}
               password={signupForm.password}
+              name={signupForm.name}
+              useName={true}
               onChange={handleChange}
               message={Message}
               variant={variant}
@@ -74,35 +79,3 @@ export default function SignUp() {
         </div>
     )
 }
-    
-    
-    
-    
-    
-    
-    
-    // return (
-    //     <main>
-    //         <div class="user-page">
-    //             <h1>Sign Up</h1>
-    //             <div class="container">
-    //                 <form action = '/login' method = 'POST' class="user-form">
-    //                     <div class="input-container">
-    //                         <label for="email" class="user-label">Email Address:</label>
-    //                         <input type="email" id="email" name="email" placeholder="example@abc.com" required />
-    //                     </div>
-                        
-    //                     <div class="input-container">
-    //                         <label for="password" class="user-label">Password:</label>
-    //                         <input type="password" id="password" name="password" minlength="8" required />
-    //                     </div>
-                        
-    //                     <input type="submit" value="Sign Up" />      
-    //                 </form>
-    //                 <p>Already Have An Account?</p>
-    //                 <button onClick="location.href='login.html'">Sign In Here!</button>
-    //             </div>
-    //         </div>
-    //     </main>
-    // )
-// }

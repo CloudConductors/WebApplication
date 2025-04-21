@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 import axios from "axios";
 import '../assets/Style/user.css';
 // import '../assets/Style/styles.css';
@@ -9,8 +10,9 @@ import { validateForm } from "../components/authForm";
 export default function Login() {
   const location = useLocation();
     const [loginForm, setloginForm] = useState({
+        name: "",
         email: "",
-        password: ""
+        password: "",
       });
   
       const [Message, setMessage] = useState("");
@@ -37,6 +39,9 @@ export default function Login() {
            })
         .then((response) => {
           console.log("Flask Said: ", response.data);
+          const { id, name } = response.data;
+          localStorage.setItem("userId", id);
+          localStorage.setItem("userName", name);
           navigate("/");
         }).catch((error) => {
           if (error.response) {
@@ -70,6 +75,7 @@ export default function Login() {
           email={loginForm.email}
           password={loginForm.password}
           onChange={handleChange}
+          useName={false}
           message={Message || location?.state?.message}
           variant={Variant || location?.state?.variant}
           errors={errors}         

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-
 import axios from "axios";
 import '../assets/Style/user.css';
 // import '../assets/Style/styles.css';
@@ -12,7 +11,7 @@ export default function Login() {
     const [loginForm, setloginForm] = useState({
         name: "",
         email: "",
-        password: "",
+        password: ""
       });
   
       const [Message, setMessage] = useState("");
@@ -34,22 +33,22 @@ export default function Login() {
         }
 
         axios.post("http://localhost:5000/login",{
-            email: loginForm.email,
-            password: loginForm.password
-           })
-        .then((response) => {
-          console.log("Flask Said: ", response.data);
-          const { id, name } = response.data;
-          sessionStorage.setItem("userId", id);
-          sessionStorage.setItem("userName", name);
-          navigate("/");
-        }).catch((error) => {
-          if (error.response) {
-            console.error(error);
-            setMessage(error.response.data.error);
-            setVariant("danger");          
-          }
-        })
+          email: loginForm.email,
+          password: loginForm.password
+         })
+      .then((response) => {
+        console.log("Flask Said: ", response.data);
+        const { id, name } = response.data;
+        sessionStorage.setItem("userId", id);
+        sessionStorage.setItem("userName", name);
+        navigate("/");
+      }).catch((error) => {
+        if (error.response) {
+          console.error(error);
+          setMessage(error.response.data.error);
+          setVariant("danger");          
+        }
+      })
   
         //reset the form after it's sumbitted
         setloginForm(({
@@ -75,7 +74,6 @@ export default function Login() {
           email={loginForm.email}
           password={loginForm.password}
           onChange={handleChange}
-          useName={false}
           message={Message || location?.state?.message}
           variant={Variant || location?.state?.variant}
           errors={errors}         

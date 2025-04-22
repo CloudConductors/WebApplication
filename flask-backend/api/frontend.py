@@ -198,6 +198,8 @@ def signup():
     email = data.get('email')
     password = data.get('password')
     name = data.get('name')
+    print(name)
+    print("testing")
 
     # return jsonify({'email': email, 'password': password}), 200
 

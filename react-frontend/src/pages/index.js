@@ -25,7 +25,7 @@ export default function Index() {
                             className="form-control"
                             placeholder="Search anything"
                             />
-                        <button className="search-btn" onclick="location.href='/search'">
+                        <button className="search-btn" onClick="location.href='/search'">
                                 <img src={search} alt="search-icon" className="search-icon" />
                         </button>
                     </div>

@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_cors import CORS
 from api.frontend import frontend_bp
-from api.machine_learning import machine_learning_bp
+from api.machine_learning import machine_learning_bp, gen_schedule
 from api.embedded_system import embedded_system
 import os
 from flask_apscheduler import APScheduler

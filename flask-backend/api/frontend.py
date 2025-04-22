@@ -10,7 +10,7 @@ import uuid
 from datetime import datetime
 from flask_apscheduler import APScheduler
 # ~~~~~~~~~~~~~~~~~~~~~~ Dependencies from other files ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-from api.aws import dynamodb, table, schedule_table # AWS-related resources
+from api.aws import dynamodb, table, schedule_table, cc_trains # AWS-related resources
 # from api.machine_learning import gen_schedule # Machine learning-related function
 
 # ~~~~~~~~~~~~~~~~~~~~~~ Setting Up the App ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -95,7 +95,7 @@ def schedule():
                         'maintenance_scheduled': 'false',
                         'manually_overriden': 'true',
                         'mean_duf': 3,
-                        'standard_deviation_duf' : 12
+                        'standard_deviation_duf': 12
                     }
                 )
                 print("Table updated successfully!")
@@ -134,8 +134,7 @@ def validate_user(data):
         return False, 'Invalid Email and Password too short'
 
     return True, ''
-
-
+  
 #Route for logging in a user
 @frontend_bp.route("/login", methods=["POST"])
 def login():
@@ -249,102 +248,22 @@ def logout():
     #return render_template('login.html')
     return jsonify({'Status': 'Success', 'Code': '200 OK'}), 200
 
-
 # ~~~~~~~~~~~~~~~~~~~~~~ API STUFF ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-@frontend_bp.route("/train-info", methods=["GET"]) 
-def get_train_info(): #Changed from hello_world() --> get_train_info()
-    trains = {
-        0: {
-                "name": "train0",
-                "components": {
-                    "brakes": {
-                        "last-replaced": 180,
-                        "expected-failure": 121,
-                        "std-dev": 5,
-                        "recomended-maintenance": 110,
-                    },
-                    "engine": {
-                        "last-replaced": 80,
-                        "expected-failure": 221,
-                        "std-dev": 5,
-                        "recomended-maintenance": 210,
-                    },
-                    "lights": {
-                        "last-replaced": 280,
-                        "expected-failure": 11,
-                        "std-dev": 5,
-                        "recomended-maintenance": 0,
-                    },
-                    "electronics": {
-                        "last-replaced": 10,
-                        "expected-failure": 321,
-                        "std-dev": 5,
-                        "recomended-maintenance": 310,
-                    },
-                },
-        },
-        1: {
-                "name": "train1",
-                "components": {
-                    "brakes": {
-                        "last-replaced": 10,
-                        "expected-failure": 1,
-                        "std-dev": 5,
-                        "recomended-maintenance": 0,
-                    },
-                    "engine": {
-                        "last-replaced": 330,
-                        "expected-failure": 221,
-                        "std-dev": 5,
-                        "recomended-maintenance": 350,
-                    },
-                    "lights": {
-                        "last-replaced": 50,
-                        "expected-failure": 1,
-                        "std-dev": 69,
-                        "recomended-maintenance": 0,
-                    },
-                    "electronics": {
-                        "last-replaced": 130,
-                        "expected-failure": 51,
-                        "std-dev": 12,
-                        "recomended-maintenance": 110,
-                    },
-                },
-        },
-        2: {
-                "name": "train2",
-                "components": {
-                    "brakes": {
-                        "last-replaced": 431,
-                        "expected-failure": 231,
-                        "std-dev": 40,
-                        "recomended-maintenance": 200,
-                    },
-                    "engine": {
-                        "last-replaced": 34,
-                        "expected-failure": 321,
-                        "std-dev": 5,
-                        "recomended-maintenance": 410,
-                    },
-                    "lights": {
-                        "last-replaced": 342,
-                        "expected-failure": 32,
-                        "std-dev": 61,
-                        "recomended-maintenance": 523,
-                    },
-                    "electronics": {
-                        "last-replaced": 2134,
-                        "expected-failure": 23,
-                        "std-dev": 34,
-                        "recomended-maintenance": 2134,
-                    },
-                },
-        },
-    }
-    return jsonify(trains)
+@frontend_bp.route("/schedule", methods=["GET"])
+def get_schedule():
+    try:
+        getSchedule = schedule_table.scan()
+    except ClientError as e:
+        return jsonify({'Status': 'Failure', 'Code': '500 Internal Server Error', 'Message': 'Cannot retrieve data from the database.'}), 500
+    
+    return jsonify(getSchedule)
 
-scheduler = APScheduler()
-# scheduler.add_job(func=gen_schedule, trigger='interval', id='job', seconds=5)
-scheduler.start()
+@frontend_bp.route("/dashboard", methods=["GET"])
+def get_train_info():
+    try:
+        getTrainInformation = cc_trains.scan()
+    except ClientError as e:
+        return jsonify({'Status': 'Failure', 'Code': '500 Internal Server Error', 'Message': 'Cannot retrieve data from the database.'}), 500
+    
+    return jsonify(getTrainInformation)

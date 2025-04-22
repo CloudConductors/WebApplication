@@ -13,6 +13,16 @@ body {
   color: var(--white);
   font-family: Arial, Helvetica, sans-serif;
   padding: 2rem;
+
+main {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0px;
+  padding: 0px;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  min-height: calc(100vh - 50px);
+  color: var(--white);
 }
 
 .schedule{

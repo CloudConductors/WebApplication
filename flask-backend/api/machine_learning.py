@@ -2,9 +2,10 @@ from flask import Blueprint, jsonify, session
 import boto3
 from api.schedule_constuction_model import StatsModel, Component
 from boto3.dynamodb.conditions import Attr, And
-from botocore.exceptions import ClientError
-from api.aws import schedule_table, dynamodb
-from flask_apscheduler import APScheduler
+
+
+from api.aws import table, schedule_table, cc_trains
+
 
 machine_learning_bp = Blueprint('machine_learning', __name__)
 
@@ -35,6 +36,16 @@ def update_rep_date(schedule_table, comp_id, train_id, rep_date):
         UpdateExpression='SET expected_repair_duf = :expected_repair_duf',
         ExpressionAttributeValues={':expected_repair_duf': rep_date},
     )
+
+
+@machine_learning_bp.route("/train-info", methods=["GET"])
+def get_trains():
+    try:
+        response = cc_trains.scan()
+    except ClientError as e:
+        return jsonify({'Status': 'Failure', 'Code': '500 Internal Server Error', 'Message': 'Cannot retrieve data from the database.'}), 500
+    
+    return jsonify(response)
 
 def get_train_map(components):
     train_map = {}

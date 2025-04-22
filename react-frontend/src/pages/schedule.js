@@ -1,16 +1,7 @@
 import React from "react";
 import '../assets/Style/schedule.css';
-import ScheduleCom from "../components/ScheduleCom.js";
 
-export default function TestPage(){
-  return (
-    <div>
-      <ScheduleCom></ScheduleCom>
-    </div>
-  );
-}
 
-/*
 export default function Schedule() {
     return (
         <main>
@@ -74,4 +65,3 @@ export default function Schedule() {
         </main>
     )
 }
-*/

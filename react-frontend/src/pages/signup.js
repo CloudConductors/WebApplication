@@ -20,8 +20,9 @@ export default function SignUp() {
       function SignMeUp(event) {
         event.preventDefault();
 
-        const validationErrors = validateForm(signupForm); // get errors
-        setErrors(validationErrors); // update state so it re-renders
+        //Input Validation
+        const validationErrors = validateForm(signupForm);
+        setErrors(validationErrors);
 
         if (Object.keys(validationErrors).length > 0) {
           return;

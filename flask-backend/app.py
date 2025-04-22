@@ -15,7 +15,7 @@ CORS(app)
 # ~~~~~~~~~~~~~~~~~~~~~~ Sessions ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 app.secret_key = os.urandom(24)
 
-app.register_blueprint(frontend_bp) #This calls the fronend.py
+app.register_blueprint(frontend_bp, url_prefix="/frontend") #This calls the fronend.py
 app.register_blueprint(machine_learning_bp, url_prefix="/machine-learning") #This calls the , machine_learning.py and sets its url to /machine_learning
 app.register_blueprint(embedded_system) #This calls the embeded_system.py
 

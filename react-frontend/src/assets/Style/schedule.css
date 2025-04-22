@@ -7,6 +7,13 @@
   --secondary-color: #0099ff;
 }
 
+body {
+  margin: 0;
+  background-color: var(--black);
+  color: var(--white);
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 2rem;
+
 main {
   font-family: Arial, Helvetica, sans-serif;
   margin: 0px;
@@ -18,71 +25,87 @@ main {
   color: var(--white);
 }
 
-body {
-  height: 100%;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  overflow-x: hidden;
+.schedule{
+  margin-left: 150px;
+  margin-right: 50px;
+  padding: 2rem;
 }
 
-footer {
-  font-family: Arial, Helvetica, sans-serif;
-  margin: 0px;
-  padding: 0px;
-  display: flex;
-  height: 100px;
-  border-top: 1px solid white;
-  align-content: center;
-  justify-content: center;
-  color: var(--white);
-  background-color: var(--black);
-  font-style: italic;
+.schedule h1 {
+  margin-bottom: 1.5rem;
 }
 
-.schedule {
-  text-align: center;
-  color: var(--white);
+/* Scrollable container */
+.table-container {
+  min-height: 300px;
+  overflow-y: auto;
+  overflow-x: auto;
+  max-width: fit-content;
+  border: 1px solid var(--light-grey);
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  display: block;
+}
+
+/* Table styling */
+.component-table {
+  width: 100%;
+  border-collapse: collapse;
   background-color: var(--dark-grey);
-  overflow: hidden;
-  width: 80%;
-  height: 80vh;
-  margin: 2rem;
+  width: 100%;
+  table-layout: fixed;
 }
 
-.container {
-  display: grid;
-  grid-template-columns: 5fr 1fr;
-  grid-template-rows: 5fr 1fr;
-  border: 2px solid rgb(75 70 74);
-  border-radius: 0.5em;
-  font: 1.2em sans-serif;
-  height: 100px;
+.component-table thead {
+  position: sticky;
+  top: 0;
+  background-color: var(--light-grey);
+  z-index: 2;
+}
+
+.component-table th,
+.component-table td {
+  padding: 0.75rem 1rem;
   text-align: left;
-  margin-top: 2px;
-  padding-left: 10px;
-  justify-content: space-evenly;
+  border-bottom: 1px solid var(--black);
 }
 
-.items {
-  display: grid;
-  grid-template-columns: repeat(4, 100px);
-  gap: 25px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  margin-right: 10px;
+.component-table th {
+  color: var(--primary-color);
+  font-size: 0.95rem;
+  text-transform: uppercase;
 }
 
-button {
-  background-color: var(--primary-color);
-  border-color: var(--light-grey);
-  text-align: center;
+.component-table tr {
+  transition: background-color 0.2s ease;
   cursor: pointer;
-  border-radius: 10px;
-  font-weight: bold;
-  font-family: Arial, Helvetica, sans-serif;
 }
 
-button:hover {
-  border-color: rgb(75 70 74);
+.component-table tr:hover {
+  background-color: var(--light-grey);
+}
+
+/*
+.component-table tr.clicked {
+  background-color: var(--secondary-color);
+  color: var(--black);
+}
+*/
+
+/* Admin Button */
+
+.edit-schedule-btn {
+  margin-bottom: 1rem;
+  padding-top: 1rem;
+  padding-right: 5rem;
+  text-align: right;
+
+}
+
+.btn-btn-primary{
+  font-weight: bold;
+  background-color: var(--light-green);
+  width: 200px;
+  height: 30px;
+  border: 1px solid white;
 }

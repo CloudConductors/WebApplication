@@ -33,10 +33,11 @@ export default function ScheduleCom() {
           <button className="btn-btn-primary">Edit Schedule</button>
         </div>
       )}
-
+  {/*
         <div className="edit-schedule-btn">
           <button className="btn-btn-primary">Edit Schedule</button>
         </div>
+        */}
 
       {trains.length > 0 ? (
         <div className="table-container">

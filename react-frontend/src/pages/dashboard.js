@@ -1,16 +1,4 @@
 import React from "react";
-import DashboardCom from "../components/DashboardCom.js";
-
-export default function TestPage(){
-  return (
-    <div>
-      <DashboardCom></DashboardCom> 
-    </div>
-  );
-}
-
-/*
-import React from "react";
 import "../assets/Style/dashboard.css";
 
 export default function DashBoard() {
@@ -35,5 +23,3 @@ export default function DashBoard() {
     </main>
   );
 }
-*/
-

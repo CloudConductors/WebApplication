@@ -65,8 +65,11 @@
   }
   
   .main-content {
+	/*
 	flex: 1;
 	overflow-y: auto;
+	*/
+	max-width: fit-content;
 	margin-top: 25px;
 	border: 1px solid var(--light-grey);
 	border-radius: 12px;
@@ -84,14 +87,18 @@
   
   .component-table-wrapper {
 	margin-top: 1rem;
+	width: 300px;
   }
   
   .component-table {
-	width: 100%;
 	border-collapse: collapse;
 	background-color: var(--dark-grey);
 	border-radius: 10px;
-	overflow: hidden;
+	max-width: fit-content;
+	max-height: 500px; 
+  	overflow-y: auto;
+	display: block;
+	
   }
   
   .component-table th,

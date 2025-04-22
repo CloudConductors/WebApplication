@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../assets/Style/schedule.css";
 import { Link } from "react-router-dom";
+import { useAuth } from "./AuthContext";
 
 export default function ScheduleCom() {
+  const { isAuthenticated } = useAuth();
   const [trains, setTrains] = useState([]);
   const [selectedRow, setSelectedRow] = useState(null);
 
@@ -25,6 +27,16 @@ export default function ScheduleCom() {
     
     <div className="schedule">
       <h1>Scheduling Center</h1>
+
+      {isAuthenticated && (
+        <div className="edit-schedule-btn">
+          <button className="btn-btn-primary">Edit Schedule</button>
+        </div>
+      )}
+
+        <div className="edit-schedule-btn">
+          <button className="btn-btn-primary">Edit Schedule</button>
+        </div>
 
       {trains.length > 0 ? (
         <div className="table-container">

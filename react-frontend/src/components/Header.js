@@ -2,6 +2,7 @@ import '../assets/Style/index.css';
 import logo from '../assets/images/cloud-conductors-logo.svg';
 import search from '../assets/images/magnify.svg';
 import {Link} from 'react-router-dom';
+import React, { useState, useEffect } from "react";
 
 
 export default function Header() {
@@ -21,10 +22,12 @@ export default function Header() {
                         <input
                             id="search-box"
                             type="text"
+                            placeholder="Search..."
                             className="form-control"
-                            placeholder="Search anything"
-                            />
-                        <button className="search-btn" onclick="location.href='/search'">
+                            //value={query}
+                            //onChange={handleChange}
+                        />
+                        <button type="submit" className="search-btn">
                                 <img src={search} alt="search-icon" className="search-icon" />
                         </button>
                     </div>

@@ -8,6 +8,7 @@ import Layout from "../layout/layout";
 import DashboardPage from "../pages/dashboard.js";
 import ProtectedRoute from "../components/ProtectedRoute";
 import SchedulePage from "../pages/schedule.js";
+import TeamPage from "../pages/team.js";
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,16 @@ const router = createBrowserRouter([
           //</ProtectedRoute>
         
         ),
+        
+        
+      },
+      {
+        path: "/team",
+        element: (
+            <TeamPage />
+        
+        ),
+        
         
       },
     ],

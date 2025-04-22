@@ -21,7 +21,7 @@ export default function Navbar() {
           {/* <Link to="/inProgress"><img src={pie} alt="analytics" /></Link> */}
           <Link to="/Schedule"><img src={schedule} alt="schedule" /></Link>
           {/* <Link to="/inProgress"><img src={alert} alt="alert" /></Link> */}
-          { <Link to="/inProgress"><img src={team} alt="team" /></Link> }
+          { <Link to="/Team"><img src={team} alt="team" /></Link> }
         </nav>
       </div>
   )

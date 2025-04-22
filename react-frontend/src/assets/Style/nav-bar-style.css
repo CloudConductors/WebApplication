@@ -45,3 +45,13 @@ a > img {
     margin: auto;
 
 }
+button > img{
+    height: auto;
+    width: 50px;
+    margin: auto;
+}
+
+button{
+    background: none;
+    border: none;
+}

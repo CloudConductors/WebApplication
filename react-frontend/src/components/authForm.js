@@ -9,9 +9,13 @@ import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
 
         // form Validation
-        export const validateForm = (data) => {
+        export const validateForm = (data, useName = false) => {
             const errors ={};
 
+            if (!data.name.trim() && useName){
+                errors.name = 'Name is required';
+            }
+            
             if (!data.email.trim()) {
                 errors.email = 'Email is required';
             } else if (!/\S+@\S+\.\S+/.test(data.email)) {
@@ -27,7 +31,7 @@ import Alert from 'react-bootstrap/Alert';
             return errors;
         };
 
-    export default function AuthForm({title, action, footer, footer2, onSubmit, onChange, email, password, message, variant, errors}) {
+    export default function AuthForm({title, action, footer, footer2, onSubmit, onChange, email, password, message, variant, errors, name, useName}) {
         const [Message, setMessage] = useState(message);
         const [Variant, setVariant] = useState(variant);
 
@@ -51,6 +55,18 @@ import Alert from 'react-bootstrap/Alert';
                 <Container className="custom-authentication vh-100">
                         <Form action = {action} method = 'POST' className="w-75 h-50 p-5 custom-form">
                         <h1 className="custom-h1 pb-5">{title}</h1>
+                        {useName && <Form.Group className="mb-3 align-items-left">
+                                <div className="label-container">
+                                    <Form.Label for="name" className="">Name: </Form.Label>
+                                    {errors.name && <span>{errors.name}</span>}
+                                </div>
+                                <div className="input-container">
+                                <Form.Control  type="text" id="name" name="name" placeholder="Billy Bob" className="custom-control" required  value={name} onChange={onChange}/>
+                                {errors.name && <span className="asterisk">*</span>}
+                                </div>
+                            </Form.Group>
+                        }
+
                             <Form.Group className="mb-3 align-items-left">
                                 <div className="label-container">
                                     <Form.Label for="email" className="">Email Address: </Form.Label>

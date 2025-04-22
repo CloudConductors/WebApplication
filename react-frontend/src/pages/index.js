@@ -6,6 +6,7 @@ import {Link} from 'react-router-dom';
 
 
 export default function Index() {
+    const userName = sessionStorage.getItem("userName");
     return (
         <div>
             <header>
@@ -29,10 +30,16 @@ export default function Index() {
                         </button>
                     </div>
                 </div>
+                {userName ? (
+                    <div className="access-account-buttons">
+                        <p className="name" >Welcome, {userName}!</p>
+                    </div>
+                ) : (
                 <div className="access-account-buttons">
                         <Link to="/login" className="Link login-button">Login</Link>
                         <Link to="/signUp" className="Link sign-up-button">Sign Up</Link>
                 </div>
+                )}
             </div>
         </header>
         <div className="hero-banner">

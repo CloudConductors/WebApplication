@@ -179,7 +179,7 @@ def login():
         session['user_id'] = userItem['uuid']
 
         #return render_template('dashboard.html')
-        return jsonify({'Status': 'Success', 'Code': '200 OK'}), 200
+        return jsonify({'Status': 'Success', 'Code': '200 OK', "id": userItem['uuid'], "name": userItem['acc-info']['name']}), 200
     except ClientError as e:
         return jsonify({'error': 'Error verifying user'}), 500
 
@@ -197,15 +197,18 @@ def signup():
     #Retrieving data from front end
     email = data.get('email')
     password = data.get('password')
+    name = data.get('name')
 
     # return jsonify({'email': email, 'password': password}), 200
 
-    if not email and not password:
+    if not email and not password and not Name:
         return jsonify({'error': 'Missing required fields'}), 400
     elif not email:
         return jsonify({'error': 'Missing Email field'}), 400
     elif not password:
         return jsonify({'error': 'Missing Password field'}), 400
+    elif not name:
+        return jsonify({'error': 'Missing Name field'}), 400
     
     #Checking if email already exists
     try:
@@ -232,6 +235,7 @@ def signup():
         'acc-info': {
                 'email': email,
                 'password': hashedPasswordEncoded,
+                'name': name,
                 'date-created': get_current_date()
         }
     }
@@ -261,7 +265,7 @@ def get_schedule():
         getSchedule = schedule_table.scan()
     except ClientError as e:
         return jsonify({'Status': 'Failure', 'Code': '500 Internal Server Error', 'Message': 'Cannot retrieve data from the database.'}), 500
-    
+    print(getSchedule)
     return jsonify(getSchedule)
 
 @frontend_bp.route("/dashboard", methods=["GET"])

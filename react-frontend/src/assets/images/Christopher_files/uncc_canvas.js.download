@@ -1,0 +1,911 @@
+////////////////////////////////////////////////////
+// DESIGNPLUS CONFIG                            //
+////////////////////////////////////////////////////
+// Legacy
+var DT_variables = {
+        iframeID: '',
+        // Path to the hosted USU Design Tools
+        path: 'https://designtools.ciditools.com/',
+        templateCourse: '147464',
+        // OPTIONAL: Button will be hidden from view until launched using shortcut keys
+        hideButton: false,
+    	 // OPTIONAL: Limit by course format
+	     limitByFormat: false, // Change to true to limit by format
+	     // adjust the formats as needed. Format must be set for the course and in this array for tools to load
+	     formatArray: [
+            'online',
+            'on-campus',
+            'blended'
+        ],
+        // OPTIONAL: Limit tools loading by users role
+        limitByRole: false, // set to true to limit to roles in the roleArray
+        // adjust roles as needed
+        roleArray: [
+            'student',
+            'teacher',
+            'admin'
+        ],
+        // OPTIONAL: Limit tools to an array of Canvas user IDs
+        limitByUser: true, // Change to true to limit by user
+        // add users to array (Canvas user ID not SIS user ID)
+        userArray: [
+            // CTL staff:
+            '80147',  // rwahl
+            '85269',  // rwahl_a
+            '30018',  // kbudhran
+            '90785',  // kbudhran_a
+            '298024', // amharris
+            '303787', // amharris_a
+            '268976', // hechols
+            '270297', // hechols_a
+            '10277',  // jtrombly
+            '288074', // jtrombly_a
+            '304081', // rburry
+            '306267', // rburry_a
+            '69023',  // pcolema1
+            '270301', // pcolema1_a
+            '246788', // mairoldi
+            '253189', // melanielewis1234@gmail.com
+            '229534', // cmuellen
+            '230177', // cmuellen_a
+            '13743',  // epark17
+            '122539', // epark17_a
+            '194198', // bstampe1
+            '205147', // bstampe1_a
+            '211876', // jbaile97
+            '21890',  // afrizze2
+            '17674',  // gstalli5
+            '4106',   // nnstrace
+            '20195',  // ktroscla
+            '224488', // ktroscla_a
+            '34',     // malgozzi
+            '136',    // malgozzi_a
+            '3483',   // jharr189
+            '33',     // jharr189_a
+            '16500',  // jkeithle
+            '337988', // jkeithle_a
+            '32',     // jjmeier
+            '3633',   // jjmeier_a
+            '4093',   // ntrick
+            '4117',   // ntrick_a
+            // Requested by Lynn Wahl 3/24/2021:
+            '2857',   // dtaylo72
+            // Requested by Lynn Wahl 4/30/2021:
+            '92254',  // ssmit392
+            '57',     // mmaher9
+            '7225',   // sdhancoc
+            '64',     // abpolly
+            '2856',   // jrtaylor
+            '58955',  // jwei8
+            '7208',   // wjdibias
+            '191430', // mroman7
+            '8105',   // tjkitric
+            '27916',  // mlamarca
+            '31566',  // dgardn32
+            '31567',  // cranda10
+            '4124',   // ebyker
+            '8393',   // agood5
+            '106948', // tcrocke7
+            '6127',   // drowan
+            '56722',  // ddalto14
+            // Requested by Lynn Wahl 5/6/2021:
+            '8269',   // abarsant
+            '6155',   // ppilonie
+            '10394',  // amyers35
+            // Requested by Lynn Wahl 6/9/2021:
+            '7359',   // awill143
+            // Requested by Lynn Wahl 6/17/2021:
+            '9214',   // hstutts
+            '8615',   // chmahaff
+            // Requested by Lynn Wahl 7/1/2021:
+            '5991',   // mrand1
+            '78592',  // mbarne56
+            '117485', // thales
+            '37374',  // dbryan30
+            '6544',   // tcaldw16
+            '58957',  // jbahamon
+            '153828', // aberardinelli
+            '86941',  // mlee173
+            '7228',   // plthomps
+            '37376',  // xniu2
+            '156299', // geldridg
+            '81',     // davils
+            '7941',   // mjshephe
+            '7982',   // esheberl
+            '153827', // tmannahb
+            '8743',   // pgaggl
+            '6705',   // ydiao
+            '35325',  // ewantlan
+            // Requested by Lynn Wahl 7/23/2021:
+            '7493',   // kkmurray
+            // Requested by Lynn Wahl 7/28/2021:
+            '10041',  // jhumphr1
+            '202949', // kwater12
+            // Requested by Lynn Wahl 10/15/2021:
+            '155687', // kdutt1
+            '153289', // spettway
+            // Requested by Lynn Wahl 12/2/2021:
+            // *Duplicate* '106948', // tcrocke7
+            '143766', // spotochn
+            '61451',  // dpowel24
+            '4017',   // jwhit241
+            '2174',   // jwalsh25
+            // *Duplicate* thales
+            '4753',   // kdshue
+            '41985',  // lreinke
+            '133711', // mfitzg21
+            '40308',  // jmill283
+            '6470',   // dskerr
+            '4136',   // serevell
+            '153828', // aberard1
+            // *Duplicate* davils
+            '54',     // mjkhouja
+            '11624',  // jgooty
+            // *Duplicate* tcaldw16
+            '151469', // ndawson2
+            // Requested by Sam Gist 2/17/2022:
+            '49108',  // dalsto13
+            '62368',  // ddiegman
+            '239187', // kwagne29
+            '11407',  // ldymes
+            '21799',  // kcrouch1
+            '21519',  // crwhites
+            '164',    // gbanks3
+            '13636',  // mmetzgar
+            '8432',   // ichiang1
+            '6346',   // msjohar
+            '6134',   // kzhao2
+            '19576',  // jpiatak
+            '79294',  // jwindett
+            '4282',   // nanajjar
+            '6497',   // mestearn
+            '2855',   // mfmckenz
+            '135440', // ewashbu1
+            // Requested by Lynn Wahl 3/21/2022:
+            '216115', // jande215
+            // Requested by Lynn Wahl 3/24/2022:
+            '29455',  // khammac
+            // Requested by Lynn Wahl 4/5/2022:
+            '6645',   // kmclark1
+            // Requested by Lynn Wahl 4/20/2022:
+            '59',     // fmartin3
+            // Requested by Lynn Wahl 5/10/2022:
+            '73161',  // cmelling
+            // Requested by Lynn Wahl 6/13/2022:
+            '9743',   // sabtbum
+            // Requested by Lynn Wahl 6/13/2022:
+            '223281', // mmack13
+            // Requested by Sam Gist 6/17/2022:
+            '8454',   // xhe8
+            '7962',   // theafner
+            '8159',   // njcaste
+            '127167', // mchen37
+            // *Duplicate* mfmckenz
+            '16616',  // kjason
+            // *Duplicate* kdshue
+            '6647',   // jlrolsto
+            '8025',   // jdianesm
+            '5092',   // jchattop
+            '103019', // tmcguffi
+            // *Duplicate* crwhites
+            '43962',  // asadaf
+            '141695', // amickels
+            // Requested by Lynn Wahl 6/23/2022:
+            '13670',  // tmjohnso
+            // Requested by Lynn Wahl 8/19/2022:
+            '40702',   // jjohn496
+            // Requested by Sam Gist 9/20/2022:
+            '4851',   // jgiersch
+            '6344',   // jjszmer
+            '8364',   // adekort
+            '159670', // bpatte38
+            '7248',   // vvcifare
+            '12927',  // sputman
+            '119443', // jgarci43
+            '3849',   // ntriple1
+            '50068',  // jsmithw1
+            '88090',  // dkirkey
+            '6128',   // afernan2
+            // *Duplicate* jrtaylor
+            // *Duplicate* asadaf
+            // Requested by Sam Gist 2/7/2023:
+            '7124',   // sae
+            '58767',  // dmaxwel8
+            // *Duplicate* jjohn496
+            '228254', // zchen32
+            '9068',   // dchen9
+            '9109',   // hcoffey
+            '11842',  // jpmayhor
+            '12937',  // bbutle19
+            '31746',  // seallred
+            '35324',  // nyahyapo
+            '282856', // cflink
+            '224580', // agolmoha
+            '19814',  // emille90
+            '8401',   // tstarker
+            '6191',   // ssalas
+            // *Duplicate* asadaf
+            // *Duplicate* cmelling
+            '6950',   // mjcoffma
+            '61',     // tlmoore2
+            '65',     // hramapra
+            '2063',   // bjring
+            '20224',  // wmabel
+            // Requested by Sam Gist 2/10/2023:
+            '6738',   // lquach
+            // Requested by Sam Gist:
+            '116528', // gethridg
+            '297129', // gethridg_a
+            '296116', // jtayl278
+            '297130', // jtayl278_a
+            // Requested by Lynn Wahl 5/23/2023:
+            '4251',   // afquesin
+            // Requested by Lynn Wahl 7/14/2023:
+            '62719',  // lgmontgomery
+            '62344',  // mmason32
+            '19030',  // jdippong
+            '161',    // sboyd
+            '6911',   // jkgodfre
+            '8138',   // jkimble
+            '38156',  // pmadsen
+            '282070', // kzacherl
+            '179',    // trshirle
+            '267394', // dsmit423
+            '8631',   // sjbrais
+            '54973',  // nbarclay
+            '266358', // lyoung57
+            '34359',  // hdack
+            // Requested by Melanie Lewis 11/3/2023:
+            // *Duplicate* dskerr
+            '119442', // twithro1
+            '16391',  // yge
+            '11684',  // rsuclupe
+            // *Duplicate* drowan
+            '308198', // jdamron
+            '56601',  // bwagne12
+            '92551',  // vjbeaver
+            // *Duplicate* abpolly
+            // *Duplicate* jrtaylor
+            // *Duplicate* kmclark1
+            // *Duplicate* dsmit423
+            // *Duplicate* kdshue
+            // *Duplicate* jkimble
+            '28820',  // dlnewell
+            // *Duplicate* emille90
+            // *Duplicate* mfmckenz
+            '91564',  // oshoghli
+            // *Duplicate* jpmayhor
+            '7287',   // jmrobin2
+            '7290',   // jkshedd
+            '6759',   // ldedward
+            // Requested by Melanie Lewis 12/15/2023:
+            '216240', // jprinci1
+            '230240', // lapyatt
+            // Requested by Melanie Lewis 1/16/2024:
+            '60456',  // smumford
+            '28872',  // csgreen2
+            // Requested by Melanie Lewis 2/12/2024:
+            '154231', // dnsummer
+            // Requested by Melanie Lewis 3/13/2024:
+            '74494',  // vcavines
+            // Requested by Lynn Wahl 4/18/2024:
+            '11396',  // ragosta
+            '90800',  // pbanks4
+            '16367',  // jbleds11
+            '180',    // arbobyar
+            '4791',   // jbbyrd
+            '12705',  // acanevel
+            '20225',  // adils
+            '267273', // rdudley5
+            '6211',   // fmohiudd
+            '187379', // fferdous
+            '90440',  // pfernan2
+            '8154',   // wjgarcia
+            '33356',  // egodlyre
+            '4600',   // magordon
+            '7181',   // jagrymes
+            '7716',   // cwhouck
+            '40670',  // jkarp3
+            '6940',   // fgkatsan
+            '12848',  // aking86
+            '8942',   // jlyerly3
+            '26354',  // jmarin11
+            '141030', // jmckee19
+            '6408',   // tamorin
+            '5649',   // jmorto29
+            '7515',   // memuesin
+            '35850',  // snorande
+            '191',    // jcpaddoc
+            '85966',  // rporrasa
+            '8558',   // bpotryku
+            '6144',   // sramse17
+            '16820',  // vreynol2
+            '92131',  // ksarkar
+            '267373', // usilwal
+            '7137',   // cbsincla
+            '68',     // debrasmi
+            '305849', // asmit715
+            '16823',  // ssomayaj
+            '28526',  // bstinso1
+            '18359',  // jstogne1
+            '69',     // jstrickl
+            '234111', // tterry10
+            '7626',   // pthorshe
+            '222998', // mviale
+            '8019',   // dwall
+            '2166',   // njennin4
+            '4145',   // swatts2
+            // Requested by Melanie Lewis 3/13/2024:
+            '25935',  // mmills44
+            '21570',  // kredwar2
+            '6318',   // jsnelson
+            '155393', // mbenjam3
+            '8138',   // jkimble
+            '158197', // smoor191
+            '50500',  // xmo2
+            '6273',   // mekropf
+            '67005',  // aturovli
+            '11441',  // kjcarnes
+            '248580', // rbinabdu
+            '9204',   // cpiper1
+            '6645',   // kmclark1
+            // *Duplicate* chmahaff
+            '11496',  // mkridel
+            // Requested by Melanie Lewis 5/23/2024:
+            '7674',   // astylian
+            // Requested by Melanie Lewis 6/14/2024:
+            '350242', // sbokash
+            // Requested by Melanie Lewis 6/25/2024:
+            '225589', // scacace
+            // Requested by Melanie Lewis 8/7/2024:
+            '11265',  // cboles3
+            '25935',  // mmills44
+            '112407', // lschmid9
+            '20430',  // matkin29
+            '193474', // dowens
+            '57610',  // jbowlin9
+            '116457', // gshaw11
+            '236859', // lbaker54
+            '34952',  // cmerlin1
+            '13716',  // avwray
+            '6582',   // jpvintin
+            '320117', // dbeckman
+            '6199',   // kasala
+            '228098', // jwhit283
+            '3984',   // smichael
+            '309255', // janderson
+            '38140',  // jreed58
+            // Requested by Melanie Lewis 8/7/2024:
+            '208100', // jhouse6
+            // Requested by Melanie Lewis 8/13/2024:
+            '154231', // dnsummer
+            '21570',  // kredwar2
+            '8425',   // ephill28
+            '64015',  // kvimr
+            '9350',   // rboswel3
+            '53494',  // vprabha2
+            '308245', // kscanlo4
+            '186425', // swilde2
+            '222997', // jrobi202
+            '126272', // tktaylo1
+            '224592', // bwashi17
+            '78839',  // lbaltean
+            '210111', // gdepaul
+            '189802', // chalfman
+            '308208', // vbredy
+            '16726',  // keickhof
+            '224833', // ltourign
+            '266358', // lyoung57
+            '29455',  // khammac
+            '226803', // smiles16
+            // Requested by Melanie Lewis 12/9/2024:
+            '17896',  // jkim161
+            '337857', // croger91
+            '223618', // mjenki74
+            // Requested by Lynn Wahl 1/10/2025:
+            '6990',   // cbrown
+            // Requested by Melanie Lewis 1/13/2025:
+            '337365', // stmsmith
+            // Requested by Melanie Lewis 1/21/2025:
+            '6850',   // bebjerre
+            // Requested by Melanie Lewis 3/13/2025:
+            '258095', // dzeidan
+            // Requested by Melanie Lewis 3/18/2025:
+            '304491', // aoakley5
+            '141142', // nkorepan
+            '172',    // frneale
+            '122083', // skanczew
+            '4998',   // klutteck
+            '55600',  // lkearney
+            '338068', // jjang6
+            '139164', // yguo16
+            '87733',  // ksaral
+            '8539',   // rrothber
+            '6210',   // htaylo29
+            '7301',   // malowder
+            '58547'   // svoigt
+        ]
+};
+
+// New
+DpPrimary = {
+    lms: 'canvas',
+    templateCourse: '219772',
+    hideButton: false,
+    hideLti: false,
+    extendedCourse: '', // added in sub-account theme
+    sharedCourse: '', // added from localStorage
+    courseFormats: [],
+    canvasRoles: [],
+    canvasUsers: [
+        // CTL staff:
+        '80147',  // rwahl
+        '85269',  // rwahl_a
+        '30018',  // kbudhran
+        '90785',  // kbudhran_a
+        '298024', // amharris
+        '303787', // amharris_a
+        '268976', // hechols
+        '270297', // hechols_a
+        '10277',  // jtrombly
+        '288074', // jtrombly_a
+        '304081', // rburry
+        '306267', // rburry_a
+        '69023',  // pcolema1
+        '270301', // pcolema1_a
+        '246788', // mairoldi
+        '253189', // melanielewis1234@gmail.com
+        '229534', // cmuellen
+        '230177', // cmuellen_a
+        '13743',  // epark17
+        '122539', // epark17_a
+        '194198', // bstampe1
+        '205147', // bstampe1_a
+        '211876', // jbaile97
+        '21890',  // afrizze2
+        '17674',  // gstalli5
+        '4106',   // nnstrace
+        '20195',  // ktroscla
+        '224488', // ktroscla_a
+        '34',     // malgozzi
+        '136',    // malgozzi_a
+        '3483',   // jharr189
+        '33',     // jharr189_a
+        '16500',  // jkeithle
+        '337988', // jkeithle_a
+        '32',     // jjmeier
+        '3633',   // jjmeier_a
+        '4093',   // ntrick
+        '4117',   // ntrick_a
+        // Requested by Lynn Wahl 3/24/2021:
+        '2857',   // dtaylo72
+        // Requested by Lynn Wahl 4/30/2021:
+        '92254',  // ssmit392
+        '57',     // mmaher9
+        '7225',   // sdhancoc
+        '64',     // abpolly
+        '2856',   // jrtaylor
+        '58955',  // jwei8
+        '7208',   // wjdibias
+        '191430', // mroman7
+        '8105',   // tjkitric
+        '27916',  // mlamarca
+        '31566',  // dgardn32
+        '31567',  // cranda10
+        '4124',   // ebyker
+        '8393',   // agood5
+        '106948', // tcrocke7
+        '6127',   // drowan
+        '56722',  // ddalto14
+        // Requested by Lynn Wahl 5/6/2021:
+        '8269',   // abarsant
+        '6155',   // ppilonie
+        '10394',  // amyers35
+        // Requested by Lynn Wahl 6/9/2021:
+        '7359',   // awill143
+        // Requested by Lynn Wahl 6/17/2021:
+        '9214',   // hstutts
+        '8615',   // chmahaff
+        // Requested by Lynn Wahl 7/1/2021:
+        '5991',   // mrand1
+        '78592',  // mbarne56
+        '117485', // thales
+        '37374',  // dbryan30
+        '6544',   // tcaldw16
+        '58957',  // jbahamon
+        '153828', // aberardinelli
+        '86941',  // mlee173
+        '7228',   // plthomps
+        '37376',  // xniu2
+        '156299', // geldridg
+        '81',     // davils
+        '7941',   // mjshephe
+        '7982',   // esheberl
+        '153827', // tmannahb
+        '8743',   // pgaggl
+        '6705',   // ydiao
+        '35325',  // ewantlan
+        // Requested by Lynn Wahl 7/23/2021:
+        '7493',   // kkmurray
+        // Requested by Lynn Wahl 7/28/2021:
+        '10041',  // jhumphr1
+        '202949', // kwater12
+        // Requested by Lynn Wahl 10/15/2021:
+        '155687', // kdutt1
+        '153289', // spettway
+        // Requested by Lynn Wahl 12/2/2021:
+        // *Duplicate* '106948', // tcrocke7
+        '143766', // spotochn
+        '61451',  // dpowel24
+        '4017',   // jwhit241
+        '2174',   // jwalsh25
+        // *Duplicate* thales
+        '4753',   // kdshue
+        '41985',  // lreinke
+        '133711', // mfitzg21
+        '40308',  // jmill283
+        '6470',   // dskerr
+        '4136',   // serevell
+        '153828', // aberard1
+        // *Duplicate* davils
+        '54',     // mjkhouja
+        '11624',  // jgooty
+        // *Duplicate* tcaldw16
+        '151469', // ndawson2
+        // Requested by Sam Gist 2/17/2022:
+        '49108',  // dalsto13
+        '62368',  // ddiegman
+        '239187', // kwagne29
+        '11407',  // ldymes
+        '21799',  // kcrouch1
+        '21519',  // crwhites
+        '164',    // gbanks3
+        '13636',  // mmetzgar
+        '8432',   // ichiang1
+        '6346',   // msjohar
+        '6134',   // kzhao2
+        '19576',  // jpiatak
+        '79294',  // jwindett
+        '4282',   // nanajjar
+        '6497',   // mestearn
+        '2855',   // mfmckenz
+        '135440', // ewashbu1
+        // Requested by Lynn Wahl 3/21/2022:
+        '216115', // jande215
+        // Requested by Lynn Wahl 3/24/2022:
+        '29455',  // khammac
+        // Requested by Lynn Wahl 4/5/2022:
+        '6645',   // kmclark1
+        // Requested by Lynn Wahl 4/20/2022:
+        '59',     // fmartin3
+        // Requested by Lynn Wahl 5/10/2022:
+        '73161',  // cmelling
+        // Requested by Lynn Wahl 6/13/2022:
+        '9743',   // sabtbum
+        // Requested by Lynn Wahl 6/13/2022:
+        '223281', // mmack13
+        // Requested by Sam Gist 6/17/2022:
+        '8454',   // xhe8
+        '7962',   // theafner
+        '8159',   // njcaste
+        '127167', // mchen37
+        // *Duplicate* mfmckenz
+        '16616',  // kjason
+        // *Duplicate* kdshue
+        '6647',   // jlrolsto
+        '8025',   // jdianesm
+        '5092',   // jchattop
+        '103019', // tmcguffi
+        // *Duplicate* crwhites
+        '43962',  // asadaf
+        '141695', // amickels
+        // Requested by Lynn Wahl 6/23/2022:
+        '13670',  // tmjohnso
+        // Requested by Lynn Wahl 8/19/2022:
+        '40702',   // jjohn496
+        // Requested by Sam Gist 9/20/2022:
+        '4851',   // jgiersch
+        '6344',   // jjszmer
+        '8364',   // adekort
+        '159670', // bpatte38
+        '7248',   // vvcifare
+        '12927',  // sputman
+        '119443', // jgarci43
+        '3849',   // ntriple1
+        '50068',  // jsmithw1
+        '88090',  // dkirkey
+        '6128',   // afernan2
+        // *Duplicate* jrtaylor
+        // *Duplicate* asadaf
+        // Requested by Sam Gist 2/7/2023:
+        '7124',   // sae
+        '58767',  // dmaxwel8
+        // *Duplicate* jjohn496
+        '228254', // zchen32
+        '9068',   // dchen9
+        '9109',   // hcoffey
+        '11842',  // jpmayhor
+        '12937',  // bbutle19
+        '31746',  // seallred
+        '35324',  // nyahyapo
+        '282856', // cflink
+        '224580', // agolmoha
+        '19814',  // emille90
+        '8401',   // tstarker
+        '6191',   // ssalas
+        // *Duplicate* asadaf
+        // *Duplicate* cmelling
+        '6950',   // mjcoffma
+        '61',     // tlmoore2
+        '65',     // hramapra
+        '2063',   // bjring
+        '20224',  // wmabel
+        // Requested by Sam Gist 2/10/2023:
+        '6738',   // lquach
+        // Requested by Sam Gist:
+        '116528', // gethridg
+        '297129', // gethridg_a
+        '296116', // jtayl278
+        '297130', // jtayl278_a
+        // Requested by Lynn Wahl 5/23/2023:
+        '4251',   // afquesin
+        // Requested by Lynn Wahl 7/14/2023:
+        '62719',  // lgmontgomery
+        '62344',  // mmason32
+        '19030',  // jdippong
+        '161',    // sboyd
+        '6911',   // jkgodfre
+        '8138',   // jkimble
+        '38156',  // pmadsen
+        '282070', // kzacherl
+        '179',    // trshirle
+        '267394', // dsmit423
+        '8631',   // sjbrais
+        '54973',  // nbarclay
+        '266358', // lyoung57
+        '34359',  // hdack
+        // Requested by Melanie Lewis 11/3/2023:
+        // *Duplicate* dskerr
+        '119442', // twithro1
+        '16391',  // yge
+        '11684',  // rsuclupe
+        // *Duplicate* drowan
+        '308198', // jdamron
+        '56601',  // bwagne12
+        '92551',  // vjbeaver
+        // *Duplicate* abpolly
+        // *Duplicate* jrtaylor
+        // *Duplicate* kmclark1
+        // *Duplicate* dsmit423
+        // *Duplicate* kdshue
+        // *Duplicate* jkimble
+        '28820',  // dlnewell
+        // *Duplicate* emille90
+        // *Duplicate* mfmckenz
+        '91564',  // oshoghli
+        // *Duplicate* jpmayhor
+        '7287',   // jmrobin2
+        '7290',   // jkshedd
+        '6759',   // ldedward
+        // Requested by Melanie Lewis 12/15/2023:
+        '216240', // jprinci1
+        '230240', // lapyatt
+        // Requested by Melanie Lewis 1/16/2024:
+        '60456',  // smumford
+        '28872',  // csgreen2
+        // Requested by Melanie Lewis 2/12/2024:
+        '154231', // dnsummer
+        // Requested by Melanie Lewis 3/13/2024:
+        '74494',  // vcavines
+        // Requested by Lynn Wahl 4/18/2024:
+        '11396',  // ragosta
+        '90800',  // pbanks4
+        '16367',  // jbleds11
+        '180',    // arbobyar
+        '4791',   // jbbyrd
+        '12705',  // acanevel
+        '20225',  // adils
+        '267273', // rdudley5
+        '6211',   // fmohiudd
+        '187379', // fferdous
+        '90440',  // pfernan2
+        '8154',   // wjgarcia
+        '33356',  // egodlyre
+        '4600',   // magordon
+        '7181',   // jagrymes
+        '7716',   // cwhouck
+        '40670',  // jkarp3
+        '6940',   // fgkatsan
+        '12848',  // aking86
+        '8942',   // jlyerly3
+        '26354',  // jmarin11
+        '141030', // jmckee19
+        '6408',   // tamorin
+        '5649',   // jmorto29
+        '7515',   // memuesin
+        '35850',  // snorande
+        '191',    // jcpaddoc
+        '85966',  // rporrasa
+        '8558',   // bpotryku
+        '6144',   // sramse17
+        '16820',  // vreynol2
+        '92131',  // ksarkar
+        '267373', // usilwal
+        '7137',   // cbsincla
+        '68',     // debrasmi
+        '305849', // asmit715
+        '16823',  // ssomayaj
+        '28526',  // bstinso1
+        '18359',  // jstogne1
+        '69',     // jstrickl
+        '234111', // tterry10
+        '7626',   // pthorshe
+        '222998', // mviale
+        '8019',   // dwall
+        '2166',   // njennin4
+        '4145',   // swatts2
+        // Requested by Melanie Lewis 3/13/2024:
+        '25935',  // mmills44
+        '21570',  // kredwar2
+        '6318',   // jsnelson
+        '155393', // mbenjam3
+        '8138',   // jkimble
+        '158197', // smoor191
+        '50500',  // xmo2
+        '6273',   // mekropf
+        '67005',  // aturovli
+        '11441',  // kjcarnes
+        '248580', // rbinabdu
+        '9204',   // cpiper1
+        '6645',   // kmclark1
+        // *Duplicate* chmahaff
+        '11496',  // mkridel
+        // Requested by Melanie Lewis 5/23/2024:
+        '7674',   // astylian
+        // Requested by Melanie Lewis 6/14/2024:
+        '350242', // sbokash
+        // Requested by Melanie Lewis 6/25/2024:
+        '225589', // scacace
+        // Requested by Melanie Lewis 8/7/2024:
+        '11265',  // cboles3
+        '25935',  // mmills44
+        '112407', // lschmid9
+        '20430',  // matkin29
+        '193474', // dowens
+        '57610',  // jbowlin9
+        '116457', // gshaw11
+        '236859', // lbaker54
+        '34952',  // cmerlin1
+        '13716',  // avwray
+        '6582',   // jpvintin
+        '320117', // dbeckman
+        '6199',   // kasala
+        '228098', // jwhit283
+        '3984',   // smichael
+        '309255', // janderson
+        '38140',  // jreed58
+        // Requested by Melanie Lewis 8/7/2024:
+        '208100', // jhouse6
+        // Requested by Melanie Lewis 8/13/2024:
+        '154231', // dnsummer
+        '21570',  // kredwar2
+        '8425',   // ephill28
+        '64015',  // kvimr
+        '9350',   // rboswel3
+        '53494',  // vprabha2
+        '308245', // kscanlo4
+        '186425', // swilde2
+        '222997', // jrobi202
+        '126272', // tktaylo1
+        '224592', // bwashi17
+        '78839',  // lbaltean
+        '210111', // gdepaul
+        '189802', // chalfman
+        '308208', // vbredy
+        '16726',  // keickhof
+        '224833', // ltourign
+        '266358', // lyoung57
+        '29455',  // khammac
+        '226803', // smiles16
+        // Requested by Melanie Lewis 12/9/2024:
+        '17896',  // jkim161
+        '337857', // croger91
+        '223618', // mjenki74
+        // Requested by Lynn Wahl 1/10/2025:
+        '6990',   // cbrown
+        // Requested by Melanie Lewis 1/13/2025:
+        '337365', // stmsmith
+        // Requested by Melanie Lewis 1/21/2025:
+        '6850',   // bebjerre
+        // Requested by Melanie Lewis 3/13/2025:
+        '258095', // dzeidan
+        // Requested by Melanie Lewis 3/18/2025:
+        '304491', // aoakley5
+        '141142', // nkorepan
+        '172',    // frneale
+        '122083', // skanczew
+        '4998',   // klutteck
+        '55600',  // lkearney
+        '338068', // jjang6
+        '139164', // yguo16
+        '87733',  // ksaral
+        '8539',   // rrothber
+        '6210',   // htaylo29
+        '7301',   // malowder
+        '58547'   // svoigt
+    ],
+    canvasCourseIds: [],
+    plugins: [],
+    excludedModules: [],
+    includedModules: [],
+    lang: 'en',
+    defaultToLegacy: true,
+    enableVersionSwitching: true,
+    hideSwitching: false,
+}
+
+// merge with extended/shared customizations config
+DpConfig = { ...DpPrimary, ...(window.DpConfig ?? {}) }
+
+$(function () {
+    const uriPrefix = (location.href.includes('.beta.')) ? 'beta.' : '';
+    const toolsUri = (DpConfig.toolsUri) ? DpConfig.toolsUri : `https://${uriPrefix}designplus.ciditools.com/`;
+    $.getScript(`${toolsUri}js/controller.js`);
+});
+////////////////////////////////////////////////////
+// END DESIGNPLUS CONFIG                        //
+////////////////////////////////////////////////////
+$(document).ready(function(){
+	$('label[for=pseudonym_session_unique_id_forgot]').html('Thank you');
+
+	$('#allowed_extensions_container #explanation_nest').html('Enter a list of accepted extensions, for example: doc, docx, xls, xlsx, txt');
+
+	// Hide delete and reset buttons on course settings page for non-admins
+	if (/^\/courses\/[0-9]+\/settings$/.test(window.location.pathname)) {
+		if($.inArray('admin',ENV.current_user_roles) == -1){
+			$('a[href*=\'confirm_action?event=delete\']').hide();
+			//$('a[href*=\'/reset\']').hide();
+		}
+	}
+
+	var current_term = $("#section-tabs-header-subtitle").text();
+	//if (current_term == 'Spring 2020') {
+		if ($("#assignment_vericite_enabled").is(":checked")) {
+			$('label[for=assignment_vericite_enabled]').show();
+		} else {
+			$('label[for=assignment_vericite_enabled]').hide();
+		}
+	//}
+
+	var el = document.getElementById("default_email_id");
+	while (el && el.parentNode) {
+		el = el.parentNode;
+		if (el.tagName && el.tagName.toLowerCase() == "tr") {
+			el.style.display = "none";
+		}
+	}
+
+   $('#forgot_password_form').find("button").click(function(){
+		var forgot_password_url = "https://services.help.charlotte.edu/TDClient/33/Portal/Requests/TicketRequests/NewForm?ID=3PxB4GNoh3c_&RequestorType=Service";
+	    window.open(forgot_password_url);
+        return false;
+	})
+});
+
+
+var SPSheader = '<div id="spsheader">School of Professional Studies</div>';
+var spsheader = document.getElementsByClassName("ic-Login__body")[0];
+var loginform = spsheader.innerHTML;
+spsheader.innerHTML = SPSheader + loginform ;
+var forgot_password_instructions = `If you need help logging in, click <strong>Request Password</strong> below and include the following:<br /><br />
+<strong>Issue Category:</strong> Canvas<br />
+
+<strong>Your email address:</strong> Type the email address used to register for your Continuing Ed course.
+<br /><br />
+<div id='sps_note'>NOTE:  If you have not tried to log in to Canvas with your temporary password, 
+please try first before completing this form.  Your Canvas username is the same as your Continuing Education account username.  
+Your temporary password is:  username + 49ER (ex. jdoe49ER)</div>
+`;
+
+document.getElementById("forgot_password_instructions").innerHTML = forgot_password_instructions;
+//document.getElementsByTagName("label")[2].firstChild.data = "Email address";

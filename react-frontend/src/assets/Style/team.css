@@ -13,8 +13,8 @@
 	font-family: Arial, Helvetica, sans-serif;
 	background-color: var(--black);
 	color: var(--white);
-	height: 100vh;
-    overflow-x: hidden;
+	height: 100%;
+    overflow-x: hidden;  /* need to have the scroll bar fixed for the team page only*/
     overflow-y: auto;
   }
 
@@ -49,11 +49,49 @@
   }
   
   .team-card {
-    background-color: var(--light-grey);
-    border-radius: 1rem;
+    background-color: transparent;
+    border: none;
+
   }
   
   .team-name {
+    padding-top: 2rem;
     color: var(--primary-color);
   }
+
+  .profile-img{
+    border: 1px solid var(--light-grey);
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+    width: auto;
+    height: 350px;
+    border-radius: 0.5rem;
+    object-fit: cover;
+  }
+
+  /* Icon Links */
+
+  .link-container{
+    display: flex;
+    flex-direction: row;
+
+  }
+
+  .profile-link{
+    width: 25px;
+    height: auto;
+    margin-right: 5px;
+  }
+
+
+  /*
+  a{
+    width: 25px;
+    height: auto;
+    margin-right: 5px;
+  }
+    */
+
+
+
   

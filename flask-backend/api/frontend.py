@@ -10,7 +10,7 @@ import uuid
 from datetime import datetime
 from flask_apscheduler import APScheduler
 # ~~~~~~~~~~~~~~~~~~~~~~ Dependencies from other files ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-from api.aws import dynamodb, table, schedule_table # AWS-related resources
+from api.aws import dynamodb, table, schedule_table, cc_trains # AWS-related resources
 # from api.machine_learning import gen_schedule # Machine learning-related function
 
 # ~~~~~~~~~~~~~~~~~~~~~~ Setting Up the App ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -95,7 +95,7 @@ def schedule():
                         'maintenance_scheduled': 'false',
                         'manually_overriden': 'true',
                         'mean_duf': 3,
-                        'standard_deviation_duf' : 12
+                        'standard_deviation_duf': 12
                     }
                 )
                 print("Table updated successfully!")
@@ -139,8 +139,7 @@ def validate_user(data):
 
 
     return True, ''
-
-
+  
 #Route for logging in a user
 @frontend_bp.route("/login", methods=["POST"])
 def login():
@@ -189,6 +188,7 @@ def login():
 def signup():
     #Input Validation
     data = request.json
+    print(data)
     is_valid, error_message = validate_user(data)
 
     if not is_valid:
@@ -268,7 +268,11 @@ def get_schedule():
     print(getSchedule)
     return jsonify(getSchedule)
 
-
-scheduler = APScheduler()
-# scheduler.add_job(func=gen_schedule, trigger='interval', id='job', seconds=5)
-scheduler.start()
+@frontend_bp.route("/dashboard", methods=["GET"])
+def get_train_info():
+    try:
+        getTrainInformation = cc_trains.scan()
+    except ClientError as e:
+        return jsonify({'Status': 'Failure', 'Code': '500 Internal Server Error', 'Message': 'Cannot retrieve data from the database.'}), 500
+    
+    return jsonify(getTrainInformation)

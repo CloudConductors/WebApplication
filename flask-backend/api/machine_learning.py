@@ -1,33 +1,42 @@
 from flask import Blueprint, jsonify, session
-from botocore.exceptions import ClientError
 import boto3
+from api.schedule_constuction_model import StatsModel, Component
 from boto3.dynamodb.conditions import Attr, And
+
 
 from api.aws import table, schedule_table, cc_trains
 
+
 machine_learning_bp = Blueprint('machine_learning', __name__)
 
-# def gen_schedule():
-#     try:
-#         response = table.scan(
-#             FilterExpression=And(Attr('group').eq('admin'), Attr('user_id').is_in(session))
-#         )
-#     except ClientError as e:
-#         return jsonify({'error': 'You are not an admin'}), 403
-#     try:
-#         maintenance = schedule_table.scan(
-#             FilterExpression=Attr('Maintenance_Scheduled').eq('false')
-#         )
-#     except ClientError as e:
-#         return jsonify({'error': 'BE GONE'}), 403
-#     try:
-#         Component_Id = schedule_table.scan(
-#             FilterExpression=Attr('component_id').eq('1')
-#         )
-#     except ClientError as e:
-#         return jsonify({'error': 'ID not found'}), 404
+def gen_schedule():
+    dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
+    try:
+        maintenance = schedule_table.scan(
+            FilterExpression=Attr('maintenance_scheduled').eq('false')
+        )
+    except ClientError as e:
+        return jsonify({'error': 'BE GONE'}), 403
 
-#     print('Hello from gen sched')
+    components = maintenance["Items"]
+    train_map = get_train_map(components)
+    schedule_dict = {}
+    for train_id in train_map:
+        model_component_input = Component.gen_components(train_map[train_id])
+        model = StatsModel(components=model_component_input)
+        schedule = model.construct_schedual()
+        for comp in schedule:
+            update_rep_date(schedule_table, comp.id, train_id, comp.recomended_rep)
+            schedule_dict[comp.id] = comp.recomended_rep
+    return schedule_dict
+
+def update_rep_date(schedule_table, comp_id, train_id, rep_date):
+    schedule_table.update_item(
+        Key={'component_id': str(comp_id), 'train_id': str(train_id)},
+        UpdateExpression='SET expected_repair_duf = :expected_repair_duf',
+        ExpressionAttributeValues={':expected_repair_duf': rep_date},
+    )
+
 
 @machine_learning_bp.route("/train-info", methods=["GET"])
 def get_trains():
@@ -37,3 +46,12 @@ def get_trains():
         return jsonify({'Status': 'Failure', 'Code': '500 Internal Server Error', 'Message': 'Cannot retrieve data from the database.'}), 500
     
     return jsonify(response)
+
+def get_train_map(components):
+    train_map = {}
+    for comp in components:
+        id = int(comp["train_id"])
+        if id not in train_map:
+            train_map[id] = []
+        train_map[id].append(comp)
+    return train_map

@@ -1,0 +1,11 @@
+FROM python:3-alpine3.21
+
+WORKDIR /backend
+
+COPY . .
+
+RUN pip install -r requirements.txt
+
+EXPOSE 5000
+
+CMD flask --debug run --host=0.0.0.0

@@ -17,90 +17,125 @@
 - Bryonna Gray
 - Jakob Olsen
 
-## Application setup 
+# 🚀 Application Setup Guide
 
-### Flask
+This project can be run using **Docker** (recommended for deployment) or **locally** (recommended for debugging).
 
-1. Open a terminal VS Code. (**Use Git Bash**)
-2. Check if python installed
-   ```
+---
+
+## ⚙️ Docker Setup
+
+> **Pros:** Easy startup  
+> **Cons:** Poor for debugging, must restart Docker to see changes
+
+### 🧩 Prerequisites
+1. Ensure you have received the `.env` file and placed it inside the `Main/` directory.
+2. [Install Docker Desktop](https://www.docker.com/) if not already installed.
+3. Start Docker Desktop.
+4. Open a terminal in VS Code using **Git Bash**.
+
+### ▶️ Start Containers
+```bash
+docker-compose up --build
+```
+
+### 🐞 Stop Containers for Debugging
+```bash
+docker-compose down
+```
+Or manually delete the containers using Docker Desktop.
+
+---
+
+## 🖥️ Running Locally (Recommended for Debugging)
+
+> Run **Flask** and **React** separately.  
+> Hot-reloading is supported for easier development.
+
+---
+
+### 🔧 1. Flask Setup
+
+#### 📌 Step-by-step
+1. Open a terminal in VS Code (**Use Git Bash**).
+2. Check Python version:
+   ```bash
    python --version
    ```
-   - if error visit https://pythongeeks.org/python-3-installation-and-setup-guide/
-3. Navigate to Flask Folder
-   ```
+   - If not installed: [Install Python 3](https://pythongeeks.org/python-3-installation-and-setup-guide/)
+
+3. Navigate to Flask backend:
+   ```bash
    cd flask-backend
    ```
-4. Create the virtual environment:
-   ```
+
+4. Create virtual environment:
+   ```bash
    python -m venv venv
    ```
-5. Activate the virtual environment:
-   ```
+
+5. Activate virtual environment:
+   ```bash
    source venv/Scripts/activate
    ```
-   - You should now see (venv) above your current line in the terminal
-6. Install all required dependencies:
-   ```
+   - You should see `(venv)` in the terminal prompt.
+
+6. Install dependencies:
+   ```bash
    pip install -r requirements.txt
    ```
-7. Configure AWS
-   1. In the same terimal type:
-         ```
-            aws configure
-         ```
-      - For Windows (if `aws` doesn't work):
-         ```
-         aws.cmd configure
-         ```
-      - Alternatively, use:
-         ```
-         python -m awscli configure
-         ```
-   2. For Access key Id type in:
-      ```
-      AWS_ACCESS_KEY
-      ```
-      and press enter
-      
-   3. For Secret Access Key type in:
-      ```
-      AWS_SECRET_KEY
-      ```
-      and press enter
 
-   4. For Region Name type in:
-      ```
-      us-east-1
-      ```
-      and press enter
+#### ☁️ AWS Configuration
+```bash
+aws configure
+```
+- If `aws` doesn't work on Windows:
+  ```bash
+  aws.cmd configure
+  ```
+- Or use:
+  ```bash
+  python -m awscli configure
+  ```
 
-   5. For Output format press enter again
+##### Use the following values:
+- **Access Key ID:** `AWS_ACCESS_KEY`
+- **Secret Access Key:** `AWS_SECRET_KEY`
+- **Region:** `us-east-1`
+- **Output format:** *(press Enter)*
 
-6. Run Flask in debug mode:
-   ```
-   flask --debug run
-   ```
-7. Navigate to link to access site (should also be in console)
-   -  http://127.0.0.1:5000/
+#### ▶️ Run Flask App in Debug Mode
+```bash
+flask --debug run
+```
 
-### React
+> The app should be accessible at: [http://127.0.0.1:5000/](http://127.0.0.1:5000/)
 
-1. Open another terminal in VS Code. (**Use Git Bash**)
-2. Check if npm is installed
-   ```
+---
+
+### ⚛️ 2. React Setup
+
+#### 📌 Step-by-step
+1. Open a second terminal in VS Code (**Use Git Bash**).
+2. Check if `npm` is installed:
+   ```bash
    npm --version
    ```
-   - if error visit https://docs.npmjs.com/downloading-and-installing-node-js-and-npm
-3. Navigate to the React folder
-   ```
+   - If not installed: [Install Node.js and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
+
+3. Navigate to React frontend:
+   ```bash
    cd react-frontend
    ```
-4. Install dependencies
-   ```
+
+4. Install dependencies:
+   ```bash
    npm install
    ```
-5. Run app
-   ```
+
+5. Start React App:
+   ```bash
    npm start
    ```
+
+> The React app usually runs at: [http://localhost:3000/](http://localhost:3000/)

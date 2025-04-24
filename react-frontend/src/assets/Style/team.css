@@ -1,97 +1,273 @@
 :root {
-	--white: #ffffff;
-	--dark-grey: #1e1f25;
-	--light-grey: #2a2b30;
-	--black: #1e1e1e;
-	--primary-color: #bce29e;
-	--secondary-color: #0099ff;
+    --white: #ffffff;
+    --dark-grey: #1e1f25;
+    --light-grey: #2a2b30;
+    --black: #121212;
+    --primary-color: #bce29e;
+    --secondary-color: #0099ff;
+    --accent-color: #1c1c1c;
   }
   
   body {
-	margin: 0;
-	padding: 0;
-	font-family: Arial, Helvetica, sans-serif;
-	background-color: var(--black);
-	color: var(--white);
-	height: 100%;
-    overflow-x: hidden;  /* need to have the scroll bar fixed for the team page only*/
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--white);
+    height: 100%;
+    overflow-x: hidden;
     overflow-y: auto;
   }
-
+  
   .team-page {
-    background-color: var(--background-color);
-    color: var(--white);
-    padding-bottom: 3rem;
-    background-color: var(--background-color);
-    color: var(--white);
+    padding-bottom: 4rem;
     min-height: 100%;
     width: 100%;
     box-sizing: border-box;
-    /*
-    min-height: 100vh;
-    */
   }
   
-  .team-title {
+  .team-title-mb-4 {
     color: var(--primary-color);
+    font-size: 7rem;
+    text-align: center;
+    font-family: 'Segoe UI', sans-serif;
+    font-weight: lighter;
+    margin-top: -1rem;
   }
   
   .team-subtitle {
-    font-weight: 500;
+    font-weight: 400;
+    font-size: 1.25rem;
+    color: #ccc;
+    text-align: center;
+    margin-bottom: 2rem;
   }
   
   .section-heading {
-    color: var(--light-green);
+    color: #6DC956;
+    font-size: 1.5rem;
+    font-weight: 300;
+    margin-bottom: 1rem;
+  }
+
+  .project-info{
+    font-size: 20px;
+    text-align: center;
+    line-height: 1.6;
+    color: #e0e0e0;
+  }
+
+  .objectives-title{
+    font-size: 30px;
+    font-family: 'Segoe UI', sans-serif;
+    font-weight: lighter;
+    color: #e0e0e0;
   }
   
-  .scenario-heading {
-    color: var(--secondary-color);
+
+  ul {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #e0e0e0;
+  }
+
+  .objectives-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    text-align: center;
+    margin-top: 1rem;
+  }
+  
+  .objective-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--white);
+  }
+
+  #obj-1, #obj-3 {
+    position: relative;
+  }
+  
+  #obj-1::after, #obj-3::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--dark-grey), white 50%, var(--dark-grey));
+    z-index: 1;
+  }
+  
+  
+  #obj-1::after {
+    right: 0;
+  }
+  
+  #obj-3::before {
+    left: 0;
+  }
+  
+  .objective-img {
+    width: auto;
+    height: 250px;
+    object-fit: contain;
+    margin-bottom: 0.5rem;
+    filter: drop-shadow(0 0 4px #6DC956);
+  }
+
+  .method-section {
+    padding: 2rem 2.5rem;
+    border-radius: 1rem;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    transition: background 0.3s ease;
+  }
+
+  .section-heading{
+    font-size: 30px;
+  }
+  
+  .method-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+  
+  .method-text {
+    flex: 1;
+    font-size: 20px;
+    line-height: 1.7;
+    color: #e0e0e0;
+  }
+  
+  .method-img {
+    flex: 1;
+    max-width: 500px;
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+    filter: drop-shadow(0 0 8px #6DC956);
+  }
+
+  .method-section:hover {
+    background: #2e2f35;
+  }
+
+  .architecture-section {
+    padding: 2rem 2.5rem;
+    border-radius: 1rem;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+    margin-top: 3rem;
+    margin-bottom: 10rem;
+    transition: background 0.3s ease;
+  }
+  
+  .architecture-section:hover {
+    background: #2e2f35;
+  }
+  
+  .architecture-section h4 {
+    font-size: 2rem;
+    font-weight: 400;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 0.5rem;
+  }
+  
+  .architecture-section ul {
+    list-style: none;
+    padding-left: 0;
+    font-size: 20px;
+    line-height: 1.8;
+    color: #d4d4d4;
+  }
+  
+  .architecture-section li {
+    position: relative;
+    padding-left: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .architecture-section li::before {
+    content: '✔';
+    position: absolute;
+    left: 0;
+    color: var(--primary-color);
+    font-weight: bold;
+  }
+
+  .our-team-heading {
+    font-size: 60px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    position: relative;
+    display: inline-block;
+    padding-bottom: 0.5rem;
+  }
+  
+  .our-team-heading::after {
+    content: '';
+    position: absolute;
+    width: 90%;
+    height: 3px;
+    background: linear-gradient(90deg, #6DC956, #4fa34d);
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    border-radius: 2px;
   }
   
   .team-card {
-    background-color: transparent;
-    border: none;
-
-  }
-  
-  .team-name {
-    padding-top: 2rem;
-    color: var(--primary-color);
-  }
-
-  .profile-img{
-    border: 1px solid var(--light-grey);
+    background-color: var(--accent-color);
     border-radius: 12px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
-    width: auto;
-    height: 350px;
-    border-radius: 0.5rem;
-    object-fit: cover;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    text-align: center;
   }
-
-  /* Icon Links */
-
-  .link-container{
-    display: flex;
-    flex-direction: row;
-
-  }
-
-  .profile-link{
-    width: 25px;
-    height: auto;
-    margin-right: 5px;
-  }
-
-
-  /*
-  a{
-    width: 25px;
-    height: auto;
-    margin-right: 5px;
-  }
-    */
-
-
-
   
+  .team-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+  }
+  
+  .member-name {
+    margin-top: 1rem;
+    font-size: 1.25rem;
+    color: var(--primary-color);
+    font-weight: 100;
+  }
+  
+  .profile-img {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+    border-radius: 0.75rem;
+    transition: transform 0.3s ease;
+
+  }
+  
+  .link-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 0.15rem;
+    margin-right: 1rem;
+  }
+  
+  .profile-link {
+    width: 28px;
+    transition: transform 0.2s ease;
+  }
+  
+  .profile-link:hover {
+    transform: scale(1.1);
+  }

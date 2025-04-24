@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../assets/Style/dashboard.css";
+import search from '../assets/images/magnify.svg';
 
 export default function DashBoardCom() {
   const [trains, setTrains] = useState([]);
@@ -16,7 +17,9 @@ export default function DashBoardCom() {
       .then((response) => {
         console.log("Fetched train data:", response.data);
         if (response.data.Items && response.data.Items.length > 0) {
-          setTrains(response.data.Items);
+          const duplicatedItems = [...response.data.Items, ...response.data.Items];
+          setTrains(duplicatedItems);
+          //setTrains(response.data.Items);
         }
         setLoading(false);
       })

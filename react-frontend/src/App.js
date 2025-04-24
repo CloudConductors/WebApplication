@@ -17,14 +17,13 @@
 
 import React from "react";
 import Routing from "./route/routing";
-import TestPageCSS from "../src/assets/Style/testPage.css";
-import HeaderCSS from "../src/assets/Style/index.css";
 
 function App() {
   return (
     <body>
       <Routing />
-    </body>
+      </body>
+    
   );
 }
 

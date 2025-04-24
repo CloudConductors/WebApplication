@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../components/AuthContext";
 import axios from "axios";
 
 // Assets
@@ -9,12 +10,13 @@ import logo from '../assets/images/cloud-conductors-logo.svg';
 import hamburger from '../assets/images/hamburger_icon.png';
 import schedule from '../assets/images/schedule.png';
 import team from '../assets/images/team.png';
-import logout from '../assets/images/logout.webp';
+import logoutImg from '../assets/images/logout.webp';
 
 
 export default function Navbar() {
   const navigate = useNavigate();
   const userName = sessionStorage.getItem("userName");
+  const { logout } = useAuth();
   
   function handleLogout(navigate) {
     // Clear sessionStorage
@@ -24,6 +26,7 @@ export default function Navbar() {
     // Optional: call backend to destroy Flask session
     axios.get("http://127.0.0.1:5000/frontend/logout")
       .then(() => {
+        logout();
         navigate("/login", { state: { justLoggedOut: true, message: "Logout successful!", variant: "success" } }); // Redirect to login page
       })
       .catch((error) => {
@@ -40,7 +43,7 @@ export default function Navbar() {
           <Link to="/Schedule"><img className='icon' src={schedule} alt="schedule" /></Link>
           { <Link to="/Team"><img className='icon' src={team} alt="team" /></Link> }
           { userName && (
-            <button className="logout-button" onClick={() => handleLogout(navigate)} title="Logout"><img className='icon' src={logout} alt="logout" /> </button>
+            <button className="logout-button" onClick={() => handleLogout(navigate)} title="Logout"><img className='icon' src={logoutImg} alt="logout" /> </button>
           )}
         </nav>
       </div>

@@ -1,19 +1,24 @@
 import '../assets/Style/index.css';
 import logo from '../assets/images/cloud-conductors-logo.svg';
-import search from '../assets/images/magnify.svg';
-import {Link} from 'react-router-dom';
+// import search from '../assets/images/magnify.svg';
+import {Link, useLocation } from 'react-router-dom';
 import React, { useState, useEffect } from "react";
 
 
 export default function Header() {
-    const [userName, setUserName] = useState(null);
-
+    const [userName, setUserName] = useState(() => sessionStorage.getItem("userName"));
+    const location = useLocation();
+  
     useEffect(() => {
-        const storedName = sessionStorage.getItem('userName');
-        if (storedName) {
-            setUserName(storedName);
+        if (location.state?.justLoggedIn) {
+          setUserName(sessionStorage.getItem("userName"));
+          window.history.replaceState({}, document.title); // Clear history state
+        } else if (location.state?.justLoggedOut) {
+          setUserName(null);
+          window.history.replaceState({}, document.title); // Clear history state
         }
-    }, []);
+      }, [location.state]);
+
     return (
     <div>
         <header>
@@ -25,6 +30,7 @@ export default function Header() {
                     </div>
                 </div>
                 <div className="search-container">
+                    {/* This is a searchbar that we didn't find a use for, but still */}
                     {/* <div className="search-box">
                         <input
                             id="search-box"

@@ -34,9 +34,6 @@ export default function Login() {
           return;
         }
 
-        console.log('Sending POST request to: http://localhost:5000/login');
-        console.log('Data being sent:', loginForm);  // Ensure the data looks correct
-
         axios.post("http://localhost:5000/frontend/login",{
             email: loginForm.email,
             password: loginForm.password
@@ -46,7 +43,7 @@ export default function Login() {
           const { id, name } = response.data;
           sessionStorage.setItem("userId", id);
           sessionStorage.setItem("userName", name);
-          navigate("/");
+          navigate("/", { state: { justLoggedIn: true } });
         }).catch((error) => {
           if (error.response) {
             console.error(error);

@@ -14,31 +14,31 @@ import logout from '../assets/images/logout.webp';
 
 export default function Navbar() {
   const navigate = useNavigate();
-    const userName = sessionStorage.getItem("userName");
+  const userName = sessionStorage.getItem("userName");
   
-    function handleLogout(navigate) {
-      // Clear sessionStorage
-      sessionStorage.removeItem("userId");
-      sessionStorage.removeItem("userName");
-    
-      // Optional: call backend to destroy Flask session
-      axios.get("http://127.0.0.1:5000/logout")
-        .then(() => {
-          navigate("/login",{ state: { message: "Logout successful!", variant: "success"} }); // Redirect to login page
-        })
-        .catch((error) => {
-          console.error("Logout error:", error);
-          navigate("/login"); // Still redirect even if Flask fails
-        });
-    }
+  function handleLogout(navigate) {
+    // Clear sessionStorage
+    sessionStorage.removeItem("userId");
+    sessionStorage.removeItem("userName");
+  
+    // Optional: call backend to destroy Flask session
+    axios.get("http://127.0.0.1:5000/frontend/logout")
+      .then(() => {
+        navigate("/login", { state: { justLoggedOut: true, message: "Logout successful!", variant: "success" } }); // Redirect to login page
+      })
+      .catch((error) => {
+        console.error("Logout error:", error);
+        navigate("/login"); // Still redirect even if Flask fails
+      });
+  }
   return (
       <div id="navBar" className="main">
         <nav>
           {/* all images from https://www.iconfinder.com/search?price=free */}
-          <Link to="/"><img id="logo" src={logo} alt="logo" /></Link>
-          <Link to="/Dashboard"><img src={hamburger} alt="dashboard" /></Link>
-          <Link to="/Schedule"><img src={schedule} alt="schedule" /></Link>
-          { <Link to="/Team"><img src={team} alt="team" /></Link> }
+          <Link to="/" className='custom-link'><img id="logo" src={logo} alt="logo" /></Link>
+          <Link to="/Dashboard"><img className='icon' src={hamburger} alt="dashboard" /></Link>
+          <Link to="/Schedule"><img className='icon' src={schedule} alt="schedule" /></Link>
+          { <Link to="/Team"><img className='icon' src={team} alt="team" /></Link> }
           { userName && (
             <button className="logout-button" onClick={() => handleLogout(navigate)} title="Logout"><img className='icon' src={logout} alt="logout" /> </button>
           )}

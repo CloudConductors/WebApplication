@@ -17,7 +17,7 @@ const router = createBrowserRouter([
     children: [
       { path: "/", element: <HomePage /> },
       { path: "/login", element: <LoginPage /> },
-      { path: "/sign-up", element: <SignUpPage /> },
+      { path: "/signup", element: <SignUpPage /> },
 
       // Protected Route for Dashboard
       {

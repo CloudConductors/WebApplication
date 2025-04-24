@@ -6,8 +6,15 @@ import React, { useState, useEffect } from "react";
 
 
 export default function Header() {
+    const [userName, setUserName] = useState(null);
 
-  return (
+    useEffect(() => {
+        const storedName = sessionStorage.getItem('userName');
+        if (storedName) {
+            setUserName(storedName);
+        }
+    }, []);
+    return (
     <div>
         <header>
             <div className="top-bar">
@@ -18,7 +25,7 @@ export default function Header() {
                     </div>
                 </div>
                 <div className="search-container">
-                    <div className="search-box">
+                    {/* <div className="search-box">
                         <input
                             id="search-box"
                             type="text"
@@ -30,12 +37,18 @@ export default function Header() {
                         <button type="submit" className="search-btn">
                                 <img src={search} alt="search-icon" className="search-icon" />
                         </button>
-                    </div>
+                    </div> */}
                 </div>
-                <div className="access-account-buttons">
+                {userName ? (
+                    <div className="access-account-buttons">
+                        <p className="name" >Welcome, {userName}!</p>
+                    </div>
+                ) : (
+                    <div className="access-account-buttons">
                         <Link to="/login" className="Link login-button">Login</Link>
                         <Link to="/signUp" className="Link sign-up-button">Sign Up</Link>
-                </div>
+                    </div>
+                )}
             </div>
         </header>
     </div>

@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, jsonify, request, session
-import os
 import boto3
+import re
 from boto3.dynamodb.conditions import Attr, And
 from botocore.exceptions import ClientError
 import json
@@ -8,16 +8,12 @@ import bcrypt
 import base64
 import uuid
 from datetime import datetime
-from flask_apscheduler import APScheduler
 # ~~~~~~~~~~~~~~~~~~~~~~ Dependencies from other files ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 from api.aws import dynamodb, table, schedule_table, cc_trains # AWS-related resources
 # from api.machine_learning import gen_schedule # Machine learning-related function
 
 # ~~~~~~~~~~~~~~~~~~~~~~ Setting Up the App ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 frontend_bp = Blueprint('frontend', __name__) #used to setup file to be imported to flask
-
-# ~~~~~~~~~~~~~~~~~~~~~~ Sessions ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-frontend_bp.secret_key = os.urandom(24)
 
 # ~~~~~~~~~~~~~~~~~~~~~~ Assisting Functions ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -111,18 +107,52 @@ def schedule():
     #return render_template('schedule.html')
     return jsonify({'Status': 'Success', 'Code': '200 OK'}), 200
 
+#Input validation for Login and SignUp
+def validate_user(data):
+    email = data.get('email')
+    password = data.get('password')
+    email_pattern = r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
+    valid_email = re.match(email_pattern, email)
+    invalid_password = len(password) < 8
+    
+
+    if not email and not password:
+        return False, 'Missing required fields'
+    elif not email:
+        if invalid_password:
+            return False, 'Missing Email field and Password too short'
+        else:
+            return False, 'Missing Email field'
+    elif not password:
+        if email:
+            if not valid_email:
+                return False, 'Invalid Email and Missing Password field'
+            else:
+                return False, 'Missing Password field'
+    elif invalid_password and not valid_email:
+        return False, 'Invalid Email and Password too short'
+    elif invalid_password:
+        return False, 'Password too short'
+    elif not valid_email:
+        return False, 'Invalid Email'
+
+
+    return True, ''
+  
 #Route for logging in a user
 @frontend_bp.route("/login", methods=["POST"])
 def login():
-    #Retrieving data from front end
-    email = request.json.get('email')
-    password = request.json.get('password')
-    print(f"Email: {email}, Password: {password}")
-    
-    # return jsonify({'email': email, 'password': password}), 200
+    #Input Validation
+    data = request.json
+    is_valid, error_message = validate_user(data)
 
-    if not email or not password:
-        return jsonify({'error': 'Missing required fields'}), 400
+    if not is_valid:
+        return jsonify({'error': error_message}), 400
+    
+    #Retrieving data from front end
+    email = data.get('email')
+    password = data.get('password')
+    print(f"Email: {email}, Password: {password}")
     
     #Querying DynamoDB for the user
     try:
@@ -148,22 +178,36 @@ def login():
         session['user_id'] = userItem['uuid']
 
         #return render_template('dashboard.html')
-        return jsonify({'Status': 'Success', 'Code': '200 OK'}), 200
+        return jsonify({'Status': 'Success', 'Code': '200 OK', "id": userItem['uuid'], "name": userItem['acc-info']['name']}), 200
     except ClientError as e:
         return jsonify({'error': 'Error verifying user'}), 500
 
 #Route for creating a new user
 @frontend_bp.route("/signup", methods=["POST"])
 def signup():
-    #Retrieving data from front end
-    email = request.json.get('email')
-    password = request.json.get('password')
-    print(f"Email: {email}, Password: {password}")
+    #Input Validation
+    data = request.json
+    print(data)
+    is_valid, error_message = validate_user(data)
+
+    if not is_valid:
+        return jsonify({'error': error_message}), 400
     
+    #Retrieving data from front end
+    email = data.get('email')
+    password = data.get('password')
+    name = data.get('name')
+
     # return jsonify({'email': email, 'password': password}), 200
 
-    if not email or not password:
+    if not email and not password and not Name:
         return jsonify({'error': 'Missing required fields'}), 400
+    elif not email:
+        return jsonify({'error': 'Missing Email field'}), 400
+    elif not password:
+        return jsonify({'error': 'Missing Password field'}), 400
+    elif not name:
+        return jsonify({'error': 'Missing Name field'}), 400
     
     #Checking if email already exists
     try:
@@ -190,6 +234,7 @@ def signup():
         'acc-info': {
                 'email': email,
                 'password': hashedPasswordEncoded,
+                'name': name,
                 'date-created': get_current_date()
         }
     }

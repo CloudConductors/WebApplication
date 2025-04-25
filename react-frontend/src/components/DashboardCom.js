@@ -17,9 +17,9 @@ export default function DashBoardCom() {
       .then((response) => {
         console.log("Fetched train data:", response.data);
         if (response.data.Items && response.data.Items.length > 0) {
-          const duplicatedItems = [...response.data.Items, ...response.data.Items];
-          setTrains(duplicatedItems);
-          //setTrains(response.data.Items);
+          //const duplicatedItems = [...response.data.Items, ...response.data.Items];
+          //setTrains(duplicatedItems);
+          setTrains(response.data.Items);
         }
         setLoading(false);
       })
@@ -85,7 +85,7 @@ export default function DashBoardCom() {
                 <th>Train Name</th>
                 <th>Model</th>
                 <th>Component</th>
-                <th>Expected Failure (days)</th>
+                <th>Component ID</th>
               </tr>
             </thead>
             <tbody>

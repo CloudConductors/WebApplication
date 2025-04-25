@@ -9,12 +9,49 @@ export default function ScheduleCom() {
   const [trains, setTrains] = useState([]);
   const [selectedRow, setSelectedRow] = useState(null);
 
+  const parseBool = (val) => {
+    if (typeof val === "boolean") return val;
+    if (typeof val === "string") return val.toLowerCase() === "true";
+    return false;
+  };
+
+  const normalizeComponent = (component) => {
+    return {
+      component_id: component.component_id,
+      train_id: component.train_id,
+      expected_repair_duf: component.expected_repair_duf || component.Expected_Repair_DUF,
+      last_repair_date: component.last_repair_date || component.Last_Repair_Date,
+      maintenance_scheduled: parseBool(component.maintenance_scheduled || component.Maintenance_Scheduled),
+      component_failure: parseBool(component.component_failure),
+      manually_overriden: parseBool(component.manually_overriden || component.Manually_Overriden),
+      mean_duf: component.mean_duf || component.Mean_DUF,
+      standard_deviation_duf: component.standard_deviation_duf || component.Standard_Deviation_DUF
+    };
+  };
+
   useEffect(() => {
     fetch("http://localhost:5000/frontend/schedule")
       .then((response) => response.json())
       .then((data) => {
         console.log("Fetched train data:", data);
-        setTrains(data.Items || []);
+        //setTrains(data.Items || []);
+
+        const normalized = (data.Items || []).map(normalizeComponent);
+
+/*
+        const normalized = data.Items.map((item) => ({
+          ...item,
+          component_failure: String(item.component_failure).toLowerCase() === "true",
+          maintenance_scheduled: String(item.maintenance_scheduled).toLowerCase() === "true",
+          manually_overriden: String(item.manually_overriden).toLowerCase() === "true",
+          expected_repair_duf: item.expected_repair_duf || item.Expected_Repair_DUF || "",
+          last_repair_date: item.last_repair_date || item.Last_Repair_Date || "",
+          mean_duf: item.mean_duf || item.Mean_DUF || "",
+          standard_deviation_duf: item.standard_deviation_duf || item.Standard_Deviation_DUF || "",
+        }));
+*/
+
+        setTrains(normalized);
       })
       .catch((error) => console.error("Error fetching train info:", error));
   }, []);
@@ -66,9 +103,9 @@ export default function ScheduleCom() {
                   <td>{component.train_id}</td>
                   <td>{component.expected_repair_duf}</td>
                   <td>{component.last_repair_date}</td>
-                  <td>{component.maintenance_scheduled ? "Yes" : "No"}</td>
-                  <td>{component.component_failure ? "Yes" : "No"}</td>
-                  <td>{component.manually_overriden ? "Yes" : "No"}</td>
+                  <td>{component.maintenance_scheduled ? "true" : "false"}</td>
+                  <td>{component.component_failure ? "true" : "false"}</td>
+                  <td>{component.manually_overriden ? "true" : "false"}</td>
                   <td>{component.mean_duf}</td>
                   <td>{component.standard_deviation_duf}</td>
                 </tr>

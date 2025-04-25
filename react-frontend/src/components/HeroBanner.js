@@ -12,7 +12,7 @@ export default function HeroBanner() {
                 <p id="paragraph-one">Predicting and Preventing Failures in Transportation Systems Using IoT and AI</p>
             </div>
             <div className="button-3">
-                <button id="explore-button">Explore</button>
+            <Link to="/Team"><button id="explore-button">Explore</button></Link>
             </div>
         </div>
     </div>

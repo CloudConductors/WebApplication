@@ -17,8 +17,6 @@ export default function DashBoardCom() {
       .then((response) => {
         console.log("Fetched train data:", response.data);
         if (response.data.Items && response.data.Items.length > 0) {
-          //const duplicatedItems = [...response.data.Items, ...response.data.Items];
-          //setTrains(duplicatedItems);
           setTrains(response.data.Items);
         }
         setLoading(false);
@@ -38,9 +36,9 @@ export default function DashBoardCom() {
   // Process trains data to create row entries
   const processTrainData = (trainsData) => {
     const rowData = [];
-    
+
     trainsData.forEach(train => {
-      if (train.name && (!searchTerm || train.name.toLowerCase().includes(searchTerm.toLowerCase()))) {
+      if (train.name && (!searchTerm || train.name.toLowerCase() === searchTerm.toLowerCase())) {
         if (train.components && typeof train.components === 'object') {
           Object.entries(train.components).forEach(([comp, value]) => {
             rowData.push({
@@ -62,13 +60,12 @@ export default function DashBoardCom() {
         }
       }
     });
-    
+
     return rowData;
   };
 
   // Get processed data that's already filtered
   const processedData = processTrainData(trains);
-
 
   if (loading) return <div className="loading">Loading train data...</div>;
   if (error) return <div className="error">{error}</div>;
@@ -76,8 +73,18 @@ export default function DashBoardCom() {
   return (
     <div className="dashboard-container">
       <h1 className="dashboard-title">Train Data</h1>
+
+      <div className="search-bar">
+        <input
+          type="text"
+          placeholder="Search train name..."
+          value={searchTerm}
+          onChange={handleChange}
+          className="form-control"
+        />
+      </div>
+
       <div className="main-content">
-        {/* Train Data Table */}
         <div className="train-table-wrapper">
           <table className="component-table">
             <thead>

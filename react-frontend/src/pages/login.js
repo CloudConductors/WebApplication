@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useAuth } from "../components/AuthContext";
 import axios from "axios";
 import '../assets/Style/user.css';
 // import '../assets/Style/styles.css';
@@ -8,40 +9,43 @@ import { validateForm } from "../components/authForm";
 
 export default function Login() {
   const location = useLocation();
-    const [loginForm, setloginForm] = useState({
-        name: "",
-        email: "",
-        password: ""
-      });
+  const [loginForm, setloginForm] = useState({
+      name: "a",
+      email: "",
+      password: "",
+    });
+    const { login } = useAuth();
   
-      const [Message, setMessage] = useState("");
-      const [Variant, setVariant] = useState("success");
-      const [errors, setErrors] = useState({});
-      const navigate = useNavigate();
+    const [Message, setMessage] = useState("");
+    const [Variant, setVariant] = useState("success");
+    const [errors, setErrors] = useState({});
+    const navigate = useNavigate();
 
       
     // Once the user submits this function is called
-      function logMeIn(event) {
-        event.preventDefault()
+    function logMeIn(event) {
+      event.preventDefault()
+      
+      //Input Validation
+      const validationErrors = validateForm(loginForm);
+      setErrors(validationErrors);
+      console.log(validationErrors);
 
-        //Input Validation
-        const validationErrors = validateForm(loginForm);
-        setErrors(validationErrors);
+      if (Object.keys(validationErrors).length > 0) {
+        return;
+      }
 
-        if (Object.keys(validationErrors).length > 0) {
-          return;
-        }
-
-        axios.post("http://localhost:5000/login",{
+      axios.post("http://localhost:5000/frontend/login",{
           email: loginForm.email,
           password: loginForm.password
-         })
+      })
       .then((response) => {
         console.log("Flask Said: ", response.data);
         const { id, name } = response.data;
         sessionStorage.setItem("userId", id);
         sessionStorage.setItem("userName", name);
-        navigate("/");
+        login();
+        navigate("/", { state: { justLoggedIn: true } });
       }).catch((error) => {
         if (error.response) {
           console.error(error);
@@ -51,33 +55,35 @@ export default function Login() {
       })
   
         //reset the form after it's sumbitted
-        setloginForm(({
-          email: "",
-          password: ""}))
-        }
+      setloginForm(({
+        name: "a",
+        email: "",
+        password: ""}))
+      }
   
-      function handleChange(event) { 
-        const {value, name} = event.target
-        setloginForm(prevNote => ({
-            ...prevNote, [name]: value})
-        )}
+    function handleChange(event) { 
+      const {value, name} = event.target
+      setloginForm(prevNote => ({
+          ...prevNote, [name]: value})
+      )}
 
 
-    return (
-      <div id="test">
-        <AuthForm
-          title="Login"
-          action="/login"
-          footer="New to Our Site?"
-          footer2={<Link to="/signUp" className="custom-Link">Create an Account!</Link>}
-          onSubmit={logMeIn}
-          email={loginForm.email}
-          password={loginForm.password}
-          onChange={handleChange}
-          message={Message || location?.state?.message}
-          variant={Variant || location?.state?.variant}
-          errors={errors}         
-        />
-      </div>
-    )
+  return (
+    <div id="test">
+      <AuthForm
+        title="Login"
+        action="/login"
+        footer="New to Our Site?"
+        footer2={<Link to="/signUp" className="custom-Link">Create an Account!</Link>}
+        onSubmit={logMeIn}
+        email={loginForm.email}
+        password={loginForm.password}
+        onChange={handleChange}
+        useName={false}
+        message={Message || location?.state?.message}
+        variant={Variant || location?.state?.variant}
+        errors={errors}         
+      />
+    </div>
+  )
 }

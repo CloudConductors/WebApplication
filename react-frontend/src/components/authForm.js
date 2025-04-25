@@ -51,17 +51,17 @@ import Alert from 'react-bootstrap/Alert';
 
     return (
             <main>
-                {Message && <Alert variant={Variant} className="alert-test fade show">{Message}</Alert>}
+                {Message && <Alert variant={Variant} className="alert fade show">{Message}</Alert>}
                 <Container className="custom-authentication vh-100">
-                        <Form action = {action} method = 'POST' className="w-75 h-50 p-5 custom-form">
+                        <Form onSubmit={onSubmit} className="w-75 h-50 p-5 custom-form">
                         <h1 className="custom-h1 pb-5">{title}</h1>
                         {useName && <Form.Group className="mb-3 align-items-left">
                                 <div className="label-container">
-                                    <Form.Label for="name" className="">Name: </Form.Label>
+                                    <Form.Label htmlFor="name" className="">Name: </Form.Label>
                                     {errors.name && <span>{errors.name}</span>}
                                 </div>
                                 <div className="input-container">
-                                <Form.Control  type="text" id="name" name="name" placeholder="Billy Bob" className="custom-control" required  value={name} onChange={onChange}/>
+                                <Form.Control  type="text" id="name" name="name" placeholder="Billy Bob" className="custom-control"  value={name} onChange={onChange}/>
                                 {errors.name && <span className="asterisk">*</span>}
                                 </div>
                             </Form.Group>
@@ -69,27 +69,27 @@ import Alert from 'react-bootstrap/Alert';
 
                             <Form.Group className="mb-3 align-items-left">
                                 <div className="label-container">
-                                    <Form.Label for="email" className="">Email Address: </Form.Label>
+                                    <Form.Label htmlFor="email" className="">Email Address: </Form.Label>
                                     {errors.email && <span>{errors.email}</span>}
                                 </div>
                                 <div className="input-container">
-                                <Form.Control  type="email" id="email" name="email" placeholder="example@abc.com" className="custom-control" required value={email} onChange={onChange}/>
+                                <Form.Control  type="email" id="email" name="email" placeholder="example@abc.com" className="custom-control" value={email} onChange={onChange}/>
                                 {errors.email && <span className="asterisk">*</span>}
                                 </div>
                             </Form.Group>
                             
                             <Form.Group className="mb-3">
                                 <div className="label-container">
-                                    <Form.Label for="password">Password:</Form.Label>
+                                    <Form.Label htmlFor="password">Password:</Form.Label>
                                     {errors.password && <span>{errors.password}</span>}
                                 </div>
                                 <div className="input-container">
-                                <Form.Control  type="password" id="password" name="password" className="custom-control" required value={password} onChange={onChange}/>
+                                <Form.Control  type="password" id="password" name="password" className="custom-control" value={password} onChange={onChange}/>
                                 {errors.password && <span className="asterisk">*</span>}
                                 </div>
                             </Form.Group>
                             
-                            <Button type="submit" className="w-25 mt-3 custom-submit" onClick={onSubmit}>{title}</Button>      
+                            <Button type="submit" className="w-25 mt-3 custom-submit" >{title}</Button>      
                         </Form>
                         <p className="custom-p">{footer}</p>
                         {footer2}

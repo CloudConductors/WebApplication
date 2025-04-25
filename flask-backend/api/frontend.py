@@ -198,9 +198,6 @@ def signup():
     email = data.get('email')
     password = data.get('password')
     name = data.get('name')
-    print(name)
-    print("testing")
-
     # return jsonify({'email': email, 'password': password}), 200
 
     if not email and not password and not Name:
@@ -270,7 +267,7 @@ def get_schedule():
     print(getSchedule)
     return jsonify(getSchedule)
 
-@frontend_bp.route("/dashboard", methods=["GET"])
+@frontend_bp.route("/dashboard-info", methods=["GET"])
 def get_train_info():
     try:
         getTrainInformation = cc_trains.scan()

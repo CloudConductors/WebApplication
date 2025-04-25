@@ -3,15 +3,8 @@ html, body{
     padding: 0; 
 }
 
-main{
-	background-color: var(--light-grey);
-}
-
 .user-page {
     text-align: center;
-    /* justify-content: center;
-    align-items: center;
-    display: flex; */
 	color: var(--white);
 	background-color: var(--light-grey);
 	width: 80%;
@@ -45,8 +38,8 @@ main{
 
 .custom-control{
     width: 100% !important;
-    padding-right: 1.5rem !important; /* still needed to avoid text overlap with asterisk */
-    box-sizing: border-box !important; /* makes padding not add to width */
+    padding-right: 1.5rem !important;
+    box-sizing: border-box !important;
 }
 
 input[type=submit] {
@@ -57,7 +50,7 @@ input[type=submit] {
     background: #2A2B30;
     border: 1px solid #FFFFFF;
     border-radius: 40px;
-    color: var(--primary-color);
+    color: var(--primary-color)
 }
 
 button {
@@ -87,17 +80,12 @@ label {
 
 .alert{
     position: absolute !important;
-    font-size: x-large;
-    top: 5%;    
-}
+    font-size: xx-large;
 
-/* .alert-test{
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    background: red;
-    height: auto;
-} */
+    top: 5%;
+    right: 50%;
+    transform: translateX(50%)
+}
 
 .label-container{
     color: red;
@@ -115,7 +103,7 @@ label {
     position: absolute;
     font-size: xx-large;
     right: 10px;
-    top: 8px;
+    top: 0px;
     pointer-events: none;
     
 }

@@ -13,7 +13,7 @@ export default function SignUp() {
       });
 
     const [Message, setMessage] = useState("");
-    const [Variant, setVariant] = useState("");
+    const [variant, setVariant] = useState("");
     const [errors, setErrors] = useState({});
 
     const navigate = useNavigate();
@@ -28,12 +28,12 @@ export default function SignUp() {
         if (Object.keys(validationErrors).length > 0) {
           return;
         }
-        
-        axios.post("http://127.0.0.1:5000/signup",{
+
+        axios.post("http://127.0.0.1:5000/frontend/signup",{
           name: signupForm.name,
           email: signupForm.email,
           password: signupForm.password
-           })
+          })
         .then((response) => {
           navigate("/login", { state: { message: "Signup successful!", variant: "success"} })
         }).catch((error) => {
@@ -73,7 +73,7 @@ export default function SignUp() {
               useName={true}
               onChange={handleChange}
               message={Message}
-              variant={Variant}
+              variant={variant}
               errors={errors}
           />
         </div>

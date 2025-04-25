@@ -16,7 +16,7 @@
 /* Logo Container */
 .top-bar{
     display: grid;
-    grid-template-columns: .5fr 2fr .5fr;
+    grid-template-columns: .5fr 2fr .6fr;
     width: 100vw;
     /* background-color: #BCE29E; */
 }
@@ -25,7 +25,9 @@
     background-color: #6DC956;
     border-radius: 0 0 20px 0;
     text-align: center;
-    width: 310px;
+    /* width: 310px; */
+    width: 17vw;
+    min-width: 250px;
 }
 
 .logo-image{
@@ -35,10 +37,11 @@
 }
 
 .team-name{
-    font-size: 30px;
+    /* font-size: 30px; */
+    font-size: max(25px, 1.75vw);
     font-family: 'Segoe UI', sans-serif;
     font-weight: lighter;
-    /* margin-top: -1rem; */
+    margin-top: -1rem;
 
 }
 
@@ -64,10 +67,6 @@
     color: white;
     background-color: rgba(30, 31, 37, 1);
   }
-
-  .form-control{
-    color: red;
-  } 
   
   .search-box{
     position: relative;
@@ -100,6 +99,10 @@
     align-items: center;
     justify-content: center;
     gap: 15px;
+    min-width: 250px;
+    /* padding-right: 35px; */
+
+
 }
 
 .Link{
@@ -124,6 +127,12 @@
     background-color: var(--light-green);
 }
 
+/* Post Login Name */
+.name{
+    color: #6DC956;
+    font-size: max(25px, 1.75vw);
+    padding-right: min(25px, 2vw);
+}
 
 /* Hero Banner */
 
@@ -186,13 +195,3 @@
     justify-content: center; 
     gap: 30px;
 }
-
-
-
-
-
-
-
-
-
-

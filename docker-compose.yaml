@@ -1,0 +1,15 @@
+services: 
+  flask:
+    build: ./flask-backend
+    ports:
+      - '5000:5000'
+    environment:
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_KEY}
+      - AWS_DEFAULT_REGION=${AWS_REGION}
+  
+  react:
+    build: ./react-frontend
+    container_name: react
+    ports:
+      - '3000:3000'

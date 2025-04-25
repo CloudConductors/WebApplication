@@ -1,103 +1,167 @@
-.dashboard {
-	text-align: center;
-	color: var(--white);
-	background-color: var(--dark-grey);
-	width: 80%;
-	height: 80vh;
-	margin: 2rem;
-}
-
-.container {
-	display: grid;
-	grid-template-columns: 1fr 5fr;
-	border-radius: 18.69px;
-	height: 80%;
-}
-
-.vehicle-select h2 {
-	padding: 0px;
-	margin: 0px;
-}
-
-.vehicle-select {
-	border-radius: 20px;
-	background-color: var(--light-grey);
-	margin: 2rem;
-	padding: 1rem;
-	padding-bottom: 0px;
-	margin-bottom: 0px;
-}
-
-ul {
-	list-style-type: none;
-	align-items: center;
+:root {
+	--white: #ffffff;
+	--dark-grey: #1e1f25;
+	--light-grey: #2a2b30;
+	--black: #1e1e1e;
+	--primary-color: #bce29e;
+	--secondary-color: #0099ff;
+  }
+  
+  body {
+	margin: 0;
 	padding: 0;
-}
+	font-family: Arial, Helvetica, sans-serif;
+	background-color: var(--black);
+	color: var(--white);
+	height: 100vh;
+	overflow: hidden;
+  }
+  
+  .dashboard-container {
+	height: 100%;
+	margin-left: 150px;
+	margin-right: 50px;
+	padding: 2rem;
+  }
+  
+  .sidebar {
+	width: 250px;
+	background-color: var(--light-grey);
+	padding: 1rem;
+	box-sizing: border-box;
+	overflow-y: auto;
+	border-right: 1px solid var(--dark-grey);
+  }
+  
+  .sidebar h2 {
+	margin-bottom: 1rem;
+	color: var(--primary-color);
+  }
 
-li {
-	text-align: center;
-}
+  /* Search Bar */
 
-.vehicle-list li {
-	transition: background-color .5s;
-	padding: .5rem;
-	margin: 1rem;
-	background-color: var(--primary-color);
-	color: var(--black);
-	font-weight: 600;
-	border-radius: 12px;
-}
-
-.vehicle-list li:hover {
-	background-color: var(--secondary-color);
-}
-
-.component-list {
+  .search-bar{
+	width: 100%;
+	margin-bottom: 1rem;
+  }
+	
+  .train-buttons {
 	display: flex;
 	flex-direction: column;
-}
-
-.component_cont {
-	display: grid;
-	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-	margin: 1rem;
-	padding: .25rem;
-	background-color: var(--light-grey);
-	border-radius: 10px;
-}
-
-.vehicle-cont {
-	padding-left: 3rem;
-	padding-right: 3rem;
-}
-
-.vehicle {
-	color: var(--black);
-	background-color: var(--white);
-	margin-top: 1rem;
-	padding: 0px;
-}
-
-.vehicle-header {
+	gap: 1rem;
+  }
+  
+  .train-button {
+	padding: 0.75rem;
+	background-color: var(--dark-grey);
 	color: var(--white);
+	border: none;
+	border-radius: 8px;
+	font-size: 1rem;
+	transition: background-color 0.3s ease;
+  }
+  
+  .train-button:hover {
+	background-color: var(--secondary-color);
+  }
+  
+  .train-button.active {
 	background-color: var(--primary-color);
-	justify-content: center;
-	align-content: center;
-	margin: 0px;
-	padding: 0px;
-}
-
-.vehicle-body {
 	color: var(--black);
-	background-color: var(--dark-white);
-	margin: 0px;
-	padding: 0px;
-}
+	font-weight: bold;
+  }
+  
+  .main-content {
+	/*
+	flex: 1;
+	overflow-y: auto;
+	*/
+	width: 100%;
+	margin-top: 25px;
+	border-radius: 12px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  }
+  
+  .train-details {
+	padding: 1rem;
+	background-color: var(--dark-grey);
+  }
+  
+  .train-details h2 {
+	color: var(--primary-color);
+  }
+  
+  .component-table-wrapper {
+	margin-top: 1rem;
+	/*
+	width: 300px;
+	*/
+	width: 100%;
+  	overflow-x: auto;
+  }
+  
+  .component-table {
+	/*
+	border-collapse: collapse;
+	*/
+	border-collapse: separate;
+  	border-spacing: 0;
+	background-color: var(--dark-grey);
+	border-radius: 10px;
+	max-width: 100%;
+	/*
+	max-width: fit-content;
+	*/
+	max-height: 500px; 
+  	overflow-y: auto;
+	table-layout: auto;
+	/*
+	display: block;
+	*/
+	
+  }
 
-.vehicle-body>p {
-	margin-top: 0px;
-}
-
-.hidden {
-	display: none;
-}
+  /* Top left and right corners (header) */
+.component-table th:first-child {
+	border-top-left-radius: 12px;
+  }
+  .component-table th:last-child {
+	border-top-right-radius: 12px;
+  }
+  
+  /* Bottom left and right corners (last row) */
+  .component-table tr:last-child td:first-child {
+	border-bottom-left-radius: 12px;
+  }
+  .component-table tr:last-child td:last-child {
+	border-bottom-right-radius: 12px;
+  }
+  
+  .component-table th,
+  .component-table td {
+	padding: 0.75rem 1rem;
+	text-align: left;
+	border-bottom: 1px solid var(--black);
+  }
+  
+  .component-table th {
+	background-color: var(--light-grey);
+	color: var(--white);
+  }
+  
+  .component-table tr:hover {
+	background-color: var(--secondary-color);
+	color: var(--white);
+  }
+  
+  .vehicle-select::-webkit-scrollbar,
+  .vehicle-desc-cont::-webkit-scrollbar {
+	width: 8px;
+  }
+  
+  .vehicle-select::-webkit-scrollbar-thumb,
+  .vehicle-desc-cont::-webkit-scrollbar-thumb {
+	background-color: var(--primary-color);
+	border-radius: 4px;
+  }
+  

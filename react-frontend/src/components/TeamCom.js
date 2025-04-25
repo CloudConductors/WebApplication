@@ -86,8 +86,6 @@ export default function TeamCom() {
             <li>New data sent back from the ML Model will be updated accordingly in our database.</li>
             <li>New users to our website will be able to signup and their account information will 
                 be stored in a DynamoDB table.</li>
-            <li>If a user is an administrator on the website, then they will be able to edit a 
-                specific schedule and that information will be updated accordingly within our database.</li>
         </ul>
         </div>
 
@@ -98,6 +96,9 @@ export default function TeamCom() {
               <div className="team-card card p-3">
                 <img className="profile-img" src={Nick} alt="Nick Petruccelli" />
                 <h5 className="member-name">Nick Petruccelli</h5>
+                <div>
+                <h5 className="role">Machine Learning Engineer</h5>
+                </div>
                 <div className="link-container">
                 <a className="exact-link" href="https://www.linkedin.com/in/nick-petruccelli-b8717625a/"><img className="profile-link" src={linkedin} alt="linkedin profile link" /></a>
                 <a className="exact-link" href="https://github.com/Nick-Petruccelli"><img className="profile-link" src={github} alt="github profile link" /></a>
@@ -109,6 +110,9 @@ export default function TeamCom() {
               <div className="team-card card p-3">
                 <img className="profile-img" src={Jakob} alt="Jakob Olsen" />
                 <h5 className="member-name">Jakob Olsen</h5>
+                <div>
+                <h5 className="role">Scrum Master/Embedded Systems Developer</h5>
+                </div>
                 <div className="link-container">
                 <a className="exact-link" href="https://www.linkedin.com/in/jakob-c-olsen/"><img className="profile-link" src={linkedin} alt="linkedin profile link" /></a>
                 <a className="exact-link" href="https://github.com/jakobcolsen"><img className="profile-link" src={github} alt="github profile link" /></a>
@@ -120,6 +124,9 @@ export default function TeamCom() {
               <div className="team-card card p-3">
                 <img className="profile-img" src={Devin} alt="Devin Thompson" />
                 <h5 className="member-name">Devin Thompson</h5>
+                <div>
+                <h5 className="role">AWS Developer</h5>
+                </div>
                 <div className="link-container">
                 <a className="exact-link" href="https://www.linkedin.com/in/devin-thompson-1a098522b/"><img className="profile-link" src={linkedin} alt="linkedin profile link" /></a>
                 <a className="exact-link" href="https://github.com/dthom118"><img className="profile-link" src={github} alt="github profile link" /></a>
@@ -131,6 +138,9 @@ export default function TeamCom() {
               <div className="team-card card p-3">
                 <img className="profile-img" src={Troy} alt="Troy Brown" />
                 <h5 className="member-name">Troy Brown</h5>
+                <div>
+                <h5 className="role">AWS Developer</h5>
+                </div>
                 <div className="link-container">
                 <a className="exact-link" href="https://www.linkedin.com/in/troy-brown-836b5b289/"><img className="profile-link" src={linkedin} alt="linkedin profile link" /></a>
                 <a className="exact-link" href="https://github.com/troyfbrown"><img className="profile-link" src={github} alt="github profile link" /></a>
@@ -142,6 +152,9 @@ export default function TeamCom() {
               <div className="team-card card p-3">
                 <img className="profile-img" src={Chris} alt="Christopher Cuartas" />
                 <h5 className="member-name">Christopher Cuartas</h5>
+                <div>
+                <h5 className="role">Frontend/Backend Developer</h5>
+                </div>
                 <div className="link-container">
                 <a className="exact-link" href="https://www.linkedin.com/in/cuartas-christopher/"><img className="profile-link" src={linkedin} alt="linkedin profile link" /></a>
                 <a className="exact-link" href="https://github.com/Zzz4nder"><img className="profile-link" src={github} alt="github profile link" /></a>
@@ -153,6 +166,9 @@ export default function TeamCom() {
               <div className="team-card card p-3">
                 <img className="profile-img" src={Bryonna} alt="Bryonna Gray" />
                 <h5 className="member-name">Bryonna Gray</h5>
+                <div>
+                <h5 className="role">Frontend Developer</h5>
+                </div>
                 <div className="link-container">
                 <a className="exact-link" href="https://www.linkedin.com/in/bryonna-gray-7ab960171/"><img className="profile-link" src={linkedin} alt="linkedin profile link" /></a>
                 <a className="exact-link" href="https://github.com/GGray1919"><img className="profile-link" src={github} alt="github profile link" /></a>

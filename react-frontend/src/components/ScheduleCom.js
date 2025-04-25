@@ -5,9 +5,11 @@ import { Link } from "react-router-dom";
 import { useAuth } from "./AuthContext";
 
 export default function ScheduleCom() {
-  const { isAuthenticated } = useAuth();
+  {/*const { isAuthenticated } = useAuth();*/}
   const [trains, setTrains] = useState([]);
   const [selectedRow, setSelectedRow] = useState(null);
+  const [searchTrainId, setSearchTrainId] = useState("");
+
 
   const parseBool = (val) => {
     if (typeof val === "boolean") return val;
@@ -15,42 +17,23 @@ export default function ScheduleCom() {
     return false;
   };
 
-  const normalizeComponent = (component) => {
-    return {
-      component_id: component.component_id,
-      train_id: component.train_id,
-      expected_repair_duf: component.expected_repair_duf || component.Expected_Repair_DUF,
-      last_repair_date: component.last_repair_date || component.Last_Repair_Date,
-      maintenance_scheduled: parseBool(component.maintenance_scheduled || component.Maintenance_Scheduled),
-      component_failure: parseBool(component.component_failure),
-      manually_overriden: parseBool(component.manually_overriden || component.Manually_Overriden),
-      mean_duf: component.mean_duf || component.Mean_DUF,
-      standard_deviation_duf: component.standard_deviation_duf || component.Standard_Deviation_DUF
-    };
-  };
+  const normalizeComponent = (component) => ({
+    component_id: component.component_id,
+    train_id: component.train_id,
+    expected_repair_duf: component.expected_repair_duf || component.Expected_Repair_DUF,
+    last_repair_date: component.last_repair_date || component.Last_Repair_Date,
+    maintenance_scheduled: parseBool(component.maintenance_scheduled || component.Maintenance_Scheduled),
+    component_failure: parseBool(component.component_failure),
+    manually_overriden: parseBool(component.manually_overriden || component.Manually_Overriden),
+    mean_duf: component.mean_duf || component.Mean_DUF,
+    standard_deviation_duf: component.standard_deviation_duf || component.Standard_Deviation_DUF
+  });
 
   useEffect(() => {
     fetch("http://localhost:5000/frontend/schedule")
       .then((response) => response.json())
       .then((data) => {
-        console.log("Fetched train data:", data);
-        //setTrains(data.Items || []);
-
         const normalized = (data.Items || []).map(normalizeComponent);
-
-/*
-        const normalized = data.Items.map((item) => ({
-          ...item,
-          component_failure: String(item.component_failure).toLowerCase() === "true",
-          maintenance_scheduled: String(item.maintenance_scheduled).toLowerCase() === "true",
-          manually_overriden: String(item.manually_overriden).toLowerCase() === "true",
-          expected_repair_duf: item.expected_repair_duf || item.Expected_Repair_DUF || "",
-          last_repair_date: item.last_repair_date || item.Last_Repair_Date || "",
-          mean_duf: item.mean_duf || item.Mean_DUF || "",
-          standard_deviation_duf: item.standard_deviation_duf || item.Standard_Deviation_DUF || "",
-        }));
-*/
-
         setTrains(normalized);
       })
       .catch((error) => console.error("Error fetching train info:", error));
@@ -60,23 +43,41 @@ export default function ScheduleCom() {
     setSelectedRow(index);
   };
 
+  const filteredTrains = searchTrainId
+    ? trains.filter((component) =>
+        component.train_id.toString().includes(searchTrainId.trim())
+      )
+    : trains;
+
   return (
-    
     <div className="schedule">
+
+      <div className="table-header">
       <h1>Scheduling Center</h1>
+
+      {/* 
 
       {isAuthenticated && (
         <div className="edit-schedule-btn">
           <button className="btn-btn-primary">Edit Schedule</button>
         </div>
       )}
-  {/*
-        <div className="edit-schedule-btn">
-          <button className="btn-btn-primary">Edit Schedule</button>
-        </div>
-        */}
 
-      {trains.length > 0 ? (
+      */}
+      
+      </div>
+
+      <div className="search-bar">
+        <input
+          type="text"
+          className="form-control"
+          placeholder="Filter by Train ID..."
+          value={searchTrainId}
+          onChange={(e) => setSearchTrainId(e.target.value)}
+        />
+      </div>
+
+      {filteredTrains.length > 0 ? (
         <div className="table-container">
           <table className="component-table">
             <thead>
@@ -93,7 +94,7 @@ export default function ScheduleCom() {
               </tr>
             </thead>
             <tbody>
-              {trains.map((component, index) => (
+              {filteredTrains.map((component, index) => (
                 <tr
                   key={component.component_id}
                   onClick={() => handleRowClick(index)}
@@ -114,7 +115,7 @@ export default function ScheduleCom() {
           </table>
         </div>
       ) : (
-        <p>Loading train components...</p>
+        <p>No train components found.</p>
       )}
     </div>
   );

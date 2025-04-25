@@ -244,7 +244,7 @@
     margin-top: 1rem;
     font-size: 1.25rem;
     color: var(--primary-color);
-    font-weight: 100;
+    font-weight: bold;
   }
   
   .profile-img {
@@ -270,4 +270,9 @@
   
   .profile-link:hover {
     transform: scale(1.1);
+  }
+
+  .role{
+    color:#4fa34d;
+    font-weight: lighter;
   }

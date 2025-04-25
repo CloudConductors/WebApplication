@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../assets/Style/dashboard.css";
-import search from '../assets/images/magnify.svg';
 
 export default function DashBoardCom() {
   const [trains, setTrains] = useState([]);

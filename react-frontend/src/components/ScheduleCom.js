@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { useAuth } from "./AuthContext";
 
 export default function ScheduleCom() {
-  const { isAuthenticated } = useAuth();
+  {/*const { isAuthenticated } = useAuth();*/}
   const [trains, setTrains] = useState([]);
   const [selectedRow, setSelectedRow] = useState(null);
   const [searchTrainId, setSearchTrainId] = useState("");

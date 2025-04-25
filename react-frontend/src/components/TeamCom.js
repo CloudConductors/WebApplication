@@ -86,8 +86,6 @@ export default function TeamCom() {
             <li>New data sent back from the ML Model will be updated accordingly in our database.</li>
             <li>New users to our website will be able to signup and their account information will 
                 be stored in a DynamoDB table.</li>
-            <li>If a user is an administrator on the website, then they will be able to edit a 
-                specific schedule and that information will be updated accordingly within our database.</li>
         </ul>
         </div>
 

@@ -34,7 +34,7 @@ def update_rep_date(schedule_table, comp_id, train_id, rep_date):
     schedule_table.update_item(
         Key={'component_id': str(comp_id), 'train_id': str(train_id)},
         UpdateExpression='SET expected_repair_date = :expected_repair_date',
-        ExpressionAttributeValues={':expected_repair_duf': rep_date},
+        ExpressionAttributeValues={':expected_repair_date': rep_date},
     )
 
 

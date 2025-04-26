@@ -20,7 +20,7 @@ export default function ScheduleCom() {
   const normalizeComponent = (component) => ({
     component_id: component.component_id,
     train_id: component.train_id,
-    expected_repair_duf: component.expected_repair_duf || component.Expected_Repair_DUF,
+    expected_repair_date: component.expected_repair_date || component.expected_repair_date,
     last_repair_date: component.last_repair_date || component.Last_Repair_Date,
     maintenance_scheduled: parseBool(component.maintenance_scheduled || component.Maintenance_Scheduled),
     component_failure: parseBool(component.component_failure),
@@ -102,7 +102,7 @@ export default function ScheduleCom() {
                 >
                   <td>{component.component_id}</td>
                   <td>{component.train_id}</td>
-                  <td>{component.expected_repair_duf}</td>
+                  <td>{component.expected_repair_date}</td>
                   <td>{component.last_repair_date}</td>
                   <td>{component.maintenance_scheduled ? "true" : "false"}</td>
                   <td>{component.component_failure ? "true" : "false"}</td>

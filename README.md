@@ -45,6 +45,8 @@ docker-compose down
 ```
 Or manually delete the containers using Docker Desktop.
 
+You can access the React website at (http://localhost:3000)
+
 ---
 
 ## 🖥️ Running Locally (Recommended for Debugging)

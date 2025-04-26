@@ -13,7 +13,7 @@ def gen_schedule():
     dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
     try:
         maintenance = schedule_table.scan(
-            FilterExpression=Attr('maintenance_scheduled').eq('false')
+            FilterExpression=Attr('maintenance_scheduled').eq(False)
         )
     except ClientError as e:
         return jsonify({'error': 'BE GONE'}), 403
@@ -33,7 +33,7 @@ def gen_schedule():
 def update_rep_date(schedule_table, comp_id, train_id, rep_date):
     schedule_table.update_item(
         Key={'component_id': str(comp_id), 'train_id': str(train_id)},
-        UpdateExpression='SET expected_repair_duf = :expected_repair_duf',
+        UpdateExpression='SET expected_repair_date = :expected_repair_date',
         ExpressionAttributeValues={':expected_repair_duf': rep_date},
     )
 

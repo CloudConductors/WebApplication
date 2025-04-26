@@ -139,3 +139,6 @@ flask --debug run
    ```
 
 > The React app usually runs at: [http://localhost:3000/](http://localhost:3000/)
+
+### 📍References
+- [Embedded Systems Repository](https://github.com/ITSC-4155-002/EmbeddedSystems)

@@ -10,7 +10,7 @@ app = Flask(__name__,
             template_folder='frontend',
             static_folder='frontend',
             static_url_path='')
-CORS(app)
+CORS(app, origins=["http://localhost:3000", "http://localhost:5000"])
 
 # ~~~~~~~~~~~~~~~~~~~~~~ Sessions ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 app.secret_key = os.urandom(24)

@@ -118,7 +118,7 @@ flask --debug run
 ### ⚛️ 2. React Setup
 
 #### 📌 Step-by-step
-1. Open a second terminal in VS Code (**Use Git Bash**).
+1. Open a second terminal in VS Code (**Use Git Bash**)
 2. Check if `npm` is installed:
    ```bash
    npm --version
